@@ -1,0 +1,10 @@
+{
+  // Static-asset-only Cloudflare Worker for scienceinfra.org.
+  // `npx wrangler deploy` uploads ./public; there is no build step.
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "scienceinfra-home",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public"
+  }
+}

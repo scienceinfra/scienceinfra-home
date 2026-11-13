@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScienceInfra</title>
+<meta name="description" content="ScienceInfra builds open analysis libraries that AI agents look up and call — omicverse, matverse, socialverse, physverse and astroverse.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#000;
+  --panel:#0e0e0f;
+  --panel-2:#161618;
+  --line:#232326;
+  --line-2:#2e2e33;
+  --fg:#f5f5f5;
+  --fg-2:#a1a1aa;
+  --fg-3:#6b6b73;
+  --accent:#ff7a3d;
+  --ok:#4ade80;
+  --code-kw:#c4b5fd;
+  --code-fn:#7dd3fc;
+  --code-str:#fca5a5;
+  --code-cm:#5b5b63;
+  --radius:22px;
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"PingFang SC",sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(16px,4vw,56px)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+nav .wrap{display:flex;align-items:center;height:76px;gap:40px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;font-size:18px}
+.brand svg{width:30px;height:30px}
+.links{display:flex;gap:30px;font-size:15px;color:#e4e4e7}
+.links a{opacity:.85;transition:opacity .2s}
+.links a:hover{opacity:1}
+.nav-cta{margin-left:auto;display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:500;transition:transform .15s,background .2s,border-color .2s;white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-dark{background:#1a1a1c;border:1px solid var(--line)}
+.btn-dark:hover{background:#232326}
+.btn-light{background:#fff;color:#000}
+.btn-light:hover{background:#e7e7e7}
+.btn-lg{height:52px;padding:0 24px;font-size:16px}
+.btn svg{width:14px;height:14px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;text-align:center;padding:clamp(70px,12vh,140px) 0 90px;overflow:hidden}
+#field{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none;
+  mask-image:radial-gradient(ellipse 60% 70% at 50% 45%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 60% 70% at 50% 45%,#000 20%,transparent 75%)}
+.hero>*{position:relative}
+.pill{display:inline-flex;align-items:center;gap:12px;padding:7px 8px 7px 8px;border:1px solid var(--line-2);border-radius:999px;font-size:15px;background:rgba(10,10,10,.6)}
+.pill .tag{color:var(--accent);background:rgba(255,122,61,.12);padding:3px 10px;border-radius:999px;font-size:13px;font-weight:500}
+.pill .muted{color:var(--fg-2)}
+.pill .arrow{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#1d1d20}
+.pill .arrow svg{width:11px;height:11px}
+h1{font-size:clamp(42px,7.4vw,104px);font-weight:500;letter-spacing:-.045em;line-height:1.02;margin:44px auto 0;max-width:1180px}
+.typed-slot{display:inline-block;position:relative;min-width:3.2ch;text-align:left;color:var(--fg)}
+.typed-slot::after{content:"";position:absolute;left:0;right:0;bottom:-.04em;height:3px;background:#3a3a3f;border-radius:2px}
+.caret{display:inline-block;width:.06em;height:.82em;background:var(--fg);margin-left:.04em;vertical-align:-.04em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{max-width:820px;margin:30px auto 0;font-size:clamp(17px,1.6vw,21px);line-height:1.5;color:#d4d4d8}
+.cta{display:flex;gap:14px;justify-content:center;margin-top:44px;flex-wrap:wrap}
+.prefix-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:56px}
+.prefix-row code{font-family:var(--mono);font-size:13px;color:var(--fg-2);border:1px solid var(--line);padding:6px 12px;border-radius:8px;background:#0a0a0b}
+.prefix-row code b{color:var(--fg);font-weight:500}
+
+/* ---------- cards ---------- */
+section{padding:40px 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.card{position:relative;background:var(--panel);border:1px solid #18181b;border-radius:var(--radius);overflow:hidden;min-height:400px;display:flex;flex-direction:column;transition:border-color .3s}
+.card:hover{border-color:var(--line-2)}
+.card .stage{position:relative;flex:1;overflow:hidden;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 80%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 80%,transparent 100%)}
+.card .foot{display:flex;align-items:flex-end;justify-content:space-between;padding:18px 22px 20px;gap:12px}
+.card .name{font-size:19px;font-weight:500;letter-spacing:-.01em}
+.card .field{font-size:13px;color:var(--fg-3);margin-top:3px}
+.card .go{display:inline-flex;align-items:center;gap:6px;font-size:16px;color:#e4e4e7;white-space:nowrap}
+.card .go svg{width:14px;height:14px;transition:transform .2s}
+.card:hover .go svg{transform:translateX(3px)}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-2);border:1px solid var(--line-2);padding:3px 8px;border-radius:6px;white-space:nowrap}
+.badge.open{color:var(--ok);border-color:rgba(74,222,128,.3)}
+
+/* terminal stage */
+.term{position:absolute;inset:0;padding:34px 22px 0;font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#d4d4d8}
+.term .bar{display:flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--fg-3);font-size:12px}
+.term .bar i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+.term .bar span{margin-left:10px}
+.term .lines{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.term .ln{white-space:pre;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+.term .ln.on{opacity:1;transform:none}
+.kw{color:var(--code-kw)}.fn{color:var(--code-fn)}.st{color:var(--code-str)}.cm{color:var(--code-cm)}.ok{color:var(--ok)}.ac{color:var(--accent)}
+
+/* chat stage */
+.chat{position:absolute;inset:0;padding:34px 20px 0;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5}
+.chat .msgs{display:flex;flex-direction:column;gap:12px;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.bub{max-width:86%;padding:12px 16px;border-radius:18px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.bub.on{opacity:1;transform:none}
+.bub.u{align-self:flex-end;background:#26262a;border-radius:18px 18px 4px 18px}
+.bub.a{align-self:flex-start;background:#1a1a1d;border-radius:18px 18px 18px 4px;color:#e4e4e7}
+.bub.t{align-self:flex-start;background:transparent;padding:2px 4px;font-family:var(--mono);font-size:12px;color:var(--fg-3)}
+.bub b{color:#fff;font-weight:600}
+
+/* wide visual card */
+.wide{min-height:480px}
+.wide canvas{position:absolute;inset:0;width:100%;height:100%}
+.wide .copy{position:relative;padding:34px 34px 0;max-width:540px}
+.eyebrow{font-family:var(--mono);font-size:12px;color:var(--fg-3);letter-spacing:.08em;text-transform:uppercase}
+.wide h3{font-size:clamp(28px,3vw,40px);font-weight:500;letter-spacing:-.03em;line-height:1.08;margin-top:14px}
+.wide p{color:var(--fg-2);font-size:16px;line-height:1.6;margin-top:16px}
+.anatomy{position:absolute;right:34px;bottom:30px;font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--fg-2);background:rgba(14,14,15,.82);border:1px solid var(--line);border-radius:14px;padding:16px 20px;backdrop-filter:blur(6px)}
+.anatomy b{color:var(--fg);font-weight:500}
+
+/* principles */
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:80px 0 28px}
+.section-head h2{font-size:clamp(32px,4vw,56px);font-weight:500;letter-spacing:-.04em;line-height:1.02;max-width:760px}
+.section-head p{color:var(--fg-2);max-width:420px;line-height:1.6}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.p{padding:28px 24px 34px 0;border-right:1px solid var(--line)}
+.p:last-child{border-right:0}
+.p+.p{padding-left:24px}
+.p .n{font-family:var(--mono);font-size:12px;color:var(--fg-3)}
+.p h4{font-size:19px;font-weight:500;letter-spacing:-.015em;margin:44px 0 10px}
+.p p{color:var(--fg-2);font-size:15px;line-height:1.6}
+
+/* loop strip */
+.loop{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{background:var(--panel);border:1px solid #18181b;border-radius:18px;padding:22px;font-family:var(--mono);font-size:13px;color:var(--fg-2);line-height:1.7;min-height:150px}
+.step .k{color:var(--fg);font-family:var(--sans);font-size:16px;font-weight:500;margin-bottom:10px;display:block}
+
+/* footer */
+.closing{text-align:center;padding:130px 0 110px}
+.closing h2{font-size:clamp(36px,5.4vw,76px);font-weight:500;letter-spacing:-.045em;line-height:1.02}
+.closing p{color:var(--fg-2);margin-top:20px;font-size:18px}
+footer{border-top:1px solid #141416;padding:44px 0 60px;color:var(--fg-3);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.fcols{display:flex;gap:64px;flex-wrap:wrap}
+.fcols div{display:flex;flex-direction:column;gap:10px}
+.fcols h5{color:var(--fg);font-weight:500;font-size:14px;margin-bottom:4px}
+.fcols a:hover{color:var(--fg)}
+
+/* reveal */
+.rv{transform:translateY(14px);transition:transform .8s ease}
+.rv.in{transform:none}
+
+@media (max-width:1080px){
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid3 .card:last-child{grid-column:span 2}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .p:nth-child(2){border-right:0}
+  .p:nth-child(3){padding-left:0;border-top:1px solid var(--line)}
+  .p:nth-child(4){border-top:1px solid var(--line)}
+  .loop{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .links{display:none}
+  .nav-cta .btn-dark{display:none}
+  .grid3,.grid2,.loop{grid-template-columns:1fr}
+  .grid3 .card:last-child{grid-column:auto}
+  .card{min-height:360px}
+  .pgrid{grid-template-columns:1fr}
+  .p,.p+.p{padding:24px 0;border-right:0;border-top:1px solid var(--line)}
+  .p h4{margin-top:18px}
+  .anatomy{position:relative;right:auto;bottom:auto;margin:200px 20px 20px}
+  .wide .copy{padding:26px 22px 0}
+  .section-head{flex-direction:column;align-items:flex-start;margin-top:56px}
+  .typed-slot{min-width:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ScienceInfra home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="13" stroke="#fff" stroke-width="1.6"/>
+        <ellipse cx="16" cy="16" rx="13" ry="5" stroke="#fff" stroke-width="1.2" opacity=".55" transform="rotate(-28 16 16)"/>
+        <circle cx="16" cy="16" r="3.2" fill="#fff"/>
+      </svg>
+      ScienceInfra
+    </a>
+    <div class="links">
+      <a href="#verses">Verses</a>
+      <a href="#substrate">Substrate</a>
+      <a href="#principles">Principles</a>
+      <a href="https://github.com/scienceinfra" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-dark" href="#principles">How it works</a>
+      <a class="btn btn-light" href="#verses">Explore verses</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <a class="pill" href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener">
+        <span class="tag">New</span>
+        <span>matverse</span>
+        <span class="muted">is now open source</span>
+        <span class="arrow"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+      </a>
+      <h1>Infrastructure for<br>AI-native <span class="typed-slot"><span id="typed">biology</span><span class="caret"></span></span></h1>
+      <p class="lede">Open analysis libraries that AI agents look up and call — tested, registered functions instead of scripts written from memory. One family, five sciences.</p>
+      <div class="cta">
+        <a class="btn btn-light btn-lg" href="#verses">Explore the verses <svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-dark btn-lg" href="https://github.com/scienceinfra" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="prefix-row" aria-label="import prefixes">
+        <code><b>ov</b>.omicverse</code><code><b>mv</b>.matverse</code><code><b>sv</b>.socialverse</code><code><b>pv</b>.physverse</code><code><b>astv</b>.astroverse</code>
+      </div>
+    </div>
+  </header>
+
+  <section id="verses">
+    <div class="wrap">
+      <div class="grid3">
+        <!-- omicverse -->
+        <a class="card rv" href="https://github.com/omicverse/omicverse" target="_blank" rel="noopener">
+          <div class="stage">
+            <div class="term" data-loop>
+              <div class="bar"><i></i><i></i><i></i><span>pbmc / single-cell</span></div>
+              <div class="lines">
+                <div class="ln"><span class="kw">import</span> omicverse <span class="kw">as</span> ov</div>
+                <div class="ln">adata = ov.<span class="fn">read</span>(<span class="st">'pbmc8k.h5ad'</span>)</div>
+                <div class="ln">ov.pp.<span class="fn">qc</span>(adata, tresh={<span class="st">'mito_perc'</span>: 0.2})</div>
+                <div class="ln">ov.pp.<span class="fn">preprocess</span>(adata, mode=<span class="st">'shiftlog|pearson'</span>)</div>
+                <div class="ln">ov.pp.<span class="fn">scale</span>(adata); ov.pp.<span class="fn">pca</span>(adata, n_pcs=50)</div>
+                <div class="ln">ov.pp.<span class="fn">neighbors</span>(adata); ov.pp.<span class="fn">umap</span>(adata)</div>
+                <div class="ln">ov.pp.<span class="fn">leiden</span>(adata, resolution=1)</div>
+                <div class="ln"><span class="cm"># bulk · single-cell · spatial, one AnnData</span></div>
+                <div class="ln"><span class="ok">✓</span> 8,381 cells · 14 clusters</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div><div class="name">omicverse</div><div class="field">Biology · bulk, single-cell &amp; spatial omics</div></div>
+            <span class="go">Explore <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <!-- matverse -->
+        <a class="card rv" href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener">
+          <div class="stage">
+            <div class="term" data-loop>
+              <div class="bar"><i></i><i></i><i></i><span>screen / battery_cathodes</span></div>
+              <div class="lines">
+                <div class="ln"><span class="kw">import</span> matverse <span class="kw">as</span> mv</div>
+                <div class="ln">md = mv.datasets.<span class="fn">load</span>(<span class="st">'battery_cathodes'</span>)</div>
+                <div class="ln">mv.pp.<span class="fn">standardize</span>(md)</div>
+                <div class="ln">mv.pp.<span class="fn">qc</span>(md)  <span class="cm"># obs['is_valid']</span></div>
+                <div class="ln">md = mv.pp.<span class="fn">filter_materials</span>(md)</div>
+                <div class="ln">mv.feat.<span class="fn">element_stats</span>(md)</div>
+                <div class="ln">mv.calc.<span class="fn">relax</span>(md, level=<span class="st">'emt'</span>)</div>
+                <div class="ln">mv.thermo.<span class="fn">hull</span>(md, level=<span class="st">'emt'</span>)</div>
+                <div class="ln">mv.screen.<span class="fn">filter</span>(md, e_above_hull_emt__lt=0.05)</div>
+                <div class="ln"><span class="ok">✓</span> still an ordinary AnnData</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div><div class="name">matverse</div><div class="field">Materials · query → relax → rank</div></div>
+            <span class="go">Explore <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <!-- socialverse -->
+        <a class="card rv" href="https://github.com/omicverse/socialverse" target="_blank" rel="noopener">
+          <div class="stage">
+            <div class="chat" data-loop>
+              <div class="msgs">
+                <div class="bub u">Did the county minimum-wage increase change teen employment?</div>
+                <div class="bub t">▸ registry_lookup "staggered difference-in-differences"</div>
+                <div class="bub t">▸ check parallel trends · event study</div>
+                <div class="bub a">Treatment is staggered across 2014–2019, so I used a heterogeneity-robust estimator. Pre-trends are flat; the post effect is <b>small and not significant</b>.</div>
+                <div class="bub u">Write up the evidence chain.</div>
+                <div class="bub a">Done — design, diagnostics, estimates and figures are recorded in one object, ready to <b>audit and reproduce</b>.</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div><div class="name">socialverse</div><div class="field">Social science &amp; humanities</div></div>
+            <span class="go">Explore <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid2">
+        <!-- physverse -->
+        <div class="card rv">
+          <div class="stage">
+            <div class="term" data-loop>
+              <div class="bar"><i></i><i></i><i></i><span>many-body / heisenberg</span></div>
+              <div class="lines">
+                <div class="ln"><span class="kw">import</span> physverse <span class="kw">as</span> pv</div>
+                <div class="ln">pv.utils.<span class="fn">registry_lookup</span>(<span class="st">"spin glass ground state"</span>)</div>
+                <div class="ln"><span class="cm"># quantum many-body: neural quantum states</span></div>
+                <div class="ln">H = pv.quantum.<span class="fn">heisenberg</span>(pv.quantum.<span class="fn">lattice_from_bonds</span>(<span class="st">"hamiltonian.json"</span>))</div>
+                <div class="ln">rbm = pv.quantum.<span class="fn">init_rbm</span>(H.n_sites, 2 * H.n_sites)</div>
+                <div class="ln">res = pv.quantum.<span class="fn">vmc_optimize</span>(rbm, H, metric_samples=16384)</div>
+                <div class="ln"><span class="cm"># spin glasses, judged against a certificate</span></div>
+                <div class="ln">cb = pv.opt.<span class="fn">cluster_lower_bound</span>(m, cells)</div>
+                <div class="ln">gs = pv.opt.<span class="fn">parallel_tempering</span>(m, ladder, target=cb.bound)</div>
+                <div class="ln"><span class="cm"># PDE discovery: library → sparse regression</span></div>
+                <div class="ln">fit = pv.pde.<span class="fn">select_model</span>(lib.Theta, ut, lib.names)</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div><div class="name">physverse</div><div class="field">Physics · many-body, statistical, HEP inference</div></div>
+            <span class="badge">Private preview</span>
+          </div>
+        </div>
+
+        <!-- astroverse -->
+        <div class="card rv">
+          <div class="stage">
+            <div class="term" data-loop>
+              <div class="bar"><i></i><i></i><i></i><span>exoplanets / transit search</span></div>
+              <div class="lines">
+                <div class="ln"><span class="kw">import</span> astroverse <span class="kw">as</span> astv</div>
+                <div class="ln">astv.utils.<span class="fn">registry_lookup</span>(<span class="st">"transit search"</span>)  <span class="cm"># find, do not guess</span></div>
+                <div class="ln">grid = astv.ts.<span class="fn">transit_period_grid</span>(t, minimum_period=1.0, maximum_period=10.0)</div>
+                <div class="ln">res = astv.ts.<span class="fn">bls</span>(t, flat, dy, grid)</div>
+                <div class="ln">vet = astv.ts.<span class="fn">vet_transit</span>(t, flat, dy, res.best_period, res.best_t0, res.best_duration)</div>
+                <div class="ln"><span class="cm"># cosmology: 3×2pt with scale cuts</span></div>
+                <div class="ln">d = astv.cosmo.<span class="fn">theory_3x2pt</span>(params, lay, zs, nzs, zl, nzl)</div>
+                <div class="ln">chain = astv.infer.<span class="fn">run_emcee</span>(like.log_prob, p0, n_steps=5000)</div>
+                <div class="ln">astv.infer.<span class="fn">convergence_report</span>(chain)  <span class="cm"># R-hat, ESS, tau</span></div>
+                <div class="ln"><span class="ok">✓</span> catalog = astv.pp.<span class="fn">from_lightcurves</span>(lcs)  <span class="cm"># an AnnData</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <div><div class="name">astroverse</div><div class="field">Astronomy · time series, cosmology, inference</div></div>
+            <span class="badge">Private preview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="substrate">
+    <div class="wrap">
+      <div class="card wide rv">
+        <canvas id="orb" aria-hidden="true"></canvas>
+        <div class="copy">
+          <div class="eyebrow">One substrate</div>
+          <h3>Cells, crystals, light curves, survey respondents. Same object.</h3>
+          <p>Every verse keeps its data on AnnData. Observations, annotations, descriptors and results travel together, and write to <code style="font-family:var(--mono);color:var(--fg)">h5ad</code> / <code style="font-family:var(--mono);color:var(--fg)">zarr</code> — no new file format, no lost rows when you merge, filter or featurise twice.</p>
+        </div>
+        <div class="anatomy">
+          <div><b>.X</b>        measurements</div>
+          <div><b>.obs</b>      cells · materials · sources · units</div>
+          <div><b>.var</b>      genes · elements · bands · items</div>
+          <div><b>.obsm</b>     embeddings · structures · light curves</div>
+          <div><b>.uns</b>      provenance · run records</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="section-head rv">
+        <h2>Capability lives in the library, not in the prompt.</h2>
+        <p>Agents are already good at reading papers and writing code. What they lack is a trusted, queryable toolbox for each science. That is what we build.</p>
+      </div>
+      <div class="pgrid rv">
+        <div class="p"><div class="n">01</div><h4>Registered for lookup</h4><p>Every public function is registered with what it does and what it needs, so an agent asks before it writes code.</p></div>
+        <div class="p"><div class="n">02</div><h4>Tested against a reference</h4><p>Each function is checked against an independent implementation or known result — not just that it runs.</p></div>
+        <div class="p"><div class="n">03</div><h4>Executed in a tutorial</h4><p>Every function appears in a tutorial that actually runs, so usage is shown, not described.</p></div>
+        <div class="p"><div class="n">04</div><h4>Grown from failures</h4><p>When an agent fails a held-out research task, the missing method goes into the library — and is tested on tasks it has never seen.</p></div>
+      </div>
+
+      <div class="loop rv">
+        <div class="step"><span class="k">Ask</span>registry_lookup("transit search")<br><span class="cm">→ 3 matches, with signatures</span></div>
+        <div class="step"><span class="k">Call</span>astv.ts.bls(t, flux, dy, grid)<br><span class="cm">→ tested result object</span></div>
+        <div class="step"><span class="k">Check</span>vet_transit(...)<br>convergence_report(chain)<br><span class="cm">→ diagnostics, not vibes</span></div>
+        <div class="step"><span class="k">Record</span>catalog.uns["provenance"]<br><span class="cm">→ every step reproducible</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap rv">
+      <h2>Built in the open,<br>one science at a time.</h2>
+      <p>omicverse · matverse · socialverse · physverse · astroverse</p>
+      <div class="cta">
+        <a class="btn btn-light btn-lg" href="https://github.com/scienceinfra" target="_blank" rel="noopener">github.com/scienceinfra</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:var(--fg);font-size:16px">ScienceInfra</div>
+      <p style="margin-top:10px">Open infrastructure for AI-native science.</p>
+      <p style="margin-top:22px">© 2026 ScienceInfra</p>
+    </div>
+    <div class="fcols">
+      <div><h5>Verses</h5>
+        <a href="https://github.com/omicverse/omicverse" target="_blank" rel="noopener">omicverse</a>
+        <a href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener">matverse</a>
+        <a href="https://github.com/omicverse/socialverse" target="_blank" rel="noopener">socialverse</a>
+        <span>physverse <small>(preview)</small></span>
+        <span>astroverse <small>(preview)</small></span>
+      </div>
+      <div><h5>Community</h5>
+        <a href="https://github.com/scienceinfra" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://omicverse.readthedocs.io" target="_blank" rel="noopener">omicverse docs</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- typed headline ---- */
+  const words = ['biology', 'materials', 'social science', 'physics', 'astronomy'];
+  const el = document.getElementById('typed');
+  if (!reduce) {
+    let wi = 0, ci = words[0].length, del = true;
+    const tick = () => {
+      const w = words[wi];
+      if (del) {
+        ci--; el.textContent = w.slice(0, ci);
+        if (ci === 0) { del = false; wi = (wi + 1) % words.length; }
+        setTimeout(tick, 45);
+      } else {
+        const n = words[wi]; ci++; el.textContent = n.slice(0, ci);
+        if (ci === n.length) { del = true; setTimeout(tick, 2200); }
+        else setTimeout(tick, 85);
+      }
+    };
+    setTimeout(tick, 2400);
+  }
+
+  /* ---- reveal on scroll ---- */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(n => io.observe(n));
+
+  /* ---- looping terminal / chat cards ---- */
+  document.querySelectorAll('[data-loop]').forEach(box => {
+    const list = box.querySelector('.lines, .msgs');
+    const items = [...list.children];
+    if (reduce) { items.forEach(i => i.classList.add('on')); return; }
+    let i = 0, running = false, timer;
+    const isChat = box.classList.contains('chat');
+    const step = () => {
+      if (i < items.length) {
+        items[i].classList.add('on');
+        const stage = box.parentElement.getBoundingClientRect().height;
+        const bottom = items[i].offsetTop + items[i].offsetHeight + (isChat ? 30 : 60);
+        const shift = Math.max(0, bottom - stage + 30);
+        list.style.transform = `translateY(${-shift}px)`;
+        i++;
+        timer = setTimeout(step, isChat ? 1400 : 520 + Math.random() * 380);
+      } else {
+        timer = setTimeout(() => {
+          items.forEach(n => n.classList.remove('on'));
+          list.style.transform = 'translateY(0)';
+          i = 0; timer = setTimeout(step, 700);
+        }, 3200);
+      }
+    };
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !running) { running = true; step(); }
+      else if (!e.isIntersecting && running) { running = false; clearTimeout(timer); }
+    }), { threshold: .25 }).observe(box);
+  });
+
+  /* ---- hero dot field ---- */
+  const fit = c => {
+    const d = Math.min(devicePixelRatio || 1, 2), r = c.getBoundingClientRect();
+    c.width = r.width * d; c.height = r.height * d;
+    const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return [x, r.width, r.height];
+  };
+  const field = document.getElementById('field');
+  let fctx, fw, fh, dots = [];
+  const initField = () => {
+    [fctx, fw, fh] = fit(field);
+    dots = Array.from({ length: Math.round(fw * fh / 5200) }, () => ({
+      x: Math.random() * fw, y: Math.random() * fh, r: Math.random() * 1.1 + .2,
+      v: Math.random() * .15 + .03, a: Math.random() * .6 + .2
+    }));
+  };
+  const drawField = () => {
+    fctx.clearRect(0, 0, fw, fh);
+    for (const p of dots) {
+      p.y -= p.v; if (p.y < -2) { p.y = fh + 2; p.x = Math.random() * fw; }
+      fctx.globalAlpha = p.a; fctx.fillStyle = '#fff';
+      fctx.beginPath(); fctx.arc(p.x, p.y, p.r, 0, 6.283); fctx.fill();
+    }
+    if (!reduce) requestAnimationFrame(drawField);
+  };
+
+  /* ---- substrate orb: points on a sphere, five colored bands ---- */
+  const orb = document.getElementById('orb');
+  let octx, ow, oh, pts = [];
+  const hues = ['#7dd3fc', '#c4b5fd', '#fca5a5', '#fde68a', '#86efac'];
+  const initOrb = () => {
+    [octx, ow, oh] = fit(orb);
+    const N = 1400; pts = [];
+    for (let k = 0; k < N; k++) {
+      const y = 1 - 2 * (k + .5) / N, rr = Math.sqrt(1 - y * y), th = k * 2.39996;
+      pts.push({ x: Math.cos(th) * rr, y, z: Math.sin(th) * rr, c: hues[Math.min(4, Math.floor((y + 1) / 2 * 5))] });
+    }
+  };
+  let t0 = performance.now();
+  const drawOrb = now => {
+    const t = (now - t0) / 1000;
+    octx.clearRect(0, 0, ow, oh);
+    const mobile = ow < 760;
+    const R = Math.min(ow, oh) * (mobile ? .38 : .52);
+    const cx = mobile ? ow * .5 : ow * .62, cy = mobile ? oh * .52 : oh * .58;
+    const a = t * .18, ca = Math.cos(a), sa = Math.sin(a), tilt = .38, ct = Math.cos(tilt), st = Math.sin(tilt);
+    const g = octx.createRadialGradient(cx, cy, R * .2, cx, cy, R * 1.5);
+    g.addColorStop(0, 'rgba(120,110,255,.10)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    octx.fillStyle = g; octx.fillRect(0, 0, ow, oh);
+    for (const p of pts) {
+      let x = p.x * ca - p.z * sa, z = p.x * sa + p.z * ca, y = p.y;
+      const y2 = y * ct - z * st, z2 = y * st + z * ct;
+      const depth = (z2 + 1) / 2;
+      octx.globalAlpha = .12 + depth * .8;
+      octx.fillStyle = p.c;
+      const s = .5 + depth * 1.3;
+      octx.fillRect(cx + x * R - s / 2, cy + y2 * R - s / 2, s, s);
+    }
+    octx.globalAlpha = 1;
+    if (!reduce) requestAnimationFrame(drawOrb);
+  };
+
+  const boot = () => { initField(); initOrb(); };
+  boot(); drawField(); requestAnimationFrame(drawOrb);
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(boot, 150); });
+})();
+</script>
+</body>
+</html>

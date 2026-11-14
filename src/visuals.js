@@ -121,75 +121,6 @@ void main(){
   /* ================= card simulations ================= */
   const VIZ = {};
 
-  /* omicverse: cells settle into a UMAP embedding */
-  VIZ.umap = (w, h) => {
-    const r = rng(7);
-    const cl = [['CD4 T', C.blue, .26, .36, .075, .05, .5, 190], ['CD8 T', C.teal, .43, .24, .06, .045, -.3, 130],
-      ['NK', C.purple, .60, .30, .05, .04, .2, 90], ['B', C.warm, .76, .56, .05, .05, 0, 110],
-      ['CD14 Mono', C.green, .30, .72, .08, .05, -.4, 170], ['FCGR3A Mono', '#d6d06a', .49, .80, .045, .035, .3, 70],
-      ['DC', '#f08ca0', .58, .58, .03, .03, 0, 40]];
-    const pts = [];
-    cl.forEach((c, ci) => { for (let i = 0; i < c[7]; i++) {
-      const gx = gauss(r) * c[4], gy = gauss(r) * c[5], cs = Math.cos(c[6]), sn = Math.sin(c[6]);
-      pts.push({ ci, tx: c[2] + gx * cs - gy * sn, ty: c[3] + gx * sn + gy * cs, sx: r(), sy: r(), d: r() * .45, ph: r() * 6.28 });
-    } });
-    return (ctx, t) => {
-      const T = 13, u = t % T, top = 34, ph = h - 52 - top;
-      const fade = u > T - 1.2 ? 1 - (u - (T - 1.2)) / 1.2 : Math.min(1, u / .6);
-      for (const p of pts) {
-        const k = ease((u / 4.2 - p.d) / .55);
-        const x = (p.sx + (p.tx - p.sx) * k) * w + Math.cos(t * .7 + p.ph) * 1.2;
-        const y = top + (p.sy + (p.ty - p.sy) * k) * ph + Math.sin(t * .6 + p.ph) * 1.2;
-        ctx.globalAlpha = fade * (.28 + .6 * k); ctx.fillStyle = k > .5 ? cl[p.ci][1] : '#777';
-        ctx.fillRect(x - .9, y - .9, 1.8, 1.8);
-      }
-      const la = ease((u - 4.6) / .8) * fade;
-      ctx.font = MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      cl.forEach(c => { ctx.globalAlpha = la; ctx.fillStyle = c[1];
-        ctx.fillText(c[0], c[2] * w, top + (c[3] - c[5] * 2.2) * ph - 4); });
-      caption(ctx, w, 'ov.pp.umap(adata)', 'pbmc8k');
-    };
-  };
-
-  /* matverse: a perovskite supercell relaxing to its ideal positions */
-  VIZ.crystal = (w, h) => {
-    const r = rng(11), atoms = [], bonds = [], edges = [];
-    const add = (x, y, z, k) => atoms.push({ x: x - 1, y: y - 1, z: z - 1, k, dx: gauss(r), dy: gauss(r), dz: gauss(r) }) - 1;
-    for (let i = 0; i <= 2; i++) for (let j = 0; j <= 2; j++) for (let k = 0; k <= 2; k++) add(i, j, k, 0);
-    const O = {};
-    const ox = (x, y, z) => { const key = x + ',' + y + ',' + z; return O[key] ?? (O[key] = add(x, y, z, 2)); };
-    for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) for (let k = 0; k < 2; k++) {
-      const b = add(i + .5, j + .5, k + .5, 1);
-      [[.5, .5, 0], [.5, .5, 1], [.5, 0, .5], [.5, 1, .5], [0, .5, .5], [1, .5, .5]].forEach(o => bonds.push([b, ox(i + o[0], j + o[1], k + o[2])]));
-    }
-    for (let a = 0; a <= 2; a++) for (let b = 0; b <= 2; b++) {
-      edges.push([[a - 1, b - 1, -1], [a - 1, b - 1, 1]], [[a - 1, -1, b - 1], [a - 1, 1, b - 1]], [[-1, a - 1, b - 1], [1, a - 1, b - 1]]);
-    }
-    const kind = [[C.blue, 5.2], [C.purple, 6.6], [C.warm, 3.2]];
-    return (ctx, t) => {
-      const T = 10, u = t % T, amp = .16 * Math.exp(-u * .75) * (u < T - .5 ? 1 : 0);
-      const cx = w / 2, cy = (h - 44) / 2 + 14, sc = Math.min(w, h) * .26;
-      const ay = t * .22, ax = .42, ca = Math.cos(ay), sa = Math.sin(ay), cb = Math.cos(ax), sb = Math.sin(ax);
-      const proj = (x, y, z) => { const X = x * ca - z * sa, Z = x * sa + z * ca, Y = y * cb - Z * sb, Z2 = y * sb + Z * cb, f = 4.2 / (4.2 + Z2);
-        return [cx + X * sc * f, cy + Y * sc * f, Z2, f]; };
-      const P = atoms.map(a => proj(a.x + a.dx * amp, a.y + a.dy * amp, a.z + a.dz * amp));
-      ctx.lineWidth = 1;
-      for (const e of edges) { const a = proj(...e[0]), b = proj(...e[1]);
-        ctx.globalAlpha = .1; ctx.strokeStyle = '#fff'; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
-      for (const [i, j] of bonds) { const a = P[i], b = P[j];
-        ctx.globalAlpha = .12 + .3 * (1 - (a[2] + b[2] + 3.4) / 6.8); ctx.strokeStyle = C.purple;
-        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
-      atoms.map((a, i) => i).sort((i, j) => P[j][2] - P[i][2]).forEach(i => {
-        const p = P[i], [col, rad] = kind[atoms[i].k], R = rad * p[3] * (sc / 70);
-        const g = ctx.createRadialGradient(p[0] - R * .35, p[1] - R * .35, R * .1, p[0], p[1], R);
-        g.addColorStop(0, '#fff'); g.addColorStop(.35, col); g.addColorStop(1, 'rgba(26,26,26,.9)');
-        ctx.globalAlpha = .45 + .55 * (1 - (p[2] + 1.75) / 3.5); ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(p[0], p[1], R, 0, 6.2832); ctx.fill();
-      });
-      caption(ctx, w, 'mv.calc.relax(md)', amp > .004 ? 'relaxing' : 'converged ✓');
-    };
-  };
-
   /* socialverse: an event-study plot drawn coefficient by coefficient */
   VIZ.event = (w, h) => {
     const r = rng(23), ks = [];
@@ -303,6 +234,16 @@ void main(){
   let rt2; addEventListener('resize', () => { clearTimeout(rt2); rt2 = setTimeout(() => cards.forEach(size), 150); });
   const io = new IntersectionObserver(es => es.forEach(e => { const c = cards.find(k => k.cv === e.target); if (c) c.on = e.isIntersecting; }), { threshold: .05 });
   cards.forEach(c => io.observe(c.cv));
+  // videos play only while on screen
+  const vids = [...document.querySelectorAll('.card video')];
+  const vio = new IntersectionObserver(es => es.forEach(e => { e.isIntersecting && !reduce ? e.target.play().catch(() => {}) : e.target.pause(); }), { threshold: .05 });
+  vids.forEach(x => vio.observe(x));
+  // each card alternates between its visual and its code, out of step with its neighbours
+  if (!reduce) {
+    const cs = [...document.querySelectorAll('.card')];
+    setInterval(() => { const t = performance.now() / 1000;
+      cs.forEach((c, i) => c.classList.toggle('show-code', ((t + i * 3.4) % 17) > 10.5)); }, 400);
+  }
   let holeOn = true;
   if (bh && bh.isConnected) new IntersectionObserver(es => { holeOn = es[0].isIntersecting; }, { threshold: 0 }).observe(bh);
 

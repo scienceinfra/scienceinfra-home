@@ -223,6 +223,55 @@ void main(){
     };
   };
 
+  /* ================= one object, three sciences =================
+     The same particles are rearranged from an embryo (cells) to a crystal
+     (materials) to a stack of light curves (sources). */
+  const orb = document.getElementById('orb');
+  let drawOrb = null, orbOn = false;
+  if (orb) {
+    const raw = atob('{{EMBRYO_B64}}'), N = raw.length / 4;
+    const PALS = ['#fff3dc', '#ffdca0', '#ffc673', '#ffa24f', '#f57f2c', '#cf5a1e', '#a04a22', '#b5aba0', '#8d857d', '#d6cdc2', '#6f6861'];
+    const col = new Array(N), shapes = [new Float32Array(N * 3), new Float32Array(N * 3), new Float32Array(N * 3)];
+    const i8 = c => { const b = raw.charCodeAt(c); return (b > 127 ? b - 256 : b) / 127; };
+    const r = rng(77), delay = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      col[i] = PALS[raw.charCodeAt(i * 4 + 3)]; delay[i] = r() * .5;
+      shapes[0][i * 3] = i8(i * 4) * .95; shapes[0][i * 3 + 1] = -i8(i * 4 + 1) * .95; shapes[0][i * 3 + 2] = i8(i * 4 + 2) * .95;
+      // crystal: 14 x 14 x 13 lattice
+      const j = i % 2548, a = j % 14, b = ((j / 14) | 0) % 14, c = (j / 196) | 0;
+      shapes[1][i * 3] = (a - 6.5) / 6.5 * .68; shapes[1][i * 3 + 1] = (b - 6.5) / 6.5 * .68; shapes[1][i * 3 + 2] = (c - 6) / 6 * .68;
+      // light curves: 13 sources, 200 samples each, each with its own transit depth
+      const src = i % 13, q = ((i / 13) | 0) / 200, dd = Math.abs(q - .5) * 9, cv = ease((1.15 - dd) / .3);
+      shapes[2][i * 3] = (q - .5) * 2.1; shapes[2][i * 3 + 1] = -.25 + cv * (.18 + src * .022) + gauss(r) * .018; shapes[2][i * 3 + 2] = (src - 6) / 6 * .7;
+    }
+    const names = ['cells · mouse embryo E8.5', 'materials · crystal lattice', 'sources · transit light curves'];
+    const label = document.getElementById('orb-label'), keys = [...document.querySelectorAll('.anatomy [data-k]')];
+    let shown = -1, octx, ow, oh, od;
+    const sizeOrb = () => { od = Math.min(devicePixelRatio || 1, 2); const b = orb.getBoundingClientRect(); if (!b.width) return;
+      orb.width = b.width * od; orb.height = b.height * od; ow = b.width; oh = b.height; octx = orb.getContext('2d'); };
+    sizeOrb(); addEventListener('resize', () => setTimeout(sizeOrb, 160));
+    new IntersectionObserver(es => { orbOn = es[0].isIntersecting; }, { threshold: .05 }).observe(orb);
+    drawOrb = t => {
+      if (!octx) return;
+      const HOLD = 5.5, MOVE = 2.2, T = HOLD + MOVE, k = Math.floor(t / T) % 3, u = t % T, nx = (k + 1) % 3;
+      const active = u > HOLD + MOVE / 2 ? nx : k;
+      if (active !== shown) { shown = active; label.textContent = names[active]; keys.forEach(e => e.classList.toggle('on', +e.dataset.k === active)); }
+      const A = shapes[k], B = shapes[nx], m0 = (u - HOLD) / MOVE;
+      const ang = t * .16, ca = Math.cos(ang), sa = Math.sin(ang), ct = Math.cos(.3), st = Math.sin(.3);
+      const R = Math.min(ow, oh) * .40, cx = ow * .56, cy = oh * .40;
+      octx.setTransform(od, 0, 0, od, 0, 0); octx.clearRect(0, 0, ow, oh); octx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < N; i++) {
+        const m = m0 <= 0 ? 0 : ease((m0 * 1.5 - delay[i]) / 1), j = i * 3;
+        const x = A[j] + (B[j] - A[j]) * m, y = A[j + 1] + (B[j + 1] - A[j + 1]) * m, z = A[j + 2] + (B[j + 2] - A[j + 2]) * m;
+        const X = x * ca - z * sa, Z = x * sa + z * ca, Y = y * ct - Z * st, Z2 = y * st + Z * ct, f = 3.2 / (3.2 + Z2), dp = (1 - Z2) / 2;
+        const sz = (.7 + dp * 1.5) * f;
+        octx.globalAlpha = .18 + dp * .7; octx.fillStyle = col[i];
+        octx.fillRect(cx + X * R * f - sz / 2, cy + Y * R * f - sz / 2, sz, sz);
+      }
+      octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1;
+    };
+  }
+
   const cards = [...document.querySelectorAll('canvas[data-viz]')].map(cv => ({ cv, on: false, draw: null }));
   const size = c => {
     const d = Math.min(devicePixelRatio || 1, 2), r = c.cv.getBoundingClientRect();
@@ -256,6 +305,7 @@ void main(){
       c.ctx.setTransform(c.d, 0, 0, c.d, 0, 0); c.ctx.clearRect(0, 0, c.w, c.h);
       c.draw(c.ctx, reduce ? 7.5 : t);
     }
+    if (drawOrb && (orbOn || reduce)) drawOrb(reduce ? 2 : t);
     if (!reduce) requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);

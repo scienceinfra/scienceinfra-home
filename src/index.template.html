@@ -120,6 +120,9 @@ h1{text-shadow:0 0 28px rgba(0,0,0,.6);font-size:60px;line-height:60px;font-weig
 .orb-card canvas{position:absolute;inset:0;width:100%;height:100%}
 .anatomy{position:absolute;left:16px;bottom:16px;font-family:var(--mono);font-size:11px;line-height:17.875px;letter-spacing:-.11px;color:var(--t-muted)}
 .anatomy b{color:var(--t-text);font-weight:400;display:inline-block;width:44px}
+.anatomy span{transition:color .6s}
+.anatomy span.on{color:var(--t-blue)}
+.orb-card{position:relative}
 
 /* ---------- section: how it works (h2 30/36 500, h3 16/22 500) ---------- */
 .h2{font-size:30px;line-height:36px;font-weight:500;letter-spacing:-.3px}
@@ -239,11 +242,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
       </div>
       <div class="orb-card">
         <canvas id="orb" aria-hidden="true"></canvas>
+        <span class="cap l" id="orb-label">cells · mouse embryo E8.5</span><span class="cap r">one AnnData</span>
         <div class="anatomy">
           <div><b>.X</b>measurements</div>
-          <div><b>.obs</b>cells · materials · sources · units</div>
-          <div><b>.var</b>genes · elements · bands · items</div>
-          <div><b>.obsm</b>embeddings · structures · light curves</div>
+          <div><b>.obs</b><span data-k="0">cells</span> · <span data-k="1">materials</span> · <span data-k="2">sources</span> · units</div>
+          <div><b>.var</b><span data-k="0">genes</span> · <span data-k="1">elements</span> · <span data-k="2">bands</span> · items</div>
+          <div><b>.obsm</b><span data-k="0">embeddings</span> · <span data-k="1">structures</span> · <span data-k="2">light curves</span></div>
           <div><b>.uns</b>provenance · run records</div>
         </div>
       </div>
@@ -321,42 +325,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
     setTimeout(tick, 2400);
   }
 
-  /* canvases */
-  const fit = c => {
-    const d = Math.min(devicePixelRatio || 1, 2), r = c.getBoundingClientRect();
-    c.width = r.width * d; c.height = r.height * d;
-    const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return [x, r.width, r.height];
-  };
-  const orb = document.getElementById('orb');
-  let octx, ow, oh, pts = [];
-  const hues = ['#88a6ff', '#bc97ff', '#e8a87c', '#29c6be', '#91c17a'];
-  const initOrb = () => {
-    [octx, ow, oh] = fit(orb);
-    const N = 1200; pts = [];
-    for (let k = 0; k < N; k++) {
-      const y = 1 - 2 * (k + .5) / N, rr = Math.sqrt(1 - y * y), th = k * 2.39996;
-      pts.push({ x: Math.cos(th) * rr, y, z: Math.sin(th) * rr, c: hues[Math.min(4, Math.floor((y + 1) / 2 * 5))] });
-    }
-  };
-  const t0 = performance.now();
-  const drawOrb = now => {
-    const t = (now - t0) / 1000;
-    octx.clearRect(0, 0, ow, oh);
-    const R = Math.min(ow, oh) * .36, cx = ow * .62, cy = oh * .42;
-    const a = t * .18, ca = Math.cos(a), sa = Math.sin(a), ct = Math.cos(.38), st = Math.sin(.38);
-    for (const p of pts) {
-      const x = p.x * ca - p.z * sa, z = p.x * sa + p.z * ca;
-      const y2 = p.y * ct - z * st, z2 = p.y * st + z * ct, depth = (z2 + 1) / 2;
-      octx.globalAlpha = .1 + depth * .8; octx.fillStyle = p.c;
-      const s = .5 + depth * 1.2;
-      octx.fillRect(cx + x * R - s / 2, cy + y2 * R - s / 2, s, s);
-    }
-    octx.globalAlpha = 1;
-    if (!reduce) requestAnimationFrame(drawOrb);
-  };
-  const boot = () => { initOrb(); };
-  boot(); requestAnimationFrame(drawOrb);
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(boot, 150); });
 })();
 </script>
 <script>

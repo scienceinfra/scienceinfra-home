@@ -24,7 +24,7 @@ def logo(suffix: str) -> str:
     return s.replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
 
 
-VIS = (ROOT / "src/visuals.js").read_text()
+VIS = (ROOT / "src/visuals.js").read_text().replace("{{EMBRYO_B64}}", (ROOT / "src/embryo_points.b64").read_text().strip())
 home = TPL.replace("{{LOGO_HEADER}}", logo("h")).replace("{{LOGO_FOOTER}}", logo("f")).replace("{{VISUALS_JS}}", VIS)
 out = ROOT / "public"
 out.mkdir(exist_ok=True)

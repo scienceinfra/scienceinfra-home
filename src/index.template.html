@@ -62,17 +62,17 @@ header .wrap{display:flex;align-items:center;height:64px}
 
 /* ---------- hero (pill y148, h1 60/60 450, sub 18/29.25, buttons 44px) ---------- */
 .hero{position:relative;text-align:center;padding-top:148px;overflow:hidden}
-#field{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none;
-  mask-image:radial-gradient(ellipse 55% 60% at 50% 40%,#000 20%,transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 55% 60% at 50% 40%,#000 20%,transparent 75%)}
-.hero>*{position:relative}
+#bh{position:absolute;left:0;top:0;width:100%;height:820px;pointer-events:none;opacity:.9;
+  mask-image:linear-gradient(to bottom,#000 0,#000 62%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 62%,transparent 100%)}
+.hero .wrap{position:relative}
 .pill{display:inline-flex;align-items:center;gap:8px;height:38px;padding:6px 6px 6px 10px;border:1px solid var(--hair);border-radius:9999px;background:rgba(26,26,26,.6);font-size:13px;line-height:19.5px}
 .pill .tag{color:var(--sunset);background:rgba(255,99,8,.1);padding:3px 8px;border-radius:9999px;font-size:11px;line-height:11px;font-weight:500}
 .pill .strong{font-weight:500}
 .pill .muted{color:var(--fg-60)}
 .pill .arrow{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.06)}
 .pill .arrow svg{width:10px;height:10px}
-h1{font-size:60px;line-height:60px;font-weight:450;letter-spacing:-.6px;margin:32px auto 0;max-width:768px}
+h1{text-shadow:0 0 28px rgba(0,0,0,.6);font-size:60px;line-height:60px;font-weight:450;letter-spacing:-.6px;margin:32px auto 0;max-width:768px}
 .typed-slot{display:inline-block;position:relative;text-align:left}
 .typed-slot::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:rgba(255,255,255,.2);border-radius:1px}
 .caret{display:inline-block;width:2px;height:46px;background:var(--fg);margin-left:3px;vertical-align:-6px;animation:blink 1s steps(1) infinite}
@@ -85,36 +85,13 @@ h1{font-size:60px;line-height:60px;font-weight:450;letter-spacing:-.6px;margin:3
 .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{position:relative;display:block;height:280px;background:var(--card);border-radius:16px;overflow:hidden}
-.card .stage{position:absolute;inset:0 0 52px;overflow:hidden;
-  mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 82%,transparent 100%);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%,#000 82%,transparent 100%)}
-.card .foot{position:absolute;left:16px;right:16px;bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;line-height:20px;font-weight:500}
+.card canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.card::after{content:"";position:absolute;inset:auto 0 0;height:84px;background:linear-gradient(to top,var(--card) 38%,transparent);pointer-events:none}
+.card .foot{position:absolute;z-index:1;left:16px;right:16px;bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;line-height:20px;font-weight:500}
 .card .foot .sub{color:var(--fg-30);font-weight:400;font-size:12px;margin-left:8px}
 .card .go{display:inline-flex;align-items:center;gap:4px;transition:transform .2s}
 .card:hover .go{transform:translateX(2px)}
 .badge{font-size:12px;line-height:16px;font-weight:500;color:var(--fg-60);background:rgba(255,255,255,.06);padding:2px 8px;border-radius:9999px}
-
-/* terminal stage: 11px Geist Mono, 1.625 line height */
-.term{position:absolute;inset:0;padding:10px 16px 0;font-family:var(--mono);font-size:11px;line-height:17.875px;letter-spacing:-.11px;color:var(--t-code)}
-.term .bar{display:flex;align-items:center;gap:6px;color:var(--t-muted);padding:0 0 10px}
-.term .bar i{width:8px;height:8px;border-radius:50%;display:inline-block}
-.term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
-.term .bar span{margin-left:8px}
-.term .lines{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.term .ln{white-space:pre;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(3px);transition:opacity .3s,transform .3s}
-.term .ln.on{opacity:1;transform:none}
-.kw{color:var(--t-purple)}.fn{color:var(--t-blue)}.st{color:var(--t-str)}.cm{color:var(--t-dim)}.ok{color:var(--t-green)}.tl{color:var(--t-teal)}.mu{color:var(--t-muted)}
-
-/* chat stage: 10.5px bubbles */
-.chat{position:absolute;inset:0;padding:16px 16px 0}
-.chat .msgs{display:flex;flex-direction:column;gap:10px;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.bub{max-width:75%;padding:8px 14px;font-size:10.5px;line-height:17.0625px;opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
-.bub.on{opacity:1;transform:none}
-.bub.u{align-self:flex-end;background:rgba(255,255,255,.08);border-radius:16px 16px 6px 16px}
-.bub.a{align-self:flex-start;background:rgba(255,255,255,.04);border-radius:16px 16px 16px 6px}
-.bub.t{align-self:flex-start;padding:0 2px;font-family:var(--mono);font-size:11px;color:var(--t-muted)}
-.bub.t .tl{color:var(--t-teal)}
-.bub b{font-weight:600}
 
 /* ---------- section: substrate (eyebrow 14/500, h2 48/48 500) ---------- */
 .section{padding-top:120px}
@@ -206,7 +183,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 
 <main>
   <section class="hero">
-    <canvas id="field" aria-hidden="true"></canvas>
+    <canvas id="bh" aria-hidden="true"></canvas>
     <div class="wrap">
       <a class="pill" href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener">
         <span class="tag">New</span>
@@ -224,97 +201,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 
     <div class="wrap cards" id="verses">
       <div class="row3">
-        <a class="card" href="https://github.com/omicverse/omicverse" target="_blank" rel="noopener">
-          <div class="stage"><div class="term" data-loop>
-            <div class="bar"><i></i><i></i><i></i><span>pbmc8k / single-cell</span></div>
-            <div class="lines">
-              <div class="ln"><span class="kw">import</span> omicverse <span class="kw">as</span> ov</div>
-              <div class="ln">adata = ov.<span class="fn">read</span>(<span class="st">'pbmc8k.h5ad'</span>)</div>
-              <div class="ln">ov.pp.<span class="fn">qc</span>(adata, tresh={<span class="st">'mito_perc'</span>: 0.2})</div>
-              <div class="ln">ov.pp.<span class="fn">preprocess</span>(adata, mode=<span class="st">'shiftlog|pearson'</span>)</div>
-              <div class="ln">ov.pp.<span class="fn">scale</span>(adata); ov.pp.<span class="fn">pca</span>(adata, n_pcs=50)</div>
-              <div class="ln">ov.pp.<span class="fn">neighbors</span>(adata); ov.pp.<span class="fn">umap</span>(adata)</div>
-              <div class="ln">ov.pp.<span class="fn">leiden</span>(adata, resolution=1)</div>
-              <div class="ln"><span class="cm"># bulk · single-cell · spatial, one AnnData</span></div>
-              <div class="ln"><span class="ok">✓</span> <span class="mu">8,381 cells · 14 clusters</span></div>
-            </div>
-          </div></div>
-          <div class="foot"><span>omicverse<span class="sub">Biology</span></span><span class="go">Explore →</span></div>
-        </a>
-
-        <a class="card" href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener">
-          <div class="stage"><div class="term" data-loop>
-            <div class="bar"><i></i><i></i><i></i><span>screen / battery_cathodes</span></div>
-            <div class="lines">
-              <div class="ln"><span class="kw">import</span> matverse <span class="kw">as</span> mv</div>
-              <div class="ln">md = mv.datasets.<span class="fn">load</span>(<span class="st">'battery_cathodes'</span>)</div>
-              <div class="ln">mv.pp.<span class="fn">standardize</span>(md)</div>
-              <div class="ln">mv.pp.<span class="fn">qc</span>(md)  <span class="cm"># obs['is_valid']</span></div>
-              <div class="ln">md = mv.pp.<span class="fn">filter_materials</span>(md)</div>
-              <div class="ln">mv.feat.<span class="fn">element_stats</span>(md)</div>
-              <div class="ln">mv.calc.<span class="fn">relax</span>(md, level=<span class="st">'emt'</span>)</div>
-              <div class="ln">mv.thermo.<span class="fn">hull</span>(md, level=<span class="st">'emt'</span>)</div>
-              <div class="ln">mv.screen.<span class="fn">filter</span>(md, e_above_hull_emt__lt=0.05)</div>
-              <div class="ln"><span class="ok">✓</span> <span class="mu">still an ordinary AnnData</span></div>
-            </div>
-          </div></div>
-          <div class="foot"><span>matverse<span class="sub">Materials</span></span><span class="go">Explore →</span></div>
-        </a>
-
-        <a class="card" href="https://github.com/omicverse/socialverse" target="_blank" rel="noopener">
-          <div class="stage"><div class="chat" data-loop>
-            <div class="msgs">
-              <div class="bub u">Did the county minimum-wage increase change teen employment?</div>
-              <div class="bub t"><span class="tl">▸ registry_lookup</span> "staggered difference-in-differences"</div>
-              <div class="bub t"><span class="tl">▸ check</span> parallel trends · event study</div>
-              <div class="bub a">Treatment is staggered across 2014–2019, so I used a heterogeneity-robust estimator. Pre-trends are flat; the post effect is <b>small and not significant</b>.</div>
-              <div class="bub u">Write up the evidence chain.</div>
-              <div class="bub a">Done. Design, diagnostics, estimates and figures are recorded in one object, ready to <b>audit and reproduce</b>.</div>
-            </div>
-          </div></div>
-          <div class="foot"><span>socialverse<span class="sub">Social science</span></span><span class="go">Explore →</span></div>
-        </a>
+        <a class="card" href="https://github.com/omicverse/omicverse" target="_blank" rel="noopener"><canvas data-viz="umap" aria-hidden="true"></canvas><div class="foot"><span>omicverse<span class="sub">Biology</span></span><span class="go">Explore →</span></div></a>
+        <a class="card" href="https://github.com/scienceinfra/matverse" target="_blank" rel="noopener"><canvas data-viz="crystal" aria-hidden="true"></canvas><div class="foot"><span>matverse<span class="sub">Materials</span></span><span class="go">Explore →</span></div></a>
+        <a class="card" href="https://github.com/omicverse/socialverse" target="_blank" rel="noopener"><canvas data-viz="event" aria-hidden="true"></canvas><div class="foot"><span>socialverse<span class="sub">Social science</span></span><span class="go">Explore →</span></div></a>
       </div>
-
       <div class="row2">
-        <div class="card">
-          <div class="stage"><div class="term" data-loop>
-            <div class="bar"><i></i><i></i><i></i><span>many-body / heisenberg</span></div>
-            <div class="lines">
-              <div class="ln"><span class="kw">import</span> physverse <span class="kw">as</span> pv</div>
-              <div class="ln">pv.utils.<span class="fn">registry_lookup</span>(<span class="st">"spin glass ground state"</span>)</div>
-              <div class="ln"><span class="cm"># quantum many-body: neural quantum states</span></div>
-              <div class="ln">H = pv.quantum.<span class="fn">heisenberg</span>(pv.quantum.<span class="fn">lattice_from_bonds</span>(<span class="st">"hamiltonian.json"</span>))</div>
-              <div class="ln">rbm = pv.quantum.<span class="fn">init_rbm</span>(H.n_sites, 2 * H.n_sites)</div>
-              <div class="ln">res = pv.quantum.<span class="fn">vmc_optimize</span>(rbm, H, metric_samples=16384)</div>
-              <div class="ln"><span class="cm"># spin glasses, judged against a certificate</span></div>
-              <div class="ln">cb = pv.opt.<span class="fn">cluster_lower_bound</span>(m, cells)</div>
-              <div class="ln">gs = pv.opt.<span class="fn">parallel_tempering</span>(m, ladder, target=cb.bound)</div>
-              <div class="ln"><span class="cm"># PDE discovery: library → sparse regression</span></div>
-              <div class="ln">fit = pv.pde.<span class="fn">select_model</span>(lib.Theta, ut, lib.names)</div>
-            </div>
-          </div></div>
-          <div class="foot"><span>physverse<span class="sub">Physics</span></span><span class="badge">Private preview</span></div>
-        </div>
-
-        <div class="card">
-          <div class="stage"><div class="term" data-loop>
-            <div class="bar"><i></i><i></i><i></i><span>exoplanets / transit search</span></div>
-            <div class="lines">
-              <div class="ln"><span class="kw">import</span> astroverse <span class="kw">as</span> astv</div>
-              <div class="ln">astv.utils.<span class="fn">registry_lookup</span>(<span class="st">"transit search"</span>)  <span class="cm"># find, do not guess</span></div>
-              <div class="ln">grid = astv.ts.<span class="fn">transit_period_grid</span>(t, minimum_period=1.0, maximum_period=10.0)</div>
-              <div class="ln">res = astv.ts.<span class="fn">bls</span>(t, flat, dy, grid)</div>
-              <div class="ln">vet = astv.ts.<span class="fn">vet_transit</span>(t, flat, dy, res.best_period, res.best_t0, res.best_duration)</div>
-              <div class="ln"><span class="cm"># cosmology: 3×2pt with scale cuts</span></div>
-              <div class="ln">d = astv.cosmo.<span class="fn">theory_3x2pt</span>(params, lay, zs, nzs, zl, nzl)</div>
-              <div class="ln">chain = astv.infer.<span class="fn">run_emcee</span>(like.log_prob, p0, n_steps=5000)</div>
-              <div class="ln">astv.infer.<span class="fn">convergence_report</span>(chain)  <span class="cm"># R-hat, ESS, tau</span></div>
-              <div class="ln"><span class="ok">✓</span> <span class="mu">catalog = astv.pp.from_lightcurves(lcs)</span></div>
-            </div>
-          </div></div>
-          <div class="foot"><span>astroverse<span class="sub">Astronomy</span></span><span class="badge">Private preview</span></div>
-        </div>
+        <div class="card"><canvas data-viz="ising" aria-hidden="true"></canvas><div class="foot"><span>physverse<span class="sub">Physics</span></span><span class="badge">Private preview</span></div></div>
+        <div class="card"><canvas data-viz="transit" aria-hidden="true"></canvas><div class="foot"><span>astroverse<span class="sub">Astronomy</span></span><span class="badge">Private preview</span></div></div>
       </div>
     </div>
   </section>
@@ -415,59 +308,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
     setTimeout(tick, 2400);
   }
 
-  /* looping card demos */
-  document.querySelectorAll('[data-loop]').forEach(box => {
-    const list = box.querySelector('.lines, .msgs');
-    const items = [...list.children];
-    if (reduce) { items.forEach(i => i.classList.add('on')); return; }
-    const isChat = box.classList.contains('chat');
-    let i = 0, running = false, timer;
-    const step = () => {
-      if (i < items.length) {
-        items[i].classList.add('on');
-        const stage = box.parentElement.clientHeight;
-        const bottom = items[i].offsetTop + items[i].offsetHeight + 16;
-        list.style.transform = `translateY(${-Math.max(0, bottom - stage + 24)}px)`;
-        i++;
-        timer = setTimeout(step, isChat ? 1300 : 480 + Math.random() * 360);
-      } else {
-        timer = setTimeout(() => {
-          items.forEach(n => n.classList.remove('on'));
-          list.style.transform = 'translateY(0)';
-          i = 0; timer = setTimeout(step, 600);
-        }, 3000);
-      }
-    };
-    new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting && !running) { running = true; step(); }
-      else if (!e.isIntersecting && running) { running = false; clearTimeout(timer); }
-    }), { threshold: .25 }).observe(box);
-  });
-
   /* canvases */
   const fit = c => {
     const d = Math.min(devicePixelRatio || 1, 2), r = c.getBoundingClientRect();
     c.width = r.width * d; c.height = r.height * d;
     const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return [x, r.width, r.height];
   };
-  const field = document.getElementById('field');
-  let fctx, fw, fh, dots = [];
-  const initField = () => {
-    [fctx, fw, fh] = fit(field);
-    dots = Array.from({ length: Math.round(fw * fh / 6000) }, () => ({
-      x: Math.random() * fw, y: Math.random() * fh, r: Math.random() * .9 + .2,
-      v: Math.random() * .12 + .03, a: Math.random() * .5 + .2
-    }));
-  };
-  const drawField = () => {
-    fctx.clearRect(0, 0, fw, fh); fctx.fillStyle = '#fff';
-    for (const p of dots) {
-      p.y -= p.v; if (p.y < -2) { p.y = fh + 2; p.x = Math.random() * fw; }
-      fctx.globalAlpha = p.a; fctx.beginPath(); fctx.arc(p.x, p.y, p.r, 0, 6.283); fctx.fill();
-    }
-    if (!reduce) requestAnimationFrame(drawField);
-  };
-
   const orb = document.getElementById('orb');
   let octx, ow, oh, pts = [];
   const hues = ['#88a6ff', '#bc97ff', '#e8a87c', '#29c6be', '#91c17a'];
@@ -495,10 +341,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
     octx.globalAlpha = 1;
     if (!reduce) requestAnimationFrame(drawOrb);
   };
-  const boot = () => { initField(); initOrb(); };
-  boot(); drawField(); requestAnimationFrame(drawOrb);
+  const boot = () => { initOrb(); };
+  boot(); requestAnimationFrame(drawOrb);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(boot, 150); });
 })();
 </script>
+<script>
+{{VISUALS_JS}}</script>
 </body>
 </html>

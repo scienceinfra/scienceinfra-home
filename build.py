@@ -24,7 +24,8 @@ def logo(suffix: str) -> str:
     return s.replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
 
 
-home = TPL.replace("{{LOGO_HEADER}}", logo("h")).replace("{{LOGO_FOOTER}}", logo("f"))
+VIS = (ROOT / "src/visuals.js").read_text()
+home = TPL.replace("{{LOGO_HEADER}}", logo("h")).replace("{{LOGO_FOOTER}}", logo("f")).replace("{{VISUALS_JS}}", VIS)
 out = ROOT / "public"
 out.mkdir(exist_ok=True)
 (out / "index.html").write_text(home)
@@ -57,7 +58,7 @@ for slug, p in pages.items():
     html = html.replace("<title>ScienceInfra</title>", f"<title>{p['title']} · ScienceInfra</title>")
     html = html.replace('href="#verses"', 'href="/#verses"')
     # The stub has no #field/#orb canvases or card loops; drop the page script.
-    html = re.sub(r"<script>.*?</script>", "<script>(()=>{const h=document.getElementById('hdr');const f=()=>h.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',f,{passive:true});f()})()</script>", html, flags=re.S)
+    html = re.sub(r"<script>.*</script>", lambda m: "<script>(()=>{const h=document.getElementById('hdr');const f=()=>h.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',f,{passive:true});f()})()</script>", html, flags=re.S)
     d = out / slug
     d.mkdir(exist_ok=True)
     (d / "index.html").write_text(html)

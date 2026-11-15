@@ -3,30 +3,37 @@
 Homepage for **ScienceInfra** — open analysis libraries that AI agents look up
 and call: omicverse, matverse, socialverse, physverse and astroverse.
 
-The site is one self-contained page, `public/index.html` (no build step, no
-dependencies besides Google Fonts).
+## Layout
 
-## Preview
+| Path | What |
+|---|---|
+| `src/index.template.html` | Page markup and styles |
+| `src/visuals.js` | Black hole background (WebGL) and the live card simulations |
+| `src/embryo_points.b64` | 2,600 sampled cell positions for the "One substrate" morph |
+| `brand/logo/wordmark.svg` | PrimorDecode wordmark, inlined by the build |
+| `render/` | Scripts that render the card videos (numpy frames, then ffmpeg) |
+| `public/` | Build output plus `media/` (the rendered videos); this is what gets served |
+
+## Build and preview
 
 ```bash
-open public/index.html
-# or
-npx wrangler dev
+python3 build.py                                   # writes public/index.html, /benchmark/, /news/
+python3 -m http.server 8791 --directory public     # then open http://localhost:8791
 ```
+
+Open it through a local server rather than `file://`, or the videos will not load.
 
 ## Deploy
 
-A static-asset-only Cloudflare Worker named `scienceinfra-home`, configured in
-`wrangler.jsonc`, the same setup as the omicverse.org homepage.
+A static-asset-only Cloudflare Worker named `scienceinfra-home` (`wrangler.jsonc`), serving
+`scienceinfra.org` and `www.scienceinfra.org`. The Worker is connected to this repository:
+every push to `main` runs `python3 build.py` and then `npx wrangler deploy`.
+
+To deploy by hand:
 
 ```bash
-npx wrangler deploy
+python3 build.py && npx wrangler deploy
 ```
-
-Then attach the custom domain `scienceinfra.org` (and `www`) to the Worker in
-the Cloudflare dashboard (Workers → scienceinfra-home → Settings → Domains &
-Routes). With Workers Builds connected to this repo, every push to `main`
-deploys automatically.
 
 ## Editing notes
 

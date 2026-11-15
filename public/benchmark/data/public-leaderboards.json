@@ -1,0 +1,330 @@
+{
+  "fetched_at": "2026-11-15",
+  "footnote": "Public numbers are not strictly comparable to the ScienceInfra runs above: the official leaderboard averages 3 trials per task; vals.ai uses 1 run on the 70-task v0.1 release, which has 19 life-science tasks versus our 25; snorkel.ai republishes the official leaderboard's numbers rather than running its own evaluation.",
+  "sources": [
+    {
+      "id": "official",
+      "label": "Terminal-Bench-Science official leaderboard",
+      "url": "https://www.terminal-bench-science.ai/",
+      "method": "fetched",
+      "trials": "averages 3 trials per task",
+      "task_version": "v0.1 (official site's current task set)"
+    },
+    {
+      "id": "vals",
+      "label": "vals.ai",
+      "url": "https://www.vals.ai/benchmarks/terminal-bench-science",
+      "method": "transcribed (no public JSON API found)",
+      "trials": "pass@1, 1 run per model",
+      "task_version": "70-task v0.1 (19 life-science tasks)"
+    },
+    {
+      "id": "snorkel",
+      "label": "snorkel.ai",
+      "url": "https://snorkel.ai/leaderboard/terminal-bench-science/",
+      "method": "transcribed; numbers match the official leaderboard exactly -- appears to republish it rather than run an independent evaluation, so its rows are not duplicated below",
+      "trials": "see official leaderboard",
+      "task_version": "see official leaderboard"
+    }
+  ],
+  "rows": {
+    "official": [
+      {
+        "rank": 1,
+        "agent": "Codex",
+        "model": "GPT-6 Astra",
+        "org": "OpenAI",
+        "model_release_date": "2026-09-03",
+        "overall_accuracy": 68.1,
+        "life_accuracy": 59.6,
+        "life_tasks": 57,
+        "life_passes": 34,
+        "cost_usd": 4997.46
+      },
+      {
+        "rank": 2,
+        "agent": "Claude Code",
+        "model": "Opus 5.5",
+        "org": "Anthropic",
+        "model_release_date": "2026-09-22",
+        "overall_accuracy": 63.3,
+        "life_accuracy": 54.4,
+        "life_tasks": 57,
+        "life_passes": 31,
+        "cost_usd": 4874.26
+      },
+      {
+        "rank": 3,
+        "agent": "Claude Code",
+        "model": "Fable 5.1",
+        "org": "Anthropic",
+        "model_release_date": "2026-09-01",
+        "overall_accuracy": 40,
+        "life_accuracy": 38.6,
+        "life_tasks": 57,
+        "life_passes": 22,
+        "cost_usd": 6247.14
+      },
+      {
+        "rank": 4,
+        "agent": "Claude Code",
+        "model": "Opus 5",
+        "org": "Anthropic",
+        "model_release_date": "2026-07-24",
+        "overall_accuracy": 30,
+        "life_accuracy": 29.8,
+        "life_tasks": 57,
+        "life_passes": 17,
+        "cost_usd": 6992.68
+      },
+      {
+        "rank": 5,
+        "agent": "Codex",
+        "model": "GPT-5.6 Sol",
+        "org": "OpenAI",
+        "model_release_date": "2026-07-09",
+        "overall_accuracy": 22.4,
+        "life_accuracy": 17.5,
+        "life_tasks": 57,
+        "life_passes": 10,
+        "cost_usd": 4221.87
+      },
+      {
+        "rank": 6,
+        "agent": "Claude Code",
+        "model": "Fable 5",
+        "org": "Anthropic",
+        "model_release_date": "2026-06-09",
+        "overall_accuracy": 21.4,
+        "life_accuracy": 17.5,
+        "life_tasks": 57,
+        "life_passes": 10,
+        "cost_usd": 14175.95
+      },
+      {
+        "rank": 7,
+        "agent": "Codex",
+        "model": "DeepSeek V4.1 Flash",
+        "org": "OpenAI",
+        "model_release_date": "2026-09-10",
+        "overall_accuracy": 15.7,
+        "life_accuracy": 10.5,
+        "life_tasks": 57,
+        "life_passes": 6,
+        "cost_usd": 385.93
+      },
+      {
+        "rank": 8,
+        "agent": "Grok Build",
+        "model": "Grok 4.7",
+        "org": "xAI",
+        "model_release_date": "2026-09-21",
+        "overall_accuracy": 14.3,
+        "life_accuracy": 12.3,
+        "life_tasks": 57,
+        "life_passes": 7,
+        "cost_usd": 3070.82
+      },
+      {
+        "rank": 9,
+        "agent": "mini-SWE-agent",
+        "model": "Gemini 3.8 Flash",
+        "org": "SWE-agent",
+        "model_release_date": "2026-09-02",
+        "overall_accuracy": 12.4,
+        "life_accuracy": 14.0,
+        "life_tasks": 57,
+        "life_passes": 8,
+        "cost_usd": 1116.98
+      },
+      {
+        "rank": 10,
+        "agent": "Claude Code",
+        "model": "Opus 4.8",
+        "org": "Anthropic",
+        "model_release_date": "2026-05-28",
+        "overall_accuracy": 10.5,
+        "life_accuracy": 7.0,
+        "life_tasks": 57,
+        "life_passes": 4,
+        "cost_usd": 5837.72
+      },
+      {
+        "rank": 11,
+        "agent": "Codex",
+        "model": "GPT-5.6 Terra",
+        "org": "OpenAI",
+        "model_release_date": "2026-07-09",
+        "overall_accuracy": 8.6,
+        "life_accuracy": 7.0,
+        "life_tasks": 57,
+        "life_passes": 4,
+        "cost_usd": 1983.92
+      },
+      {
+        "rank": 12,
+        "agent": "Claude Code",
+        "model": "GLM 5.3",
+        "org": "Anthropic",
+        "model_release_date": "2026-08-14",
+        "overall_accuracy": 8.1,
+        "life_accuracy": 10.5,
+        "life_tasks": 57,
+        "life_passes": 6,
+        "cost_usd": 2733.16
+      },
+      {
+        "rank": 13,
+        "agent": "Claude Code",
+        "model": "Kimi K3",
+        "org": "Anthropic",
+        "model_release_date": "2026-07-16",
+        "overall_accuracy": 7.1,
+        "life_accuracy": 7.0,
+        "life_tasks": 57,
+        "life_passes": 4,
+        "cost_usd": 1523.8
+      },
+      {
+        "rank": 14,
+        "agent": "Grok Build",
+        "model": "Grok 4.6",
+        "org": "xAI",
+        "model_release_date": "2026-08-12",
+        "overall_accuracy": 7.1,
+        "life_accuracy": 7.0,
+        "life_tasks": 57,
+        "life_passes": 4,
+        "cost_usd": 3344.19
+      },
+      {
+        "rank": 15,
+        "agent": "mini-SWE-agent",
+        "model": "Gemini 3.7 Flash",
+        "org": "SWE-agent",
+        "model_release_date": "2026-08-13",
+        "overall_accuracy": 5.7,
+        "life_accuracy": 8.8,
+        "life_tasks": 57,
+        "life_passes": 5,
+        "cost_usd": 1296.59
+      },
+      {
+        "rank": 16,
+        "agent": "Codex",
+        "model": "DeepSeek V4 Pro",
+        "org": "OpenAI",
+        "model_release_date": "2026-08-13",
+        "overall_accuracy": 3.8,
+        "life_accuracy": 0,
+        "life_tasks": 57,
+        "life_passes": 0,
+        "cost_usd": 1120.15
+      },
+      {
+        "rank": 17,
+        "agent": "Codex",
+        "model": "GPT-5.6 Luna",
+        "org": "OpenAI",
+        "model_release_date": "2026-07-09",
+        "overall_accuracy": 3.3,
+        "life_accuracy": 1.8,
+        "life_tasks": 57,
+        "life_passes": 1,
+        "cost_usd": 383.2
+      }
+    ],
+    "vals": [
+      {
+        "rank": 1,
+        "agent": "mini-SWE-agent",
+        "model": "GPT-6 Astra",
+        "org": "OpenAI",
+        "overall_accuracy": 62.86,
+        "life_accuracy": null,
+        "cost_usd_per_test": 20.8
+      },
+      {
+        "rank": 2,
+        "agent": "mini-SWE-agent",
+        "model": "Claude Fable 5.2",
+        "org": "Anthropic",
+        "overall_accuracy": 55.71,
+        "life_accuracy": null,
+        "cost_usd_per_test": 23.14
+      },
+      {
+        "rank": 3,
+        "agent": "mini-SWE-agent",
+        "model": "GPT-6.1 Sol",
+        "org": "OpenAI",
+        "overall_accuracy": 52.86,
+        "life_accuracy": null,
+        "cost_usd_per_test": 3.44
+      },
+      {
+        "rank": 4,
+        "agent": "mini-SWE-agent",
+        "model": "Claude Opus 5.5",
+        "org": "Anthropic",
+        "overall_accuracy": 47.14,
+        "life_accuracy": null,
+        "cost_usd_per_test": 19.12
+      },
+      {
+        "rank": 5,
+        "agent": "mini-SWE-agent",
+        "model": "Claude Sonnet 5.5",
+        "org": "Anthropic",
+        "overall_accuracy": 47.14,
+        "life_accuracy": null,
+        "cost_usd_per_test": 19.57
+      },
+      {
+        "rank": 6,
+        "agent": "mini-SWE-agent",
+        "model": "Gemini 4 Argon",
+        "org": "Google",
+        "overall_accuracy": 44.29,
+        "life_accuracy": null,
+        "cost_usd_per_test": 44.9
+      },
+      {
+        "rank": 7,
+        "agent": "mini-SWE-agent",
+        "model": "Claude Fable 5.1",
+        "org": "Anthropic",
+        "overall_accuracy": 40.0,
+        "life_accuracy": null,
+        "cost_usd_per_test": 38.01
+      },
+      {
+        "rank": 8,
+        "agent": "mini-SWE-agent",
+        "model": "Wonder Full",
+        "org": "Meta",
+        "overall_accuracy": 37.14,
+        "life_accuracy": null,
+        "cost_usd_per_test": 22.81
+      },
+      {
+        "rank": 9,
+        "agent": "mini-SWE-agent",
+        "model": "Kimi K3.1 Pro",
+        "org": "Moonshot AI",
+        "overall_accuracy": 31.43,
+        "life_accuracy": null,
+        "cost_usd_per_test": 8.58
+      },
+      {
+        "rank": 10,
+        "agent": "mini-SWE-agent",
+        "model": "GPT-6 Sol",
+        "org": "OpenAI",
+        "overall_accuracy": 30.0,
+        "life_accuracy": null,
+        "cost_usd_per_test": 5.82
+      }
+    ]
+  }
+}

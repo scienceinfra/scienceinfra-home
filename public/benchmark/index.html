@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Benchmark · ScienceInfra</title>
-<meta name="description" content="ScienceInfra builds open analysis libraries that AI agents look up and call — omicverse, matverse, socialverse, physverse and astroverse.">
+<meta name="description" content="Benchmark results for the ScienceInfra verse libraries on Terminal-Bench-Science.">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -177,6 +177,117 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
+/* ---------- Benchmark page: reuses the homepage's tokens (--card, --hair, --sunset, --t-*) ---------- */
+.bench-hero{padding-bottom:0}
+.bench-meta{margin-top:20px;font-size:13px;line-height:19.5px;color:var(--fg-60);font-family:var(--mono)}
+.bench-meta .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--t-green);margin-right:6px;vertical-align:1px}
+.bench-meta.in-progress .dot{background:var(--sunset)}
+.bench-meta .pill-chip{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:9999px;background:rgba(255,255,255,.06);margin-left:8px;color:var(--fg-80)}
+
+.bench-controls{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:32px}
+.bench-field{display:flex;flex-direction:column;gap:6px}
+.bench-field-label{font-size:12px;color:var(--fg-30)}
+.bench-field select{appearance:none;background:var(--card);color:var(--fg);border:1px solid var(--hair);border-radius:10px;padding:10px 36px 10px 14px;font-size:14px;font-family:var(--sans);font-weight:500;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M3 4.5l3 3 3-3' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 12px center;min-width:260px}
+.bench-field select:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+.bench-domain-toggle{display:inline-flex;background:var(--card);border:1px solid var(--hair);border-radius:9999px;padding:3px;gap:2px}
+.bench-domain-toggle button{border:none;background:transparent;color:var(--fg-60);font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 14px;border-radius:9999px;cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px}
+.bench-domain-toggle button.on{background:#2a2a2a;color:var(--fg)}
+.bench-domain-toggle button:disabled{cursor:not-allowed;opacity:.55}
+.bench-domain-toggle .badge{font-size:10px;padding:1px 6px}
+
+.bench-public-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--fg-60);cursor:pointer;margin-left:auto}
+.bench-public-toggle input{width:16px;height:16px;accent-color:var(--sunset)}
+
+.bench-tabs{display:flex;gap:4px;margin-top:28px;border-bottom:1px solid var(--hair)}
+.bench-tabs button{border:none;background:transparent;color:var(--fg-60);font-family:var(--sans);font-size:14px;font-weight:500;padding:12px 4px;margin-right:24px;cursor:pointer;position:relative;transition:color .15s}
+.bench-tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent;border-radius:1px;transition:background .15s}
+.bench-tabs button.on{color:var(--fg)}
+.bench-tabs button.on::after{background:var(--sunset)}
+.bench-tabs button:hover{color:var(--fg-80)}
+
+.bench-body{padding-top:40px}
+.bench-view{min-height:120px}
+
+/* table */
+.bench-table{width:100%;border-collapse:collapse;font-size:13px}
+.bench-table th{text-align:left;font-weight:500;color:var(--fg-30);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:0 12px 10px;border-bottom:1px solid var(--hair);white-space:nowrap}
+.bench-table td{padding:12px;border-bottom:1px solid var(--hair);vertical-align:middle}
+.bench-table tbody tr:hover{background:rgba(255,255,255,.03)}
+.bench-table .num{font-family:var(--mono);text-align:right;white-space:nowrap}
+.bench-table .rank{color:var(--fg-30);font-family:var(--mono)}
+.bench-table .agent{font-weight:500}
+.bench-table .sub{color:var(--fg-30);font-size:12px}
+.bench-table .acc-bar-wrap{display:flex;align-items:center;gap:10px}
+.bench-table .acc-bar{position:relative;width:88px;height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.bench-table .acc-bar > i{position:absolute;inset:0 auto 0 0;background:var(--sunset);border-radius:4px}
+.bench-table .acc-num{font-family:var(--mono);min-width:44px;text-align:right}
+
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:9999px;white-space:nowrap}
+.chip-local{background:rgba(145,193,122,.14);color:var(--t-green)}
+.chip-snapshot{background:rgba(255,198,115,.14);color:var(--t-blue)}
+.chip-public{background:rgba(255,255,255,.08);color:var(--fg-60)}
+.chip-pending{background:rgba(255,255,255,.06);color:var(--fg-30)}
+
+/* status badges */
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:9999px}
+.status-pill i{width:6px;height:6px;border-radius:50%}
+.status-blind-pass{background:rgba(145,193,122,.14);color:var(--t-green)}
+.status-blind-pass i{background:var(--t-green)}
+.status-development-set{background:rgba(41,198,190,.14);color:var(--t-teal)}
+.status-development-set i{background:var(--t-teal)}
+.status-stable-gap{background:rgba(255,198,115,.14);color:var(--t-blue)}
+.status-stable-gap i{background:var(--t-blue)}
+.status-failed{background:rgba(255,99,8,.12);color:var(--sunset)}
+.status-failed i{background:var(--sunset)}
+.status-pending{background:rgba(255,255,255,.06);color:var(--fg-30)}
+.status-pending i{background:var(--fg-30)}
+
+/* radar / domain bars */
+.radar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.radar-card{background:var(--card);border-radius:16px;padding:20px}
+.radar-card h4{font-size:14px;font-weight:500;margin-bottom:14px;text-transform:capitalize}
+.radar-row{display:grid;grid-template-columns:110px 1fr 40px;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}
+.radar-row .name{color:var(--fg-60);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radar-row .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.radar-row .bar > i{display:block;height:100%;background:var(--t-teal);border-radius:4px}
+.radar-row .val{font-family:var(--mono);color:var(--fg-80);text-align:right}
+
+/* pareto */
+.pareto-wrap{background:var(--card);border-radius:16px;padding:24px;overflow:auto}
+.pareto-wrap svg{display:block}
+.pareto-wrap .pt{cursor:pointer}
+.pareto-wrap .pt circle{transition:r .15s}
+.pareto-wrap .pt:hover circle{r:7}
+.pareto-wrap text{font-family:var(--mono);font-size:10px;fill:var(--fg-30)}
+.pareto-wrap .lbl{font-size:10px;fill:var(--fg-60)}
+
+/* matrix */
+.matrix-scroll{overflow:auto;background:var(--card);border-radius:16px;padding:8px}
+.bench-matrix{border-collapse:collapse;font-size:12px}
+.bench-matrix th,.bench-matrix td{padding:6px 8px;text-align:center;white-space:nowrap}
+.bench-matrix thead th{color:var(--fg-30);font-weight:500;font-size:11px;position:sticky;top:0;background:var(--card)}
+.bench-matrix tbody th{text-align:left;color:var(--fg-80);font-weight:400;position:sticky;left:0;background:var(--card)}
+.cell{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:11px;cursor:default}
+.cell-pass{background:rgba(145,193,122,.18);color:var(--t-green)}
+.cell-fail{background:rgba(255,99,8,.14);color:var(--sunset)}
+.cell-not-run{background:rgba(255,255,255,.04);color:var(--fg-30)}
+.cell-public{position:relative}
+.cell-public::after{content:"";position:absolute;top:1px;right:1px;width:5px;height:5px;border-radius:50%;background:var(--t-blue)}
+
+.bench-footnote{margin-top:28px;font-size:12px;line-height:19px;color:var(--fg-30);max-width:860px}
+.bench-footnote + .bench-footnote{margin-top:10px}
+.bench-empty{color:var(--fg-30);font-size:14px;padding:40px 0}
+
+@media (max-width:768px){
+  .bench-controls{flex-direction:column;align-items:flex-start}
+  .bench-public-toggle{margin-left:0}
+  .bench-table{font-size:12px}
+  .bench-table .acc-bar{width:56px}
+}
+
 </style>
 </head>
 <body>
@@ -186,25 +297,61 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
     <a class="logo" href="/" aria-label="PrimorDecode — ScienceInfra home"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-2.0 -40.0 1841.00 181.0" role="img" aria-label="PrimorDecode 源境解码"><g transform="translate(0.00,0)"><path d="M 6.5,100.0 L 6.5,6.5 L 86.25,6.5 A 25.25 25.25 0 0 1 111.5,31.75 L 111.5,31.75 A 25.25 25.25 0 0 1 86.25,57.0 L 6.5,57.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(144.00,0)"><path d="M 6.5,100.0 L 6.5,6.5 L 92.25,6.5 A 25.25 25.25 0 0 1 117.5,31.75 L 117.5,31.75 A 25.25 25.25 0 0 1 92.25,57.0 L 6.5,57.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 77.27,61.18 L 78.02,62.08 L 78.77,62.96 L 79.50,63.85 L 80.23,64.72 L 80.96,65.59 L 81.68,66.45 L 82.39,67.31 L 83.10,68.16 L 83.80,69.00 L 84.50,69.84 L 85.19,70.67 L 85.88,71.49 L 86.57,72.30 L 87.25,73.11 L 87.94,73.92 L 88.62,74.71 L 89.30,75.51 L 89.98,76.29 L 90.65,77.07 L 91.33,77.84 L 92.01,78.61 L 92.68,79.37 L 93.36,80.12 L 94.04,80.87 L 94.72,81.61 L 95.41,82.35 L 96.09,83.08 L 96.78,83.81 L 97.48,84.52 L 98.18,85.23 L 98.89,85.92 L 99.61,86.61 L 100.34,87.28 L 101.07,87.95 L 101.82,88.61 L 102.56,89.26 L 103.32,89.90 L 104.08,90.53 L 104.85,91.16 L 105.63,91.78 L 106.42,92.38 L 107.21,92.99 L 108.02,93.58 L 108.83,94.16 L 109.65,94.74 L 110.48,95.30 L 111.32,95.86 L 112.17,96.41 L 113.02,96.96 L 113.89,97.49 L 114.77,98.02 L 115.66,98.53 L 116.56,99.04 L 117.47,99.54 L 118.39,100.04 L 119.32,100.52 L 120.27,100.99 L 121.22,101.46 L 122.19,101.92 L 123.17,102.37 L 124.16,102.81 L 125.17,103.25 L 126.18,103.68 L 127.22,104.10 L 128.26,104.51 L 129.32,104.91 L 130.39,105.30 L 131.48,105.69 L 132.59,106.07 L 133.70,106.45 L 134.84,106.81 L 135.99,107.17 L 137.16,107.52 L 138.34,107.86 L 139.54,108.20 L 140.76,108.53 L 141.99,108.86 L 143.24,109.17 L 144.52,109.48 L 145.81,109.79 L 147.12,110.08 L 148.45,110.38 L 149.80,110.66 L 151.17,110.94 L 152.56,111.21 L 153.97,111.48 L 155.41,111.74 L 156.86,112.00 L 158.34,112.25 L 159.84,112.49 L 161.37,112.73 L 162.92,112.96 L 164.49,113.19 L 166.09,113.41 L 167.71,113.63 L 169.36,113.84 L 171.03,114.05 L 172.73,114.25 L 174.46,114.45 L 176.21,114.64 L 177.99,114.83 L 179.80,115.01 L 181.64,115.19 L 183.51,115.36 L 185.40,115.53 L 187.33,115.69 L 189.28,115.85 L 191.26,116.01 L 193.28,116.16 L 195.33,116.31 L 197.40,116.45 L 199.51,116.59 L 201.66,116.73 L 203.83,116.86 L 206.04,116.98 L 208.28,117.11 L 210.56,117.22 L 212.87,117.34 L 215.21,117.45 L 217.59,117.56 L 220.01,117.66 L 222.46,117.76 L 224.94,117.86 L 227.47,117.95 L 230.03,118.04 L 232.63,118.13 L 235.26,118.21 L 237.94,118.29 L 240.65,118.37 L 243.40,118.44 L 246.19,118.51 L 249.02,118.58 L 251.90,118.64 L 254.81,118.70 L 257.76,118.76 L 260.75,118.82 L 263.79,118.87 L 266.87,118.92 L 269.99,118.96 L 273.15,119.01 L 276.36,119.05 L 279.61,119.09 L 282.90,119.12 L 286.24,119.16 L 289.62,119.19 L 293.05,119.22 L 296.53,119.24 L 300.05,119.27 L 303.61,119.29 L 307.22,119.31 L 310.88,119.33 L 314.59,119.34 L 318.35,119.36 L 322.15,119.37 L 326.00,119.38 L 329.90,119.39 L 333.85,119.39 L 337.85,119.40 L 341.90,119.40 L 346.00,119.40 L 346.00,118.60 L 341.90,118.60 L 337.85,118.59 L 333.85,118.58 L 329.90,118.56 L 326.00,118.54 L 322.15,118.51 L 318.35,118.48 L 314.60,118.45 L 310.89,118.41 L 307.23,118.36 L 303.62,118.31 L 300.06,118.25 L 296.54,118.19 L 293.07,118.13 L 289.64,118.06 L 286.26,117.98 L 282.92,117.90 L 279.63,117.82 L 276.39,117.73 L 273.18,117.63 L 270.02,117.53 L 266.91,117.43 L 263.83,117.32 L 260.80,117.20 L 257.81,117.08 L 254.86,116.96 L 251.96,116.83 L 249.09,116.69 L 246.27,116.55 L 243.48,116.40 L 240.74,116.25 L 238.03,116.10 L 235.37,115.94 L 232.74,115.77 L 230.15,115.60 L 227.60,115.42 L 225.09,115.24 L 222.61,115.06 L 220.18,114.87 L 217.78,114.67 L 215.41,114.47 L 213.08,114.26 L 210.79,114.05 L 208.53,113.83 L 206.31,113.61 L 204.12,113.38 L 201.96,113.14 L 199.84,112.91 L 197.76,112.66 L 195.70,112.41 L 193.68,112.16 L 191.70,111.90 L 189.74,111.63 L 187.82,111.36 L 185.92,111.09 L 184.06,110.81 L 182.23,110.52 L 180.43,110.23 L 178.66,109.93 L 176.92,109.63 L 175.21,109.32 L 173.53,109.01 L 171.88,108.69 L 170.26,108.37 L 168.66,108.04 L 167.09,107.70 L 165.55,107.36 L 164.04,107.02 L 162.55,106.67 L 161.09,106.32 L 159.66,105.96 L 158.25,105.59 L 156.87,105.22 L 155.51,104.84 L 154.18,104.46 L 152.87,104.08 L 151.59,103.69 L 150.33,103.29 L 149.09,102.89 L 147.88,102.48 L 146.69,102.07 L 145.52,101.66 L 144.37,101.24 L 143.25,100.81 L 142.14,100.38 L 141.06,99.94 L 140.00,99.50 L 138.96,99.06 L 137.94,98.61 L 136.93,98.16 L 135.95,97.70 L 134.99,97.23 L 134.04,96.77 L 133.11,96.29 L 132.20,95.82 L 131.30,95.34 L 130.43,94.85 L 129.56,94.36 L 128.72,93.87 L 127.89,93.37 L 127.07,92.86 L 126.27,92.35 L 125.48,91.84 L 124.70,91.33 L 123.94,90.80 L 123.19,90.28 L 122.45,89.75 L 121.72,89.21 L 121.00,88.67 L 120.29,88.13 L 119.59,87.58 L 118.90,87.02 L 118.22,86.46 L 117.55,85.90 L 116.89,85.33 L 116.23,84.76 L 115.58,84.18 L 114.93,83.59 L 114.29,83.00 L 113.65,82.40 L 113.02,81.80 L 112.39,81.19 L 111.77,80.58 L 111.15,79.96 L 110.53,79.34 L 109.91,78.71 L 109.29,78.07 L 108.67,77.43 L 108.05,76.78 L 107.43,76.13 L 106.81,75.47 L 106.18,74.82 L 105.54,74.15 L 104.91,73.48 L 104.28,72.80 L 103.64,72.11 L 103.01,71.41 L 102.37,70.70 L 101.73,69.98 L 101.09,69.26 L 100.45,68.52 L 99.80,67.78 L 99.15,67.02 L 98.49,66.26 L 97.83,65.49 L 97.17,64.71 L 96.50,63.92 L 95.83,63.12 L 95.15,62.31 L 94.47,61.49 L 93.78,60.67 L 93.08,59.83 L 92.38,58.99 L 91.67,58.14 L 90.95,57.27 L 90.22,56.40 L 89.49,55.52 L 88.74,54.63 L 87.99,53.73 L 87.23,52.82 Z" fill="currentColor"/></g><g transform="translate(294.00,0)"><path d="M 6.5,0 L 6.5,100.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(333.00,0)"><path d="M 6.5,0 L 6.5,100.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 143.5,0 L 143.5,100.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 0.00,0.00 L 16.97,0.00 L 83.49,79.27 L 66.51,79.27 Z" fill="currentColor"/><path d="M 133.03,0.00 L 150.00,0.00 L 83.49,79.27 L 66.51,79.27 Z" fill="currentColor"/></g><g transform="translate(523.00,0)"><g><defs><clipPath id="pdw-band-h"><path clip-rule="evenodd" d="M -200,-200 H 320 V 320 H -200 Z M 127.888,29.971 A 295.856 295.856 0 0 1 -6.987,90.022 L -8.414,81.541 A 287.256 287.256 0 0 0 122.541,23.236 Z"/></clipPath><clipPath id="pdw-comp-h"><path clip-rule="evenodd" d="M -200,-200 H 320 V 320 H -200 Z M -3.679,82.029 A 9.8 9.8 0 1 0 -23.279,82.029 A 9.8 9.8 0 1 0 -3.679,82.029 Z"/></clipPath></defs><g clip-path="url(#pdw-band-h)"><g clip-path="url(#pdw-comp-h)"><path d="M -15.257,81.725 A 7.830 7.830 0 0 1 -13.214,73.396 A 291.556 291.556 0 0 1 119.700,14.219 A 7.830 7.830 0 0 1 127.257,18.275" fill="none" stroke="currentColor" stroke-width="3.0" stroke-linecap="round"/><path d="M -16.748,68.541 A 297.556 297.556 0 0 1 39.787,33.254 A 1099.036 1099.036 0 0 1 -16.748,68.541 Z" fill="currentColor"/><path d="M -15.382,61.775 A 302.056 302.056 0 0 1 21.925,37.390 A 236.413 236.413 0 0 1 -15.382,61.775 Z" fill="currentColor"/><path d="M -12.328,53.882 A 306.556 306.556 0 0 1 7.915,40.344 A 60.567 60.567 0 0 1 -12.328,53.882 Z" fill="currentColor"/><path d="M 112.00,50.00 A 56.0 56.0 0 1 0 0.00,50.00 A 56.0 56.0 0 1 0 112.00,50.00 Z M 95.80,46.00 A 42.0 42.0 0 1 0 11.80,46.00 A 42.0 42.0 0 1 0 95.80,46.00 Z" fill="currentColor" fill-rule="evenodd"/></g></g><path d="M 127.257,18.275 A 7.830 7.830 0 0 1 125.214,26.604 A 291.556 291.556 0 0 1 -7.700,85.781 A 7.830 7.830 0 0 1 -15.257,81.725" fill="none" stroke="currentColor" stroke-width="3.0" stroke-linecap="round"/><circle cx="-13.48" cy="82.03" r="7.0" fill="currentColor"/><circle cx="101.03" cy="3.62" r="1.9" fill="currentColor"/><circle cx="112.38" cy="9.44" r="1.7" fill="currentColor"/><circle cx="94.58" cy="-1.03" r="1.5" fill="currentColor"/><circle cx="113.91" cy="3.05" r="1.5" fill="currentColor"/><path d="M -6.000,-31.000 A 11.000 11.000 0 0 0 5.000,-20.000 A 11.000 11.000 0 0 0 -6.000,-9.000 A 11.000 11.000 0 0 0 -17.000,-20.000 A 11.000 11.000 0 0 0 -6.000,-31.000 Z" fill="currentColor"/><path d="M 122.000,110.000 A 8.000 8.000 0 0 0 130.000,118.000 A 8.000 8.000 0 0 0 122.000,126.000 A 8.000 8.000 0 0 0 114.000,118.000 A 8.000 8.000 0 0 0 122.000,110.000 Z" fill="currentColor"/><circle cx="26.00" cy="-34.00" r="2.6" fill="currentColor"/><circle cx="148.00" cy="-20.00" r="2.6" fill="currentColor"/><circle cx="-18.00" cy="136.00" r="2.2" fill="currentColor"/></g></g><g transform="translate(675.00,0)"><path d="M 6.5,100.0 L 6.5,6.5 L 92.25,6.5 A 25.25 25.25 0 0 1 117.5,31.75 L 117.5,31.75 A 25.25 25.25 0 0 1 92.25,57.0 L 6.5,57.0" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 65.49,50.50 L 82.46,50.50 L 124.00,100.00 L 107.03,100.00 Z" fill="currentColor"/></g><g transform="translate(825.00,0)"><path d="M 6.5,93.5 L 6.5,6.5 L 78.0,6.5 A 43.5 43.5 0 0 1 121.5,50.0 L 121.5,50.0 A 43.5 43.5 0 0 1 78.0,93.5 Z" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(971.00,0)"><path d="M 112,6.5 L 50.0,6.5 A 43.5 43.5 0 0 0 6.5,50.0 L 6.5,50.0 A 43.5 43.5 0 0 0 50.0,93.5 L 112,93.5" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 0,50 L 98,50" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(1101.00,0)"><path d="M 120,6.5 L 50.0,6.5 A 43.5 43.5 0 0 0 6.5,50.0 L 6.5,50.0 A 43.5 43.5 0 0 0 50.0,93.5 L 120,93.5" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(1247.00,0)"><path d="M 50.0,6.5 L 78.0,6.5 A 43.5 43.5 0 0 1 121.5,50.0 L 121.5,50.0 A 43.5 43.5 0 0 1 78.0,93.5 L 50.0,93.5 A 43.5 43.5 0 0 1 6.5,50.0 L 6.5,50.0 A 43.5 43.5 0 0 1 50.0,6.5 Z" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(1401.00,0)"><path d="M 6.5,93.5 L 6.5,6.5 L 78.0,6.5 A 43.5 43.5 0 0 1 121.5,50.0 L 121.5,50.0 A 43.5 43.5 0 0 1 78.0,93.5 Z" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(1555.00,0)"><path d="M 112,6.5 L 50.0,6.5 A 43.5 43.5 0 0 0 6.5,50.0 L 6.5,50.0 A 43.5 43.5 0 0 0 50.0,93.5 L 112,93.5" fill="none" stroke="currentColor" stroke-width="13.00" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M 0.00,43.50 L 98.00,43.50 L 282.00,49.60 L 282.00,50.40 L 98.00,56.50 L 0.00,56.50 Z" fill="currentColor"/></g></svg>
 </a>
     <nav class="links" aria-label="Main">
-      <a href="/#verses">Verses</a>
+      <a href="#verses">Verses</a>
       <a href="/benchmark/">Benchmark</a>
       <a href="/news/">News</a>
       <a href="https://github.com/scienceinfra" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-dark btn-nav" href="https://github.com/scienceinfra" target="_blank" rel="noopener">View on GitHub</a>
-      <a class="btn btn-light btn-nav-light" href="/#verses">Explore verses</a>
+      <a class="btn btn-light btn-nav-light" href="#verses">Explore verses</a>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="hero" style="padding-bottom:160px">
+  <section class="section bench-hero">
     <div class="wrap">
-      <span class="pill"><span class="tag">Soon</span><span class="muted">Held-out research tasks</span></span>
-      <h1>Benchmark</h1>
-      <p class="lede">Held-out research tasks across five sciences, used to test whether an agent with the verse libraries can do real analysis. Results will be published here.</p>
-      <div class="cta"><a class="btn btn-light btn-hero" href="/">Back to home</a></div>
+      <p class="eyebrow">Benchmark</p>
+      <h2 class="h2-xl" style="max-width:none">Research workflows, scored</h2>
+      <p class="body16" style="max-width:640px">Runs of the verse libraries, through agents, against Terminal-Bench-Science.</p>
+      <p class="bench-meta" id="bench-meta">Loading results…</p>
+
+      <div class="bench-controls">
+        <label class="bench-field">
+          <span class="bench-field-label">Benchmark</span>
+          <select id="bench-select" aria-label="Choose benchmark">
+            <option value="tbs">Terminal-Bench-Science</option>
+          </select>
+        </label>
+
+        <div class="bench-domain-toggle" id="bench-domain-toggle" role="group" aria-label="Domain">
+          <button type="button" class="on" data-domain="life-sciences">Life sciences</button>
+          <button type="button" data-domain="physical-sciences">Physical sciences <span class="badge">Soon</span></button>
+        </div>
+
+        <label class="bench-public-toggle" id="bench-public-wrap">
+          <input type="checkbox" id="bench-public-toggle">
+          <span>Show public leaderboards</span>
+        </label>
+      </div>
+
+      <nav class="bench-tabs" id="bench-tabs" aria-label="View">
+        <button type="button" class="on" data-view="ranking">Ranking</button>
+        <button type="button" data-view="pareto">Pareto</button>
+        <button type="button" data-view="radar">Radar</button>
+        <button type="button" data-view="matrix">Matrix</button>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section bench-body">
+    <div class="wrap">
+      <div id="bench-view-ranking" class="bench-view"></div>
+      <div id="bench-view-pareto" class="bench-view" hidden></div>
+      <div id="bench-view-radar" class="bench-view" hidden></div>
+      <div id="bench-view-matrix" class="bench-view" hidden></div>
+      <p class="bench-footnote" id="bench-footnote"></p>
     </div>
   </section>
 </main>
@@ -233,6 +380,254 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
   </div>
 </footer>
 
-<script>(()=>{const h=document.getElementById('hdr');const f=()=>h.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',f,{passive:true});f()})()</script>
+<script>
+(() => {
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const SUBDOMAIN_LABEL = { biology: 'Biology', ecology: 'Ecology', medicine: 'Medicine', neuroscience: 'Neuroscience' };
+  const SUBDOMAIN_ORDER = ['biology', 'ecology', 'medicine', 'neuroscience'];
+
+  const state = { bench: 'tbs', view: 'ranking', domain: 'life-sciences', showPublic: false };
+  const cache = {};
+
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const pct = (n) => (n == null ? '–' : `${n.toFixed(1)}%`);
+  const ratio = (p, t) => (p == null || t == null ? '–' : `${p}/${t}`);
+
+  async function getJSON(path) {
+    if (cache[path]) return cache[path];
+    const res = await fetch(path, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+    const data = await res.json();
+    cache[path] = data;
+    return data;
+  }
+
+  function arrow(label, up) {
+    return `<span class="chip ${up ? 'chip-local' : 'chip-snapshot'}">${esc(label)}</span>`;
+  }
+
+  function sourceChip(arm) {
+    if (arm.source === 'scienceinfra') return `<span class="chip chip-local">ScienceInfra &middot; local</span>`;
+    if (arm.source === 'scienceinfra-earlier-benchmark') return `<span class="chip chip-snapshot">snapshot ${esc(arm.snapshot || '')}</span>`;
+    return '';
+  }
+
+  function perDomainStr(perSub) {
+    const parts = SUBDOMAIN_ORDER.filter((k) => perSub[k]).map((k) => `${SUBDOMAIN_LABEL[k].slice(0, 3)} ${pct(perSub[k].accuracy)}`);
+    return parts.length ? parts.join(' &middot; ') : '–';
+  }
+
+  // ---------------------------------------------------------------- loaders
+
+  async function loadTbs() { return getJSON('data/tbs.json'); }
+  async function loadPublic() { return getJSON('data/public-leaderboards.json'); }
+
+  // ---------------------------------------------------------------- meta line
+
+  async function renderMeta() {
+    const meta = $('#bench-meta');
+    const d = await loadTbs();
+    meta.classList.toggle('in-progress', !!d.in_progress);
+    meta.innerHTML = `<span class="dot"></span>updated ${esc(d.updated)}` + (d.in_progress ? ` <span class="pill-chip">in progress &mdash; some arms still have unrun tasks</span>` : '');
+  }
+
+  // ---------------------------------------------------------------- RANKING
+
+  function buildTbsRows(d, pub, showPublic) {
+    const rows = d.arms.map((a) => ({
+      rank: null,
+      agent: a.agent, model: a.model,
+      lifeAcc: a.accuracy, tasksStr: ratio(a.tasks_passed, a.tasks_evaluated),
+      perDomain: perDomainStr(a.per_subdomain), overallAcc: null,
+      sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
+      cost: null, sortAcc: a.accuracy == null ? -1 : a.accuracy,
+    }));
+    if (showPublic && pub) {
+      for (const r of pub.rows.official) {
+        rows.push({
+          agent: r.agent, model: r.model,
+          lifeAcc: r.life_accuracy, tasksStr: ratio(r.life_passes, r.life_tasks),
+          perDomain: '–', overallAcc: r.overall_accuracy,
+          sourceHtml: `<a class="chip chip-public" href="https://www.terminal-bench-science.ai/" target="_blank" rel="noopener">public &middot; official</a>`,
+          cost: r.cost_usd, sortAcc: r.life_accuracy ?? r.overall_accuracy ?? -1,
+        });
+      }
+      for (const r of pub.rows.vals) {
+        rows.push({
+          agent: r.agent, model: r.model,
+          lifeAcc: null, tasksStr: '–',
+          perDomain: '–', overallAcc: r.overall_accuracy,
+          sourceHtml: `<a class="chip chip-public" href="https://www.vals.ai/benchmarks/terminal-bench-science" target="_blank" rel="noopener">public &middot; vals.ai</a>`,
+          cost: r.cost_usd_per_test, sortAcc: r.overall_accuracy ?? -1,
+        });
+      }
+    }
+    rows.sort((a, b) => (b.sortAcc - a.sortAcc) || ((a.cost ?? Infinity) - (b.cost ?? Infinity)));
+    rows.forEach((r, i) => (r.rank = i + 1));
+    return rows;
+  }
+
+  async function renderRanking() {
+    const el = $('#bench-view-ranking');
+    const d = await loadTbs();
+    const pub = state.showPublic ? await loadPublic() : null;
+    const rows = buildTbsRows(d, pub, state.showPublic);
+    el.innerHTML = `
+      <table class="bench-table">
+        <thead><tr>
+          <th>#</th><th>Agent</th><th>Model</th><th>Accuracy (life)</th><th>Tasks</th>
+          <th>Per domain</th><th>Overall (all domains)</th><th>Source</th>
+        </tr></thead>
+        <tbody>${rows.map((r) => `
+          <tr>
+            <td class="rank">${r.rank}</td>
+            <td class="agent">${esc(r.agent)}</td>
+            <td>${esc(r.model)}</td>
+            <td><div class="acc-bar-wrap"><span class="acc-bar"><i style="width:${r.lifeAcc ?? 0}%"></i></span><span class="acc-num">${pct(r.lifeAcc)}</span></div></td>
+            <td class="num">${esc(r.tasksStr)}</td>
+            <td class="sub">${r.perDomain}</td>
+            <td class="num">${pct(r.overallAcc)}</td>
+            <td>${r.sourceHtml}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  // ---------------------------------------------------------------- PARETO
+
+  async function renderPareto() {
+    const el = $('#bench-view-pareto');
+    if (!state.showPublic) {
+      el.innerHTML = `<p class="bench-empty">Cost isn't tracked for local runs yet, so there is nothing to plot. Turn on "Show public leaderboards" to see accuracy vs. cost for the public entries.</p>`;
+      return;
+    }
+    const pub = await loadPublic();
+    const pts = [];
+    for (const r of pub.rows.official) if (r.life_accuracy != null && r.cost_usd != null) pts.push({ x: r.cost_usd, y: r.life_accuracy, label: `${r.model} (official)`, cls: 'off' });
+    for (const r of pub.rows.vals) if (r.overall_accuracy != null && r.cost_usd_per_test != null) pts.push({ x: r.cost_usd_per_test, y: r.overall_accuracy, label: `${r.model} (vals.ai)`, cls: 'val' });
+    const W = 720, H = 360, PAD = 44;
+    const maxX = Math.max(...pts.map((p) => p.x)) * 1.08 || 1;
+    const sx = (x) => PAD + (x / maxX) * (W - PAD * 2);
+    const sy = (y) => H - PAD - (y / 100) * (H - PAD * 2);
+    const ticks = [0, 25, 50, 75, 100];
+    el.innerHTML = `
+      <div class="pareto-wrap">
+        <svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Accuracy vs cost">
+          <line x1="${PAD}" y1="${H - PAD}" x2="${W - PAD}" y2="${H - PAD}" stroke="var(--hair)" />
+          <line x1="${PAD}" y1="${PAD}" x2="${PAD}" y2="${H - PAD}" stroke="var(--hair)" />
+          ${ticks.map((t) => `<text x="${PAD - 8}" y="${sy(t) + 3}" text-anchor="end">${t}%</text>`).join('')}
+          <text class="lbl" x="${W / 2}" y="${H - 8}" text-anchor="middle">cost (official: $ per full run &middot; vals.ai: $ per task &mdash; not the same scale)</text>
+          <text class="lbl" transform="rotate(-90 14 ${H / 2})" x="14" y="${H / 2}" text-anchor="middle">accuracy</text>
+          ${pts.map((p) => `<g class="pt"><circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="5" fill="${p.cls === 'off' ? 'var(--t-teal)' : 'var(--t-blue)'}"><title>${esc(p.label)}: ${p.y.toFixed(1)}% at $${p.x.toFixed(2)}</title></circle></g>`).join('')}
+        </svg>
+      </div>`;
+  }
+
+  // ---------------------------------------------------------------- RADAR
+
+  async function renderRadar() {
+    const el = $('#bench-view-radar');
+    const d = await loadTbs();
+    const cards = SUBDOMAIN_ORDER.map((sub) => {
+      const rows = d.arms
+        .map((a) => ({ name: `${a.agent} / ${a.model}`, v: a.per_subdomain[sub] }))
+        .filter((r) => r.v && r.v.evaluated > 0)
+        .sort((a, b) => (b.v.accuracy ?? 0) - (a.v.accuracy ?? 0));
+      if (!rows.length) return '';
+      return `<div class="radar-card"><h4>${SUBDOMAIN_LABEL[sub]}</h4>${rows.map((r) => `
+        <div class="radar-row">
+          <span class="name" title="${esc(r.name)}">${esc(r.name)}</span>
+          <span class="bar"><i style="width:${r.v.accuracy ?? 0}%"></i></span>
+          <span class="val">${pct(r.v.accuracy)}</span>
+        </div>`).join('')}</div>`;
+    }).join('');
+    el.innerHTML = `<div class="radar-grid">${cards}</div>`;
+  }
+
+  // ---------------------------------------------------------------- MATRIX
+
+  async function renderMatrix() {
+    const el = $('#bench-view-matrix');
+    const d = await loadTbs();
+    const header = d.arms.map((a) => `<th>${esc(a.agent)}<br>${esc(a.model)}</th>`).join('');
+    const body = d.tasks.map((t) => {
+      const cells = d.arms.map((a) => {
+        const r = a.per_task[t.id];
+        if (!r || r.status === 'not_run') return `<td><span class="cell cell-not-run" title="not run">&middot;</span></td>`;
+        const cls = r.status === 'pass' ? 'cell-pass' : 'cell-fail';
+        const mark = r.status === 'pass' ? '&#10003;' : '&#10007;';
+        return `<td><span class="cell ${cls}" title="${esc(t.id)}: ${r.passed}/${r.total} tests passed, reward=${r.reward}">${mark}</span></td>`;
+      }).join('');
+      return `<tr><th>${esc(t.id)}<span class="sub"> &middot; ${esc(t.subdomain)}</span></th>${cells}</tr>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="matrix-scroll">
+        <table class="bench-matrix">
+          <thead><tr><th></th>${header}</tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>`;
+  }
+
+  // ---------------------------------------------------------------- footnote (tbs)
+
+  async function renderTbsFootnote() {
+    const d = await loadTbs();
+    const notes = [
+      `All ScienceInfra arms above were run on the life-sciences domain only (25 tasks); physical sciences is coming soon and not yet running.`,
+    ];
+    const caveatArm = d.arms.find((a) => a.caveat);
+    if (caveatArm) notes.push(caveatArm.caveat);
+    if (state.showPublic) {
+      const pub = await loadPublic();
+      notes.push(pub.footnote);
+    }
+    $('#bench-footnote').innerHTML = notes.map(esc).join('<br>');
+  }
+
+  // ---------------------------------------------------------------- wiring
+
+  function showView(view) {
+    $$('.bench-view').forEach((v) => (v.hidden = true));
+    const map = { ranking: renderRanking, pareto: renderPareto, radar: renderRadar, matrix: renderMatrix };
+    const id = `#bench-view-${view}`;
+    $(id).hidden = false;
+    (map[view] || (() => Promise.resolve()))().then(renderTbsFootnote).catch((e) => { $(id).innerHTML = `<p class="bench-empty">Couldn't load benchmark data (${esc(e.message)}).</p>`; });
+  }
+
+  async function renderAll() {
+    await renderMeta();
+    showView(state.view);
+  }
+
+  $('#bench-select').addEventListener('change', (e) => { state.bench = e.target.value; renderAll(); });
+  $('#bench-public-toggle').addEventListener('change', (e) => { state.showPublic = e.target.checked; showView(state.view); });
+  $$('#bench-tabs button').forEach((b) => b.addEventListener('click', () => {
+    $$('#bench-tabs button').forEach((x) => x.classList.remove('on'));
+    b.classList.add('on');
+    state.view = b.dataset.view;
+    showView(state.view);
+  }));
+  $$('#bench-domain-toggle button').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.domain === 'physical-sciences') {
+      $('#bench-view-' + state.view).innerHTML = `<p class="bench-empty">Physical sciences: coming soon &mdash; we are not running this domain yet.</p>`;
+      $$('#bench-domain-toggle button').forEach((x) => x.classList.remove('on'));
+      b.classList.add('on');
+      return;
+    }
+    $$('#bench-domain-toggle button').forEach((x) => x.classList.remove('on'));
+    b.classList.add('on');
+    state.domain = 'life-sciences';
+    showView(state.view);
+  }));
+
+  renderAll();
+})();
+</script>
 </body>
 </html>

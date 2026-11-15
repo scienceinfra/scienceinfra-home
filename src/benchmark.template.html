@@ -1,0 +1,46 @@
+<main>
+  <section class="section bench-hero">
+    <div class="wrap">
+      <p class="eyebrow">Benchmark</p>
+      <h2 class="h2-xl" style="max-width:none">Research workflows, scored</h2>
+      <p class="body16" style="max-width:640px">Runs of the verse libraries, through agents, against Terminal-Bench-Science.</p>
+      <p class="bench-meta" id="bench-meta">Loading results…</p>
+
+      <div class="bench-controls">
+        <label class="bench-field">
+          <span class="bench-field-label">Benchmark</span>
+          <select id="bench-select" aria-label="Choose benchmark">
+            <option value="tbs">Terminal-Bench-Science</option>
+          </select>
+        </label>
+
+        <div class="bench-domain-toggle" id="bench-domain-toggle" role="group" aria-label="Domain">
+          <button type="button" class="on" data-domain="life-sciences">Life sciences</button>
+          <button type="button" data-domain="physical-sciences">Physical sciences <span class="badge">Soon</span></button>
+        </div>
+
+        <label class="bench-public-toggle" id="bench-public-wrap">
+          <input type="checkbox" id="bench-public-toggle">
+          <span>Show public leaderboards</span>
+        </label>
+      </div>
+
+      <nav class="bench-tabs" id="bench-tabs" aria-label="View">
+        <button type="button" class="on" data-view="ranking">Ranking</button>
+        <button type="button" data-view="pareto">Pareto</button>
+        <button type="button" data-view="radar">Radar</button>
+        <button type="button" data-view="matrix">Matrix</button>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section bench-body">
+    <div class="wrap">
+      <div id="bench-view-ranking" class="bench-view"></div>
+      <div id="bench-view-pareto" class="bench-view" hidden></div>
+      <div id="bench-view-radar" class="bench-view" hidden></div>
+      <div id="bench-view-matrix" class="bench-view" hidden></div>
+      <p class="bench-footnote" id="bench-footnote"></p>
+    </div>
+  </section>
+</main>

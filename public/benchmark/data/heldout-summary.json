@@ -8,13 +8,12 @@
       "domains": {
         "life-sciences": {
           "tasks": 23,
-          "first_run_pass": 8,
-          "any_run_pass": 14
+          "passed": 11
         }
       }
     }
   ],
-  "footnote": "Held-out tasks are our own, built from openly licensed published data, each checking the same capability as one Terminal-Bench-Science task without reusing its data. Task names, data and graders are kept private so the set cannot be trained or tuned against; only aggregate scores are published. 'First blind run' is the first attempt on a task nobody had iterated on; 'any run' also counts later attempts after the library was improved, so it overstates generalisation. The three examples below are retired development sets (iterated on, so no longer blind) shown for illustration.",
+  "footnote": "Held-out tasks are our own, built from openly licensed published data, each checking the same capability as one Terminal-Bench-Science task without reusing its data. Task names, data and graders are kept private so the set cannot be trained or tuned against; only aggregate scores are published. Accuracy is the share of held-out tasks whose most recent run reached reward 1, one run per task. The three examples below are retired development sets (iterated on, so no longer blind) shown for illustration.",
   "examples": [
     {
       "capability": "EHR data-entry error audit",

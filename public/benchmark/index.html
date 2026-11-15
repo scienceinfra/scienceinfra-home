@@ -605,10 +605,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
     const rows = d.arms.map((a, i) => {
       const x = a.domains[dom];
       if (!x) return '';
-      const f = (100 * x.first_run_pass) / x.tasks, n = (100 * x.any_run_pass) / x.tasks;
-      return `<tr><td class="rank">${i + 1}</td><td class="agent">${esc(a.agent)}</td><td class="sub">${esc(a.model)}</td>
-        <td class="num">${x.tasks}</td><td class="num">${ratio(x.first_run_pass, x.tasks)} &middot; ${pct(f)}</td>
-        <td class="num">${ratio(x.any_run_pass, x.tasks)} &middot; ${pct(n)}</td></tr>`;
+      const acc = (100 * x.passed) / x.tasks;
+      return `<tr><td class="rank">${i + 1}</td><td class="agent">${esc(a.agent)}</td><td>${esc(a.model)}</td>
+        <td><div class="acc-bar-wrap"><span class="acc-bar"><i style="width:${acc}%"></i></span><span class="acc-num">${pct(acc)}</span></div></td>
+        <td class="num">${ratio(x.passed, x.tasks)}</td><td>${sourceChip(a)}</td></tr>`;
     }).join('');
     const side = (t, h) => `
       <div class="ho-side"><p class="ho-label">${esc(h)}</p>
@@ -620,7 +620,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
         <div class="ho-grid">${side(e.original, 'Terminal-Bench-Science task')}${side(e.heldout, 'Held-out counterpart')}</div></article>`).join('');
     el.innerHTML = `
       <table class="bench-table">
-        <thead><tr><th>#</th><th>Agent</th><th>Model</th><th class="num">Held-out tasks</th><th class="num">First blind run</th><th class="num">Any run</th></tr></thead>
+        <thead><tr><th>#</th><th>Agent</th><th>Model</th><th>Accuracy (life)</th><th>Tasks</th><th>Source</th></tr></thead>
         <tbody>${rows || `<tr><td colspan="6" class="bench-empty">No held-out results for this domain yet.</td></tr>`}</tbody>
       </table>
       <h3 class="ho-h">Example pairs</h3>

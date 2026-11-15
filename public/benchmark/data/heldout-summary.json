@@ -1,0 +1,61 @@
+{
+  "updated": "2026-11-15",
+  "arms": [
+    {
+      "agent": "omicos",
+      "model": "ds4-flash",
+      "source": "scienceinfra",
+      "domains": {
+        "life-sciences": {
+          "tasks": 23,
+          "passed": 11
+        }
+      }
+    }
+  ],
+  "footnote": "Held-out tasks are our own, built from openly licensed published data, each checking the same capability as one Terminal-Bench-Science task without reusing its data. Task names, data and graders are kept private so the set cannot be trained or tuned against; only aggregate scores are published. Accuracy is the share of held-out tasks whose most recent run reached reward 1, one run per task. The three examples below are retired development sets (iterated on, so no longer blind) shown for illustration.",
+  "examples": [
+    {
+      "capability": "EHR data-entry error audit",
+      "domain": "Medicine",
+      "original": {
+        "task": "ehr-error-detection",
+        "data": "ICU-style EHR tables (patients, admissions, labevents, prescriptions, icustays, chartevents, dictionaries)",
+        "asks": "Flag every row holding a data-entry error: impossible values or values contradicting the same patient's other records. Recall must be complete, precision above a floor."
+      },
+      "heldout": {
+        "data": "Synthea synthetic outpatient cohort (Walonoski et al., JAMIA 2018, doi:10.1093/jamia/ocx079) with documented injected errors",
+        "schema": "Different schema: patients, encounters, observations, medications, conditions, procedures, immunizations",
+        "asks": "Same audit and scoring rule on a source with different tables, codes and conventions."
+      }
+    },
+    {
+      "capability": "Meta-analysis effect reconstruction from source articles",
+      "domain": "Neuroscience",
+      "original": {
+        "task": "mdd-executive-function",
+        "data": "Snyder (2013) meta-analysis of executive function in major depression; source articles fetched by DOI",
+        "asks": "Reconstruct each study's effect sizes from the full texts under the meta-analysis's coding rules."
+      },
+      "heldout": {
+        "data": "A published meta-analysis of memory and attention after COVID-19 (Acta Psychologica 2023, doi:10.1016/j.actpsy.2023.103838); open-access source articles fetched by DOI",
+        "schema": "Different disease, tests, table layouts and reporting styles (SE, medians/IQR, subgroups)",
+        "asks": "Same reconstruction task and grading style on a different literature."
+      }
+    },
+    {
+      "capability": "Imaging mass cytometry of the tumour\u2013immune interface",
+      "domain": "Medicine",
+      "original": {
+        "task": "tumor-immune-interface",
+        "data": "Melanoma biopsies before anti-PD-1, imaging mass cytometry single-cell table + masks + RECIST outcomes (26 patients)",
+        "asks": "Label unlabelled clusters, then quantify the tumour\u2013immune interface and relate it to response."
+      },
+      "heldout": {
+        "data": "Moldoveanu et al., Science Immunology 2022 (doi:10.1126/sciimmunol.abi5072): melanoma IMC before checkpoint blockade, 30 patients",
+        "schema": "Different panel, cohort, therapies (anti-CTLA-4 / anti-PD-1 / both) and irRC outcomes",
+        "asks": "Same analysis on an independent cohort and antibody panel."
+      }
+    }
+  ]
+}

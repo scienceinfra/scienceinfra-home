@@ -1,0 +1,123 @@
+/* ---------- Benchmark page: reuses the homepage's tokens (--card, --hair, --sunset, --t-*) ---------- */
+.bench-hero{padding-bottom:0}
+.bench-meta{margin-top:20px;font-size:13px;line-height:19.5px;color:var(--fg-60);font-family:var(--mono)}
+.bench-meta .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--t-green);margin-right:6px;vertical-align:1px}
+.bench-meta.in-progress .dot{background:var(--sunset)}
+.bench-meta .pill-chip{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:9999px;background:rgba(255,255,255,.06);margin-left:8px;color:var(--fg-80)}
+
+.bench-controls{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:32px}
+.bench-field{display:flex;flex-direction:column;gap:6px}
+.bench-field-label{font-size:12px;color:var(--fg-30)}
+.bench-field select{appearance:none;background:var(--card);color:var(--fg);border:1px solid var(--hair);border-radius:10px;padding:10px 36px 10px 14px;font-size:14px;font-family:var(--sans);font-weight:500;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M3 4.5l3 3 3-3' fill='none' stroke='%23ffffff' stroke-opacity='.6' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 12px center;min-width:260px}
+.bench-field select:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+.bench-domain-toggle{display:inline-flex;background:var(--card);border:1px solid var(--hair);border-radius:9999px;padding:3px;gap:2px}
+.bench-domain-toggle button{border:none;background:transparent;color:var(--fg-60);font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 14px;border-radius:9999px;cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center;gap:6px}
+.bench-domain-toggle button.on{background:#2a2a2a;color:var(--fg)}
+.bench-domain-toggle button:disabled{cursor:not-allowed;opacity:.55}
+.bench-domain-toggle .badge{font-size:10px;padding:1px 6px}
+
+.bench-public-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--fg-60);cursor:pointer;margin-left:auto}
+.bench-public-toggle input{width:16px;height:16px;accent-color:var(--sunset)}
+
+.bench-tabs{display:flex;gap:4px;margin-top:28px;border-bottom:1px solid var(--hair)}
+.bench-tabs button{border:none;background:transparent;color:var(--fg-60);font-family:var(--sans);font-size:14px;font-weight:500;padding:12px 4px;margin-right:24px;cursor:pointer;position:relative;transition:color .15s}
+.bench-tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent;border-radius:1px;transition:background .15s}
+.bench-tabs button.on{color:var(--fg)}
+.bench-tabs button.on::after{background:var(--sunset)}
+.bench-tabs button:hover{color:var(--fg-80)}
+
+.bench-body{padding-top:40px}
+.bench-view{min-height:120px}
+
+/* table */
+.bench-table{width:100%;border-collapse:collapse;font-size:13px}
+.bench-table th{text-align:left;font-weight:500;color:var(--fg-30);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:0 12px 10px;border-bottom:1px solid var(--hair);white-space:nowrap}
+.bench-table td{padding:12px;border-bottom:1px solid var(--hair);vertical-align:middle}
+.bench-table tbody tr:hover{background:rgba(255,255,255,.03)}
+.bench-table .num{font-family:var(--mono);text-align:right;white-space:nowrap}
+.bench-table .rank{color:var(--fg-30);font-family:var(--mono)}
+.bench-table .agent{font-weight:500}
+.bench-table .sub{color:var(--fg-30);font-size:12px}
+.bench-table .acc-bar-wrap{display:flex;align-items:center;gap:10px}
+.bench-table .acc-bar{position:relative;width:88px;height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.bench-table .acc-bar > i{position:absolute;inset:0 auto 0 0;background:var(--sunset);border-radius:4px}
+.bench-table .acc-num{font-family:var(--mono);min-width:44px;text-align:right}
+
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:9999px;white-space:nowrap}
+.chip-local{background:rgba(145,193,122,.14);color:var(--t-green)}
+.chip-snapshot{background:rgba(255,198,115,.14);color:var(--t-blue)}
+.chip-public{background:rgba(255,255,255,.08);color:var(--fg-60)}
+.chip-pending{background:rgba(255,255,255,.06);color:var(--fg-30)}
+
+/* status badges */
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:9999px}
+.status-pill i{width:6px;height:6px;border-radius:50%}
+.status-blind-pass{background:rgba(145,193,122,.14);color:var(--t-green)}
+.status-blind-pass i{background:var(--t-green)}
+.status-development-set{background:rgba(41,198,190,.14);color:var(--t-teal)}
+.status-development-set i{background:var(--t-teal)}
+.status-stable-gap{background:rgba(255,198,115,.14);color:var(--t-blue)}
+.status-stable-gap i{background:var(--t-blue)}
+.status-failed{background:rgba(255,99,8,.12);color:var(--sunset)}
+.status-failed i{background:var(--sunset)}
+.status-pending{background:rgba(255,255,255,.06);color:var(--fg-30)}
+.status-pending i{background:var(--fg-30)}
+
+/* radar / domain bars */
+.radar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.radar-card{background:var(--card);border-radius:16px;padding:20px}
+.radar-card h4{font-size:14px;font-weight:500;margin-bottom:14px;text-transform:capitalize}
+.radar-row{display:grid;grid-template-columns:110px 1fr 40px;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}
+.radar-row .name{color:var(--fg-60);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radar-row .bar{height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.radar-row .bar > i{display:block;height:100%;background:var(--t-teal);border-radius:4px}
+.radar-row .val{font-family:var(--mono);color:var(--fg-80);text-align:right}
+
+/* pareto */
+.pareto-wrap{background:var(--card);border-radius:16px;padding:24px;overflow:auto}
+.pareto-wrap svg{display:block}
+.pareto-wrap .pt{cursor:pointer}
+.pareto-wrap .pt circle{transition:r .15s}
+.pareto-wrap .pt:hover circle{r:7}
+.pareto-wrap text{font-family:var(--mono);font-size:10px;fill:var(--fg-30)}
+.pareto-wrap .lbl{font-size:10px;fill:var(--fg-60)}
+
+/* matrix */
+.matrix-scroll{overflow:auto;background:var(--card);border-radius:16px;padding:8px}
+.bench-matrix{border-collapse:collapse;font-size:12px}
+.bench-matrix th,.bench-matrix td{padding:6px 8px;text-align:center;white-space:nowrap}
+.bench-matrix thead th{color:var(--fg-30);font-weight:500;font-size:11px;position:sticky;top:0;background:var(--card)}
+.bench-matrix tbody th{text-align:left;color:var(--fg-80);font-weight:400;position:sticky;left:0;background:var(--card)}
+.cell{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:11px;cursor:default}
+.cell-pass{background:rgba(145,193,122,.18);color:var(--t-green)}
+.cell-fail{background:rgba(255,99,8,.14);color:var(--sunset)}
+.cell-not-run{background:rgba(255,255,255,.04);color:var(--fg-30)}
+.cell-public{position:relative}
+.cell-public::after{content:"";position:absolute;top:1px;right:1px;width:5px;height:5px;border-radius:50%;background:var(--t-blue)}
+
+.bench-footnote{margin-top:28px;font-size:12px;line-height:19px;color:var(--fg-30);max-width:860px}
+.bench-footnote + .bench-footnote{margin-top:10px}
+.bench-empty{color:var(--fg-30);font-size:14px;padding:40px 0}
+
+@media (max-width:768px){
+  .bench-controls{flex-direction:column;align-items:flex-start}
+  .bench-public-toggle{margin-left:0}
+  .bench-table{font-size:12px}
+  .bench-table .acc-bar{width:56px}
+}
+
+/* held-out example pairs */
+.ho-h{margin:40px 0 4px;font-size:18px;font-weight:500}
+.ho-pair{margin-top:18px;border:1px solid var(--hair);border-radius:12px;padding:16px 18px}
+.ho-pair header{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px}
+.ho-cap{font-weight:500}
+.ho-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.ho-grid{grid-template-columns:1fr}}
+.ho-side{font-size:13px;line-height:1.55}
+.ho-side p{margin:0 0 6px}
+.ho-side b{font-weight:500;color:var(--fg-30);margin-right:6px}
+.ho-label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-30)}
+.ho-task{font-family:var(--mono)}

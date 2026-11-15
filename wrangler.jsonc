@@ -7,6 +7,9 @@
   "assets": {
     "directory": "./public"
   },
+  // Required by `wrangler preview`, which Workers Builds runs for non-production
+  // branches. Empty is enough: assets and compatibility settings are inherited.
+  "previews": {},
   "routes": [
     { "pattern": "scienceinfra.org", "custom_domain": true },
     { "pattern": "www.scienceinfra.org", "custom_domain": true }

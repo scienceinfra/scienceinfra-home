@@ -148,15 +148,20 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 79.2,
+      "accuracy": 76.0,
       "tasks_passed": 19,
-      "tasks_evaluated": 24,
+      "tasks_evaluated": 25,
       "tasks_total": 25,
       "per_subdomain": {
         "biology": {
           "passed": 8,
           "evaluated": 9,
           "accuracy": 88.9
+        },
+        "ecology": {
+          "passed": 1,
+          "evaluated": 2,
+          "accuracy": 50.0
         },
         "medicine": {
           "passed": 6,
@@ -167,11 +172,6 @@
           "passed": 4,
           "evaluated": 5,
           "accuracy": 80.0
-        },
-        "ecology": {
-          "passed": 1,
-          "evaluated": 1,
-          "accuracy": 100.0
         }
       },
       "per_task": {
@@ -182,7 +182,10 @@
           "reward": 1.0
         },
         "animal-reid": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 2,
+          "total": 3,
+          "reward": 0.0
         },
         "ankle": {
           "status": "fail",
@@ -331,30 +334,30 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 63.6,
-      "tasks_passed": 14,
-      "tasks_evaluated": 22,
+      "accuracy": 87.5,
+      "tasks_passed": 21,
+      "tasks_evaluated": 24,
       "tasks_total": 25,
       "per_subdomain": {
         "biology": {
-          "passed": 7,
-          "evaluated": 7,
-          "accuracy": 100.0
+          "passed": 8,
+          "evaluated": 9,
+          "accuracy": 88.9
         },
         "medicine": {
-          "passed": 4,
+          "passed": 7,
           "evaluated": 9,
-          "accuracy": 44.4
+          "accuracy": 77.8
         },
         "neuroscience": {
-          "passed": 3,
+          "passed": 5,
           "evaluated": 5,
-          "accuracy": 60.0
+          "accuracy": 100.0
         },
         "ecology": {
-          "passed": 0,
+          "passed": 1,
           "evaluated": 1,
-          "accuracy": 0.0
+          "accuracy": 100.0
         }
       },
       "per_task": {
@@ -392,10 +395,10 @@
           "reward": 1.0
         },
         "dapi-he": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 5,
           "total": 5,
-          "reward": 0.0
+          "reward": 1.0
         },
         "diag-chipseq": {
           "status": "pass",
@@ -404,10 +407,10 @@
           "reward": 1.0
         },
         "eeg": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 43,
           "total": 43,
-          "reward": 0.0
+          "reward": 1.0
         },
         "ehr": {
           "status": "pass",
@@ -416,10 +419,10 @@
           "reward": 1.0
         },
         "foraging": {
-          "status": "fail",
-          "passed": 4,
+          "status": "pass",
+          "passed": 7,
           "total": 7,
-          "reward": 0.0
+          "reward": 1.0
         },
         "genomic-model-ranking": {
           "status": "pass",
@@ -434,13 +437,16 @@
           "reward": 0.0
         },
         "haplotype": {
-          "status": "fail",
-          "passed": 6,
+          "status": "pass",
+          "passed": 7,
           "total": 7,
-          "reward": 0.0
+          "reward": 1.0
         },
         "lineage": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 4,
+          "reward": 0.0
         },
         "longclin": {
           "status": "pass",
@@ -461,7 +467,10 @@
           "reward": 1.0
         },
         "nis3d": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 8,
+          "total": 8,
+          "reward": 1.0
         },
         "ont-tn-qc": {
           "status": "pass",
@@ -470,10 +479,10 @@
           "reward": 1.0
         },
         "plantdist": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 4,
           "total": 4,
-          "reward": 0.0
+          "reward": 1.0
         },
         "protein-al": {
           "status": "pass",
@@ -494,10 +503,10 @@
           "reward": 1.0
         },
         "tumor": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 7,
           "total": 7,
-          "reward": 0.0
+          "reward": 1.0
         }
       }
     },
@@ -546,7 +555,7 @@
         },
         "ankle": {
           "status": "fail",
-          "passed": 1,
+          "passed": 4,
           "total": 5,
           "reward": 0.0
         },
@@ -693,7 +702,7 @@
       "local": true,
       "accuracy": 0.0,
       "tasks_passed": 0,
-      "tasks_evaluated": 6,
+      "tasks_evaluated": 7,
       "tasks_total": 25,
       "per_subdomain": {
         "medicine": {
@@ -707,6 +716,11 @@
           "accuracy": 0.0
         },
         "biology": {
+          "passed": 0,
+          "evaluated": 1,
+          "accuracy": 0.0
+        },
+        "ecology": {
           "passed": 0,
           "evaluated": 1,
           "accuracy": 0.0
@@ -784,7 +798,7 @@
         },
         "nis3d": {
           "status": "fail",
-          "passed": 1,
+          "passed": 6,
           "total": 8,
           "reward": 0.0
         },
@@ -792,7 +806,10 @@
           "status": "not_run"
         },
         "plantdist": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 2,
+          "total": 4,
+          "reward": 0.0
         },
         "protein-al": {
           "status": "not_run"

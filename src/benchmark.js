@@ -42,12 +42,19 @@
   // ---------------------------------------------------------------- loaders
 
   async function loadTbs() { return getJSON('data/tbs.json'); }
+  async function loadHeldout() { return getJSON('data/heldout-summary.json'); }
   async function loadPublic() { return getJSON('data/public-leaderboards.json'); }
 
   // ---------------------------------------------------------------- meta line
 
   async function renderMeta() {
     const meta = $('#bench-meta');
+    if (state.bench === 'heldout') {
+      const d = await loadHeldout();
+      meta.classList.remove('in-progress');
+      meta.innerHTML = `<span class="dot"></span>updated ${esc(d.updated)} &middot; task details private`;
+      return;
+    }
     const d = await loadTbs();
     meta.classList.toggle('in-progress', !!d.in_progress);
     meta.innerHTML = `<span class="dot"></span>updated ${esc(d.updated)}` + (d.in_progress ? ` <span class="pill-chip">in progress &mdash; some arms still have unrun tasks</span>` : '');
@@ -191,6 +198,39 @@
       </div>`;
   }
 
+  // ---------------------------------------------------------------- HELD-OUT (aggregate only)
+
+  async function renderHeldout() {
+    const el = $('#bench-view-heldout');
+    const d = await loadHeldout();
+    const dom = state.domain;
+    const rows = d.arms.map((a, i) => {
+      const x = a.domains[dom];
+      if (!x) return '';
+      const f = (100 * x.first_run_pass) / x.tasks, n = (100 * x.any_run_pass) / x.tasks;
+      return `<tr><td class="rank">${i + 1}</td><td class="agent">${esc(a.agent)}</td><td class="sub">${esc(a.model)}</td>
+        <td class="num">${x.tasks}</td><td class="num">${ratio(x.first_run_pass, x.tasks)} &middot; ${pct(f)}</td>
+        <td class="num">${ratio(x.any_run_pass, x.tasks)} &middot; ${pct(n)}</td></tr>`;
+    }).join('');
+    const side = (t, h) => `
+      <div class="ho-side"><p class="ho-label">${esc(h)}</p>
+        ${t.task ? `<p class="ho-task">${esc(t.task)}</p>` : ''}
+        <p><b>Data</b> ${esc(t.data)}</p>${t.schema ? `<p><b>Differs</b> ${esc(t.schema)}</p>` : ''}
+        <p><b>Asks</b> ${esc(t.asks)}</p></div>`;
+    const ex = d.examples.map((e) => `
+      <article class="ho-pair"><header><span class="ho-cap">${esc(e.capability)}</span><span class="sub">${esc(e.domain)}</span></header>
+        <div class="ho-grid">${side(e.original, 'Terminal-Bench-Science task')}${side(e.heldout, 'Held-out counterpart')}</div></article>`).join('');
+    el.innerHTML = `
+      <table class="bench-table">
+        <thead><tr><th>#</th><th>Agent</th><th>Model</th><th class="num">Held-out tasks</th><th class="num">First blind run</th><th class="num">Any run</th></tr></thead>
+        <tbody>${rows || `<tr><td colspan="6" class="bench-empty">No held-out results for this domain yet.</td></tr>`}</tbody>
+      </table>
+      <h3 class="ho-h">Example pairs</h3>
+      <p class="sub">Three retired held-outs next to the Terminal-Bench-Science task each one mirrors.</p>
+      ${ex}`;
+    $('#bench-footnote').innerHTML = esc(d.footnote);
+  }
+
   // ---------------------------------------------------------------- footnote (tbs)
 
   async function renderTbsFootnote() {
@@ -219,7 +259,16 @@
 
   async function renderAll() {
     await renderMeta();
-    showView(state.view);
+    const isHeldout = state.bench === 'heldout';
+    $('#bench-tabs').hidden = isHeldout;
+    $('#bench-public-wrap').hidden = isHeldout;
+    if (isHeldout) {
+      $$('.bench-view').forEach((v) => (v.hidden = true));
+      $('#bench-view-heldout').hidden = false;
+      renderHeldout().catch((e) => { $('#bench-view-heldout').innerHTML = `<p class="bench-empty">Couldn't load held-out data (${esc(e.message)}).</p>`; });
+    } else {
+      showView(state.view);
+    }
   }
 
   $('#bench-select').addEventListener('change', (e) => { state.bench = e.target.value; renderAll(); });
@@ -232,7 +281,7 @@
   }));
   $$('#bench-domain-toggle button').forEach((b) => b.addEventListener('click', () => {
     if (b.dataset.domain === 'physical-sciences') {
-      $('#bench-view-' + state.view).innerHTML = `<p class="bench-empty">Physical sciences: coming soon &mdash; we are not running this domain yet.</p>`;
+      $('#bench-view-' + (state.bench === 'heldout' ? 'heldout' : state.view)).innerHTML = `<p class="bench-empty">Physical sciences: coming soon &mdash; we are not running this domain yet.</p>`;
       $$('#bench-domain-toggle button').forEach((x) => x.classList.remove('on'));
       b.classList.add('on');
       return;
@@ -240,7 +289,7 @@
     $$('#bench-domain-toggle button').forEach((x) => x.classList.remove('on'));
     b.classList.add('on');
     state.domain = 'life-sciences';
-    showView(state.view);
+    renderAll();
   }));
 
   renderAll();

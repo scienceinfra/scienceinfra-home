@@ -108,3 +108,16 @@
   .bench-table{font-size:12px}
   .bench-table .acc-bar{width:56px}
 }
+
+/* held-out example pairs */
+.ho-h{margin:40px 0 4px;font-size:18px;font-weight:500}
+.ho-pair{margin-top:18px;border:1px solid var(--hair);border-radius:12px;padding:16px 18px}
+.ho-pair header{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px}
+.ho-cap{font-weight:500}
+.ho-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.ho-grid{grid-template-columns:1fr}}
+.ho-side{font-size:13px;line-height:1.55}
+.ho-side p{margin:0 0 6px}
+.ho-side b{font-weight:500;color:var(--fg-30);margin-right:6px}
+.ho-label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-30)}
+.ho-task{font-family:var(--mono)}

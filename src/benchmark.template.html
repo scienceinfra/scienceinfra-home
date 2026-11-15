@@ -3,7 +3,7 @@
     <div class="wrap">
       <p class="eyebrow">Benchmark</p>
       <h2 class="h2-xl" style="max-width:none">Research workflows, scored</h2>
-      <p class="body16" style="max-width:640px">Runs of the verse libraries, through agents, against Terminal-Bench-Science.</p>
+      <p class="body16" style="max-width:640px">Runs of the verse libraries, through agents, against Terminal-Bench-Science and our private held-out tasks.</p>
       <p class="bench-meta" id="bench-meta">Loading results…</p>
 
       <div class="bench-controls">
@@ -11,6 +11,7 @@
           <span class="bench-field-label">Benchmark</span>
           <select id="bench-select" aria-label="Choose benchmark">
             <option value="tbs">Terminal-Bench-Science</option>
+            <option value="heldout">TBS held-out</option>
           </select>
         </label>
 
@@ -40,6 +41,7 @@
       <div id="bench-view-pareto" class="bench-view" hidden></div>
       <div id="bench-view-radar" class="bench-view" hidden></div>
       <div id="bench-view-matrix" class="bench-view" hidden></div>
+      <div id="bench-view-heldout" class="bench-view" hidden></div>
       <p class="bench-footnote" id="bench-footnote"></p>
     </div>
   </section>

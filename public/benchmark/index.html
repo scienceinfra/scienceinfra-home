@@ -569,7 +569,16 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
   }
   const passCount = (a, tasks) => tasks.filter((t) => (a.per_task[t.id] || {}).status === 'pass').length;
 
+  // Arms with repeated runs carry per-task trials; scored like the official
+  // leaderboard: passes over all trials (19 tasks x 3 = 57).
+  const trialsOf = (a, tasks) => tasks.flatMap((t) => (a.per_task[t.id] || {}).trials || []);
+  const hasTrials = (a, tasks) => tasks.every((t) => ((a.per_task[t.id] || {}).trials || []).length > 1);
+
   function localScore(a, dom, split) {
+    if (dom === 'life' && hasTrials(a, split.v01)) {
+      const tr = trialsOf(a, split.v01), passed = tr.filter((x) => x.pass).length;
+      return { acc: (100 * passed) / tr.length, passed, total: tr.length, run: true, trials: Math.round(tr.length / split.v01.length) };
+    }
     const passed = passCount(a, split.v01);
     if (dom === 'life') return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
     if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
@@ -585,7 +594,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
       return {
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
-        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? 'v0.1 · life 19 run · other 51 counted as 0' : `v0.1 · 19 tasks · 1 run${newer}`,
+        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? 'v0.1 · life 19 run · other 51 counted as 0' : `v0.1 · 19 tasks · ${sc.trials ? sc.trials + ' trials' : '1 run'}${newer}`,
         cost: null,
       };
     });
@@ -667,11 +676,13 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
       const d = await loadTbs();
       const split = splitTasks(d, off);
       for (const a of d.arms) {
-        const cells = split.v01.map((t) => a.per_task[t.id]).filter((c) => c && c.status !== 'not_run');
+        let cells, y;
+        if (hasTrials(a, split.v01)) { cells = trialsOf(a, split.v01); y = (100 * cells.filter((x) => x.pass).length) / cells.length; }
+        else { cells = split.v01.map((t) => a.per_task[t.id]).filter((c) => c && c.status !== 'not_run'); y = (100 * passCount(a, split.v01)) / split.v01.length; }
         if (!cells.length || cells.some((c) => c.cost_usd == null)) continue;  // no token log (e.g. vals.ai cells)
         const cost = cells.reduce((s, c) => s + c.cost_usd, 0);
-        pts.push({ x: cost / cells.length, y: (100 * passCount(a, split.v01)) / split.v01.length, model: a.model, agent: a.agent, local: true,
-                   note: `${cells.length} tasks, ${money(cost)} total` });
+        pts.push({ x: cost / cells.length, y, model: a.model, agent: a.agent, local: true,
+                   note: `${cells.length} attempts, ${money(cost)} total` });
       }
     }
     if (!pts.length) {
@@ -827,6 +838,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
     const localCell = (a, t) => {
       const r = a.per_task[idOf[t.name]];
       if (!r || r.status === 'not_run') return { k: 0, n: 0, tip: `${a.agent} / ${a.model} · ${t.name}: not run, counted as 0` };
+      if (r.trials && r.trials.length > 1) { const k = r.trials.filter((x) => x.pass).length; return { k, n: r.trials.length, tip: `${a.agent} / ${a.model} · ${t.name}: ${k}/${r.trials.length} runs solved` }; }
       return { k: r.status === 'pass' ? 1 : 0, n: 1, tip: `${a.agent} / ${a.model} · ${t.name}: ${r.status}${r.total ? ` (${r.passed}/${r.total} tests)` : ''}${r.source ? ` · ${r.source}` : ''}` };
     };
     const rows = d.arms.map((a) => { const cells = cols.map((t) => localCell(a, t)); return { kind: 'local', agent: a.agent, model: a.model, cells, acc: rate(cells) }; });
@@ -843,7 +855,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
         .sort((a, b) => b.acc - a.acc);
       html += `<div style="margin-top:36px">${heat(nrows, split.newer, `Life-science tasks added after v0.1 <span class="sub">/ ${split.newer.length} tasks / ScienceInfra arms only, not part of any rate above</span>`)}</div>`;
     }
-    el.innerHTML = html + `<p class="bench-note">Cells show runs solved. Public rows are the official leaderboard's 3 trials per task; ScienceInfra rows are a single run, so a cell is 1/1 or 0/1, and 0/0 marks a task that was not run and is counted as 0.</p>`;
+    el.innerHTML = html + `<p class="bench-note">Cells show runs solved. Public rows are the official leaderboard's 3 trials per task; ScienceInfra rows show the runs we made per task (omicos + ds4-flash: 3; others: 1), and 0/0 marks a task that was not run and is counted as 0.</p>`;
   }
 
   // ---------------------------------------------------------------- HELD-OUT (aggregate only)

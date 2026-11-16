@@ -182,7 +182,30 @@
           "reward": 1.0,
           "cost_usd": 0.0875,
           "cost_usd_no_cache": 0.9731,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": 0.0875
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 11,
+              "total": 16,
+              "cost_usd": 0.1857
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": 0.3221
+            }
+          ]
         },
         "animal-reid": {
           "status": "fail",
@@ -191,7 +214,30 @@
           "reward": 0.0,
           "cost_usd": 0.0912,
           "cost_usd_no_cache": 1.8047,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": 0.0912
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": 0.2223
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": 0.3731
+            }
+          ]
         },
         "ankle": {
           "status": "fail",
@@ -200,7 +246,30 @@
           "reward": 0.0,
           "cost_usd": 0.0768,
           "cost_usd_no_cache": 1.1801,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": false,
+              "passed": 4,
+              "total": 5,
+              "cost_usd": 0.0768
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 4,
+              "total": 5,
+              "cost_usd": 0.28
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 4,
+              "total": 5,
+              "cost_usd": 0.2588
+            }
+          ]
         },
         "betalactam": {
           "status": "pass",
@@ -209,7 +278,30 @@
           "reward": 1.0,
           "cost_usd": 0.0498,
           "cost_usd_no_cache": 0.6751,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.0498
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.0843
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.094
+            }
+          ]
         },
         "cilia": {
           "status": "pass",
@@ -218,7 +310,30 @@
           "reward": 1.0,
           "cost_usd": 0.0577,
           "cost_usd_no_cache": 0.7855,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.0577
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.0999
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.2389
+            }
+          ]
         },
         "clinical": {
           "status": "pass",
@@ -227,7 +342,30 @@
           "reward": 1.0,
           "cost_usd": 0.0638,
           "cost_usd_no_cache": 0.8303,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.0638
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 2,
+              "total": 4,
+              "cost_usd": 0.1866
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 2,
+              "total": 4,
+              "cost_usd": 0.1802
+            }
+          ]
         },
         "dapi-he": {
           "status": "pass",
@@ -236,7 +374,30 @@
           "reward": 1.0,
           "cost_usd": 0.0681,
           "cost_usd_no_cache": 0.908,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.0681
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.111
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 1,
+              "total": 5,
+              "cost_usd": 0.6794
+            }
+          ]
         },
         "diag-chipseq": {
           "status": "pass",
@@ -245,7 +406,30 @@
           "reward": 1.0,
           "cost_usd": 0.0876,
           "cost_usd_no_cache": 1.2928,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.0876
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1163
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1063
+            }
+          ]
         },
         "eeg": {
           "status": "pass",
@@ -254,7 +438,30 @@
           "reward": 1.0,
           "cost_usd": 0.0694,
           "cost_usd_no_cache": 0.9403,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 43,
+              "total": 43,
+              "cost_usd": 0.0694
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 41,
+              "total": 43,
+              "cost_usd": 0.203
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 43,
+              "total": 43,
+              "cost_usd": 0.4186
+            }
+          ]
         },
         "ehr": {
           "status": "pass",
@@ -263,7 +470,30 @@
           "reward": 1.0,
           "cost_usd": 0.1124,
           "cost_usd_no_cache": 1.6464,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1124
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 4,
+              "total": 5,
+              "cost_usd": 0.2702
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1955
+            }
+          ]
         },
         "foraging": {
           "status": "pass",
@@ -272,7 +502,30 @@
           "reward": 1.0,
           "cost_usd": 0.1581,
           "cost_usd_no_cache": 3.2501,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.1581
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.1711
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 6,
+              "total": 7,
+              "cost_usd": 0.1754
+            }
+          ]
         },
         "genomic-model-ranking": {
           "status": "pass",
@@ -281,7 +534,30 @@
           "reward": 1.0,
           "cost_usd": 0.0514,
           "cost_usd_no_cache": 0.6743,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.0514
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.1051
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 1,
+              "total": 4,
+              "cost_usd": 0.4431
+            }
+          ]
         },
         "gramcall": {
           "status": "pass",
@@ -290,7 +566,23 @@
           "reward": 1.0,
           "cost_usd": 0.1001,
           "cost_usd_no_cache": 1.6661,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b8",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.1001
+            },
+            {
+              "tag": "b9",
+              "pass": false,
+              "passed": 5,
+              "total": 9,
+              "cost_usd": 0.1045
+            }
+          ]
         },
         "haplotype": {
           "status": "pass",
@@ -299,7 +591,23 @@
           "reward": 1.0,
           "cost_usd": 0.1432,
           "cost_usd_no_cache": 1.8912,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b8",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.1432
+            },
+            {
+              "tag": "b9",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.2331
+            }
+          ]
         },
         "lineage": {
           "status": "pass",
@@ -308,7 +616,23 @@
           "reward": 1.0,
           "cost_usd": 0.066,
           "cost_usd_no_cache": 0.9557,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b8",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.066
+            },
+            {
+              "tag": "b9",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.096
+            }
+          ]
         },
         "longclin": {
           "status": "pass",
@@ -317,7 +641,30 @@
           "reward": 1.0,
           "cost_usd": 0.1369,
           "cost_usd_no_cache": 3.2387,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": 0.1369
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 0,
+              "total": 2,
+              "cost_usd": 0.272
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": 0.2629
+            }
+          ]
         },
         "mdd": {
           "status": "fail",
@@ -326,7 +673,30 @@
           "reward": 0.0,
           "cost_usd": 0.1022,
           "cost_usd_no_cache": 1.9099,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": 0.1022
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.2016
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.2441
+            }
+          ]
         },
         "mri": {
           "status": "pass",
@@ -335,7 +705,30 @@
           "reward": 1.0,
           "cost_usd": 0.0614,
           "cost_usd_no_cache": 0.6157,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 8,
+              "total": 8,
+              "cost_usd": 0.0614
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": 0.2299
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 4,
+              "total": 8,
+              "cost_usd": 0.597
+            }
+          ]
         },
         "nis3d": {
           "status": "pass",
@@ -344,7 +737,30 @@
           "reward": 1.0,
           "cost_usd": 0.0572,
           "cost_usd_no_cache": 1.0818,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 8,
+              "total": 8,
+              "cost_usd": 0.0572
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 8,
+              "total": 8,
+              "cost_usd": 0.1562
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 5,
+              "total": 8,
+              "cost_usd": 0.3008
+            }
+          ]
         },
         "ont-tn-qc": {
           "status": "pass",
@@ -353,7 +769,30 @@
           "reward": 1.0,
           "cost_usd": 0.0481,
           "cost_usd_no_cache": 0.4445,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.0481
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.0687
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": 0.0639
+            }
+          ]
         },
         "plantdist": {
           "status": "pass",
@@ -362,7 +801,30 @@
           "reward": 1.0,
           "cost_usd": 0.0748,
           "cost_usd_no_cache": 1.2029,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.0748
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.1348
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.1155
+            }
+          ]
         },
         "protein-al": {
           "status": "pass",
@@ -371,7 +833,30 @@
           "reward": 1.0,
           "cost_usd": 0.0438,
           "cost_usd_no_cache": 0.6609,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": 0.0438
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": 0.1181
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": 0.1546
+            }
+          ]
         },
         "qsm": {
           "status": "pass",
@@ -380,7 +865,30 @@
           "reward": 1.0,
           "cost_usd": 0.0669,
           "cost_usd_no_cache": 0.993,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.0669
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.1314
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": 0.2453
+            }
+          ]
         },
         "spatial": {
           "status": "pass",
@@ -389,7 +897,30 @@
           "reward": 1.0,
           "cost_usd": 0.0435,
           "cost_usd_no_cache": 0.453,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.0435
+            },
+            {
+              "tag": "b6",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1017
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": 0.1157
+            }
+          ]
         },
         "tumor": {
           "status": "pass",
@@ -398,9 +929,34 @@
           "reward": 1.0,
           "cost_usd": 0.0745,
           "cost_usd_no_cache": 0.9895,
-          "cache": "estimated"
+          "cache": "estimated",
+          "trials": [
+            {
+              "tag": "b4",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.0745
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 6,
+              "total": 7,
+              "cost_usd": 0.2352
+            },
+            {
+              "tag": "b7",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.1315
+            }
+          ]
         }
-      }
+      },
+      "trials_passed": 50,
+      "trials_total": 72
     },
     {
       "id": "omicos-sol",

@@ -202,3 +202,8 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
 
 .pareto .pt.local circle{fill:var(--accent,#7cf);stroke:#fff;stroke-width:1.2}
 .pareto .pt.local text.m{font-weight:600}
+
+/* omicos rows */
+.bench-table tr.row-omicos > td, .bench-table tr.row-omicos > th{background:rgba(124,204,255,.10)}
+.bench-table tr.row-omicos:hover > td, .bench-table tr.row-omicos:hover > th{background:rgba(124,204,255,.16)}
+.bench-table tr.row-omicos > td:first-child, .bench-table tr.row-omicos > th:first-child{box-shadow:inset 3px 0 0 rgba(124,204,255,.85)}

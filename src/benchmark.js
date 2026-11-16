@@ -157,7 +157,7 @@
           <th>#</th><th>Agent</th><th>Model</th><th>Accuracy</th><th class="num">Passed</th><th>Task set</th><th>Source</th>
         </tr></thead>
         <tbody>${rows.map((r) => `
-          <tr class="${r.run ? '' : 'not-run'}">
+          <tr class="${(r.run ? '' : 'not-run') + (/^omicos$/i.test(r.agent) ? ' row-omicos' : '')}">
             <td class="rank">${r.rank}</td>
             <td class="agent">${esc(r.agent)}</td>
             <td>${esc(r.model)}</td>
@@ -292,7 +292,7 @@
       <div class="radar-split">
         <div class="bench-table-scroll"><table class="bench-table radar-table">
           <thead><tr><th>Model / agent</th>${DOMAINS.map((x) => `<th class="num${x.id === sel ? ' sel' : ''}">${esc(x.label.replace(' sciences', '').replace(' domains', ''))}</th>`).join('')}</tr></thead>
-          <tbody>${rows.map((r) => `<tr>
+          <tbody>${rows.map((r) => `<tr class="${/^omicos$/i.test(r.agent) ? 'row-omicos' : ''}">
             <td><span class="agent">${esc(r.model)}</span><br><span class="sub">${esc(r.agent)}${r.kind === 'local' ? ' · ScienceInfra' : ''}</span></td>
             ${DOMAINS.map((x) => `<td class="num${x.id === sel ? ' sel' : ''}${r.v[x.id] === 0 ? ' zero' : ''}">${pct(r.v[x.id])}</td>`).join('')}
           </tr>`).join('')}</tbody>
@@ -334,7 +334,7 @@
       <div class="chart-card hm-scroll"><table class="heatmap">
         <thead><tr><th class="hm-corner"><span>Model / agent</span><span>Resolution rate</span></th>
           ${tasks.map((t) => `<th class="hm-task"><div><span>${esc(t.name)}</span></div></th>`).join('')}</tr></thead>
-        <tbody>${rows.map((r) => `<tr class="${r.kind === 'local' ? 'local' : ''}">
+        <tbody>${rows.map((r) => `<tr class="${(r.kind === 'local' ? 'local' : '') + (/^omicos$/i.test(r.agent) ? ' row-omicos' : '')}">
           <th class="hm-row"><div><span class="who"><b>${esc(r.model)}</b><i>${esc(r.agent)}${r.kind === 'local' ? ' · ScienceInfra' : ''}</i></span><span class="rate">${pct(r.acc)}</span></div></th>
           ${r.cells.map(cell).join('')}</tr>`).join('')}</tbody>
       </table></div>`;
@@ -385,7 +385,7 @@
       const xs = dom === 'all' ? Object.values(a.domains) : dom === 'life' ? [a.domains['life-sciences']].filter(Boolean) : [];
       const passed = xs.reduce((n, x) => n + x.passed, 0), tasks = xs.reduce((n, x) => n + x.tasks, 0);
       const acc = tasks ? (100 * passed) / tasks : 0;
-      return `<tr class="${tasks ? '' : 'not-run'}"><td class="rank">${i + 1}</td><td class="agent">${esc(a.agent)}</td><td>${esc(a.model)}</td>
+      return `<tr class="${(tasks ? '' : 'not-run') + (/^omicos$/i.test(a.agent) ? ' row-omicos' : '')}"><td class="rank">${i + 1}</td><td class="agent">${esc(a.agent)}</td><td>${esc(a.model)}</td>
         <td><div class="acc-bar-wrap"><span class="acc-bar"><i style="width:${acc}%"></i></span><span class="acc-num">${pct(acc)}</span></div></td>
         <td class="num">${tasks ? ratio(passed, tasks) : '0/0'}</td><td class="sub">${tasks ? 'held-out · 1 run' : 'not run · counted as 0'}</td><td>${sourceChip(a)}</td></tr>`;
     }).join('');

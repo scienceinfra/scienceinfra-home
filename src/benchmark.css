@@ -138,3 +138,64 @@
 .radar-row.not-run .name,.radar-row.not-run .val{color:var(--fg-30)}
 .radar-row .bar > i.pub{background:rgba(255,255,255,.34)}
 .radar-row{grid-template-columns:150px 1fr 44px}
+
+/* official-style charts: heat-map matrix, pareto scatter, domain radar */
+.bench-note{margin-top:14px;font-size:12px;line-height:19px;color:var(--fg-30);max-width:860px}
+.chart-card{background:var(--card);border-radius:16px;padding:20px}
+.chart-scroll{overflow-x:auto}
+svg.pareto{display:block;width:100%;min-width:720px;height:auto}
+svg.pareto .grid{stroke:rgba(255,255,255,.07);stroke-width:1}
+svg.pareto text{font-family:var(--mono)}
+svg.pareto .tick{font-size:11px;fill:var(--fg-30)}
+svg.pareto .axis{font-size:11px;fill:var(--fg-60)}
+svg.pareto .front{fill:none;stroke:var(--sunset);stroke-width:1.6}
+svg.pareto .pt circle{fill:rgba(255,255,255,.4)}
+svg.pareto .pt.on circle{fill:var(--sunset)}
+svg.pareto .pt .m{font-size:11px;fill:var(--fg-60)}
+svg.pareto .pt.on .m{fill:var(--fg);font-weight:500}
+svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
+
+.radar-split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:start}
+.radar-table td,.radar-table th{padding:9px 10px}
+.radar-table .sel{background:rgba(255,99,8,.07);color:var(--fg)}
+.radar-table th.sel{color:var(--sunset)}
+.radar-table td.zero{color:var(--fg-30)}
+.radar-table td .agent{font-weight:500}
+.radar-chart{position:sticky;top:88px}
+.radar-chart svg{display:block;width:100%;height:auto}
+.radar-chart .ring{fill:none;stroke:rgba(255,255,255,.1);stroke-width:1}
+.radar-chart .shape{fill:none;stroke-linejoin:round}
+.radar-chart text{font-family:var(--mono)}
+.radar-chart .axis{font-size:10px;fill:var(--fg-60);letter-spacing:.04em}
+.radar-chart .tick{font-size:9px;fill:var(--fg-30)}
+.radar-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:11px;font-family:var(--mono);color:var(--fg-60)}
+.radar-legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.radar-legend i{font-style:normal;color:var(--fg-30)}
+@media (max-width:980px){.radar-split{grid-template-columns:1fr}.radar-chart{position:static}}
+
+.hm-scroll{overflow:auto;padding:0}
+.heatmap{border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:11px}
+.heatmap td{padding:0;border-right:1px solid var(--bg,#0a0a0a);border-bottom:1px solid var(--bg,#0a0a0a)}
+.hm{display:flex;align-items:center;justify-content:center;width:44px;height:44px;color:#fff;cursor:default}
+.hm-0{background:#141414;color:var(--fg-30)}
+.hm-1{background:rgba(255,99,8,.24)}
+.hm-2{background:rgba(255,99,8,.52)}
+.hm-3{background:rgba(255,99,8,.86)}
+.hm-na{color:rgba(255,255,255,.16)}
+.hm:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.heatmap thead th{height:176px;padding:0;vertical-align:bottom}
+.hm-task{width:45px;min-width:45px;position:relative}
+.hm-task div{position:absolute;left:22px;bottom:8px;width:0;height:0}
+.hm-task span{position:absolute;left:0;bottom:0;transform-origin:left bottom;transform:rotate(-52deg);white-space:nowrap;font-weight:400;font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:var(--fg-60)}
+.hm-corner{position:sticky;left:0;z-index:3;background:var(--card);min-width:250px;text-align:left}
+.hm-corner span{display:inline-block;padding:0 12px 10px 16px;font-size:10px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-30)}
+.hm-corner span:last-child{float:right}
+.hm-row{position:sticky;left:0;z-index:1;background:var(--card);min-width:250px;height:44px;padding:0 12px 0 16px;text-align:left;font-weight:400;border-bottom:1px solid rgba(255,255,255,.06)}
+.hm-row > div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hm-row .who{display:flex;flex-direction:column;line-height:1.35;min-width:0}
+.hm-row b{font-weight:500;color:var(--fg);white-space:nowrap}
+.hm-row i{font-style:normal;font-size:9.5px;color:var(--fg-30);white-space:nowrap}
+.hm-row .rate{color:var(--fg);font-size:11px}
+.heatmap tr.local .hm-row b{color:var(--sunset)}
+.heatmap thead tr th:last-child{padding-right:110px}
+@media (max-width:768px){.hm-corner,.hm-row{min-width:168px}.hm{width:38px;height:38px}.hm-task{width:39px;min-width:39px}.hm-task div{left:19px}}

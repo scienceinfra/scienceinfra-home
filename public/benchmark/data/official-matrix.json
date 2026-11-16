@@ -1,0 +1,306 @@
+{
+"fetched_at": "2026-11-16",
+"source": "https://www.terminal-bench-science.ai/?view=matrix",
+"note": "Trials solved out of 3 per task, transcribed from the official task matrix (v0.1). rows[model][i] is the count for tasks[i].",
+"tasks": [
+{
+"name": "leaky-bloch-meep",
+"domain": "physical"
+},
+{
+"name": "regularized-game-proof",
+"domain": "mathematical"
+},
+{
+"name": "microarch-modeling",
+"domain": "engineering"
+},
+{
+"name": "geometric-pharmacophore-alignment",
+"domain": "physical"
+},
+{
+"name": "qsm-reconstruction",
+"domain": "life"
+},
+{
+"name": "eeg-erp-recovery",
+"domain": "life"
+},
+{
+"name": "clinical-metadata-recovery",
+"domain": "life"
+},
+{
+"name": "stacking-disorder-diffraction",
+"domain": "physical"
+},
+{
+"name": "frustrated-heisenberg-nqs",
+"domain": "physical"
+},
+{
+"name": "mendota-ice-phenology",
+"domain": "earth"
+},
+{
+"name": "reactor-safety-control",
+"domain": "engineering"
+},
+{
+"name": "dna-storage-codec",
+"domain": "mathematical"
+},
+{
+"name": "betalactam-multimodal-transfer",
+"domain": "life"
+},
+{
+"name": "ambient-rna-correction",
+"domain": "life"
+},
+{
+"name": "rolling-shutter-oma",
+"domain": "engineering"
+},
+{
+"name": "spin-glass-groundstate",
+"domain": "physical"
+},
+{
+"name": "sparse-network-assimilation",
+"domain": "earth"
+},
+{
+"name": "amr-poisson-optimize",
+"domain": "mathematical"
+},
+{
+"name": "neo-orbit-determination",
+"domain": "physical"
+},
+{
+"name": "rv-astrometry-fitting",
+"domain": "physical"
+},
+{
+"name": "duan-thesis",
+"domain": "earth"
+},
+{
+"name": "inverse-lithography",
+"domain": "physical"
+},
+{
+"name": "localized-sspd-solver",
+"domain": "mathematical"
+},
+{
+"name": "hysteretic-aquifer-control",
+"domain": "earth"
+},
+{
+"name": "energy-routing",
+"domain": "mathematical"
+},
+{
+"name": "foraging-cognitive-model",
+"domain": "life"
+},
+{
+"name": "koopman-mfg-id",
+"domain": "mathematical"
+},
+{
+"name": "stereo-dem-icesat2",
+"domain": "earth"
+},
+{
+"name": "certified-sparse-regression",
+"domain": "mathematical"
+},
+{
+"name": "finite-free-stam",
+"domain": "mathematical"
+},
+{
+"name": "hbv-calibration-1",
+"domain": "earth"
+},
+{
+"name": "inelastic-constitutive-discovery",
+"domain": "engineering"
+},
+{
+"name": "inverse-waveguide-shape",
+"domain": "physical"
+},
+{
+"name": "navigation-sensor-calibration",
+"domain": "engineering"
+},
+{
+"name": "ode-law-discovery",
+"domain": "mathematical"
+},
+{
+"name": "cilia-segmentation",
+"domain": "life"
+},
+{
+"name": "onsager-ising-lean",
+"domain": "mathematical"
+},
+{
+"name": "linked-cell-suppression",
+"domain": "mathematical"
+},
+{
+"name": "symbolic-regression",
+"domain": "mathematical"
+},
+{
+"name": "dapi-he-alignment",
+"domain": "life"
+},
+{
+"name": "animal-reid",
+"domain": "life"
+},
+{
+"name": "rdkit-ic-constraints",
+"domain": "physical"
+},
+{
+"name": "tamp-skill-planning",
+"domain": "engineering"
+},
+{
+"name": "mri-harmonization",
+"domain": "life"
+},
+{
+"name": "spatial-cell-annotation",
+"domain": "life"
+},
+{
+"name": "gen-turan-paths",
+"domain": "mathematical"
+},
+{
+"name": "genomic-model-ranking",
+"domain": "life"
+},
+{
+"name": "noisy-blackbox-optimization",
+"domain": "mathematical"
+},
+{
+"name": "protein-active-learning",
+"domain": "life"
+},
+{
+"name": "traffic-flux-inversion",
+"domain": "mathematical"
+},
+{
+"name": "masked-spherical-remap",
+"domain": "earth"
+},
+{
+"name": "ont-tn-qc",
+"domain": "life"
+},
+{
+"name": "small-area-equivalence",
+"domain": "mathematical"
+},
+{
+"name": "xrd-multiphase-qpa",
+"domain": "physical"
+},
+{
+"name": "highdim-mediation-debiasing",
+"domain": "mathematical"
+},
+{
+"name": "ankle-mri-findings",
+"domain": "life"
+},
+{
+"name": "cell-lineage-reconstruction",
+"domain": "life"
+},
+{
+"name": "diag-chipseq",
+"domain": "life"
+},
+{
+"name": "virtual-baseline-localization",
+"domain": "engineering"
+},
+{
+"name": "baseline-free-localization",
+"domain": "engineering"
+},
+{
+"name": "guided-wave-localization",
+"domain": "engineering"
+},
+{
+"name": "nanoindentation-property-extraction",
+"domain": "physical"
+},
+{
+"name": "tumor-immune-interface",
+"domain": "life"
+},
+{
+"name": "supraglacial-lake-classification",
+"domain": "earth"
+},
+{
+"name": "tess-transit-vetting",
+"domain": "physical"
+},
+{
+"name": "3x2pt-inference",
+"domain": "physical"
+},
+{
+"name": "cmb-cross-inference",
+"domain": "physical"
+},
+{
+"name": "longitudinal-clinical-agent",
+"domain": "life"
+},
+{
+"name": "si-fracture-fbc",
+"domain": "physical"
+},
+{
+"name": "variable-star-vetting",
+"domain": "physical"
+}
+],
+"rows": {
+"GPT-6 Astra": "3333333333332333333233233232332333302313201003322033331122111100000000",
+"Opus 5.5": "3333113332333333333233333332330213333023333022130212020210000101100000",
+"Fable 5.1": "2313233331333122331122222321110102230101123110000100000000100000000000",
+"Opus 5": "3312232222232211210112122312002202020010010000100100000000000000000000",
+"GPT-5.6 Sol": "2330230312011001000201001001131010002100010001111010101001100010000000",
+"Fable 5": "3323332000011010131200020022201000212010000000000100000000000000000000",
+"DeepSeek V4.1 Flash": "3133030230222001101001200000001000000010000100000000000000000000000000",
+"Grok 4.7": "3122211033200220000020100000001100000000000000001000000000000000000000",
+"Gemini 3.8 Flash": "3021212202000111003000000001000020000000000000001000000000000010000000",
+"Opus 4.8": "3302301011100001001200000000000110000100000000000000000000000000000000",
+"GPT-5.6 Terra": "2320100102001000000000000000000020000100100100000000100000000000000000",
+"GLM 5.3": "0003111100201101000010000000000000000020000100000100000000000000000000",
+"Kimi K3": "1003110021000000100000000000001000000000000200000000001000010000000000",
+"Grok 4.6": "1320000100100201000000000000001000000000000010001000000000001000000000",
+"Gemini 3.7 Flash": "2110003100000010000100000000000000000000000020000000000000000000000000",
+"DeepSeek V4 Pro": "1031000000010000000000100000000000000000000000000000001000000000000000",
+"GPT-5.6 Luna": "0310001000000010000000000000000000000100000000000000000000000000000000"
+}
+}

@@ -1,0 +1,658 @@
+{
+ "fetched_at": "2026-11-15",
+ "source": "https://www.terminal-bench-science.ai/",
+ "note": "Per-domain rows transcribed from the official leaderboard's domain tabs (v0.1, 70 tasks, 3 trials per task). Costs shown rounded on the site (e.g. $1.03k) are stored as rounded.",
+ "domains": {
+  "life": {
+   "label": "Life sciences",
+   "tasks": 19
+  },
+  "physical": {
+   "label": "Physical sciences",
+   "tasks": 17
+  },
+  "earth": {
+   "label": "Earth sciences",
+   "tasks": 8
+  },
+  "mathematical": {
+   "label": "Mathematical sciences",
+   "tasks": 17
+  },
+  "engineering": {
+   "label": "Engineering sciences",
+   "tasks": 9
+  }
+ },
+ "scores": {
+  "GPT-6 Astra": {
+   "life": {
+    "accuracy": 59.6,
+    "stderr": 6.5,
+    "passes": 34,
+    "trials": 57,
+    "cost_usd": 1030.0
+   },
+   "physical": {
+    "accuracy": 58.8,
+    "stderr": 6.9,
+    "passes": 30,
+    "trials": 51,
+    "cost_usd": 1220.0
+   },
+   "earth": {
+    "accuracy": 79.2,
+    "stderr": 8.3,
+    "passes": 19,
+    "trials": 24,
+    "cost_usd": 595.78
+   },
+   "mathematical": {
+    "accuracy": 80.4,
+    "stderr": 5.6,
+    "passes": 41,
+    "trials": 51,
+    "cost_usd": 1450.0
+   },
+   "engineering": {
+    "accuracy": 70.4,
+    "stderr": 8.8,
+    "passes": 19,
+    "trials": 27,
+    "cost_usd": 698.22
+   }
+  },
+  "Opus 5.5": {
+   "life": {
+    "accuracy": 54.4,
+    "stderr": 6.6,
+    "passes": 31,
+    "trials": 57,
+    "cost_usd": 970.39
+   },
+   "physical": {
+    "accuracy": 60.8,
+    "stderr": 6.8,
+    "passes": 31,
+    "trials": 51,
+    "cost_usd": 1080.0
+   },
+   "earth": {
+    "accuracy": 62.5,
+    "stderr": 9.9,
+    "passes": 15,
+    "trials": 24,
+    "cost_usd": 638.23
+   },
+   "mathematical": {
+    "accuracy": 76.5,
+    "stderr": 5.9,
+    "passes": 39,
+    "trials": 51,
+    "cost_usd": 1160.0
+   },
+   "engineering": {
+    "accuracy": 63.0,
+    "stderr": 9.3,
+    "passes": 17,
+    "trials": 27,
+    "cost_usd": 1030.0
+   }
+  },
+  "Fable 5.1": {
+   "life": {
+    "accuracy": 38.6,
+    "stderr": 6.4,
+    "passes": 22,
+    "trials": 57,
+    "cost_usd": 1110.0
+   },
+   "physical": {
+    "accuracy": 37.3,
+    "stderr": 6.8,
+    "passes": 19,
+    "trials": 51,
+    "cost_usd": 1820.0
+   },
+   "earth": {
+    "accuracy": 37.5,
+    "stderr": 9.9,
+    "passes": 9,
+    "trials": 24,
+    "cost_usd": 746.48
+   },
+   "mathematical": {
+    "accuracy": 41.2,
+    "stderr": 6.9,
+    "passes": 21,
+    "trials": 51,
+    "cost_usd": 1600.0
+   },
+   "engineering": {
+    "accuracy": 48.1,
+    "stderr": 9.6,
+    "passes": 13,
+    "trials": 27,
+    "cost_usd": 976.65
+   }
+  },
+  "Opus 5": {
+   "life": {
+    "accuracy": 29.8,
+    "stderr": 6.1,
+    "passes": 17,
+    "trials": 57,
+    "cost_usd": 1320.0
+   },
+   "physical": {
+    "accuracy": 27.5,
+    "stderr": 6.2,
+    "passes": 14,
+    "trials": 51,
+    "cost_usd": 1850.0
+   },
+   "earth": {
+    "accuracy": 45.8,
+    "stderr": 10.2,
+    "passes": 11,
+    "trials": 24,
+    "cost_usd": 1150.0
+   },
+   "mathematical": {
+    "accuracy": 25.5,
+    "stderr": 6.1,
+    "passes": 13,
+    "trials": 51,
+    "cost_usd": 1630.0
+   },
+   "engineering": {
+    "accuracy": 29.6,
+    "stderr": 8.8,
+    "passes": 8,
+    "trials": 27,
+    "cost_usd": 1040.0
+   }
+  },
+  "GPT-5.6 Sol": {
+   "life": {
+    "accuracy": 17.5,
+    "stderr": 5.0,
+    "passes": 10,
+    "trials": 57,
+    "cost_usd": 513.19
+   },
+   "physical": {
+    "accuracy": 23.5,
+    "stderr": 5.9,
+    "passes": 12,
+    "trials": 51,
+    "cost_usd": 1140.0
+   },
+   "earth": {
+    "accuracy": 20.8,
+    "stderr": 8.3,
+    "passes": 5,
+    "trials": 24,
+    "cost_usd": 584.56
+   },
+   "mathematical": {
+    "accuracy": 31.4,
+    "stderr": 6.5,
+    "passes": 16,
+    "trials": 51,
+    "cost_usd": 1660.0
+   },
+   "engineering": {
+    "accuracy": 14.8,
+    "stderr": 6.8,
+    "passes": 4,
+    "trials": 27,
+    "cost_usd": 315.06
+   }
+  },
+  "Fable 5": {
+   "life": {
+    "accuracy": 17.5,
+    "stderr": 5.0,
+    "passes": 10,
+    "trials": 57,
+    "cost_usd": 1960.0
+   },
+   "physical": {
+    "accuracy": 17.6,
+    "stderr": 5.3,
+    "passes": 9,
+    "trials": 51,
+    "cost_usd": 3580.0
+   },
+   "earth": {
+    "accuracy": 25.0,
+    "stderr": 8.8,
+    "passes": 6,
+    "trials": 24,
+    "cost_usd": 1620.0
+   },
+   "mathematical": {
+    "accuracy": 33.3,
+    "stderr": 6.6,
+    "passes": 17,
+    "trials": 51,
+    "cost_usd": 4630.0
+   },
+   "engineering": {
+    "accuracy": 11.1,
+    "stderr": 6.0,
+    "passes": 3,
+    "trials": 27,
+    "cost_usd": 2390.0
+   }
+  },
+  "Gemini 3.8 Flash": {
+   "life": {
+    "accuracy": 14.0,
+    "stderr": 4.6,
+    "passes": 8,
+    "trials": 57,
+    "cost_usd": 129.49
+   },
+   "physical": {
+    "accuracy": 23.5,
+    "stderr": 5.9,
+    "passes": 12,
+    "trials": 51,
+    "cost_usd": 288.67
+   },
+   "earth": {
+    "accuracy": 12.5,
+    "stderr": 6.8,
+    "passes": 3,
+    "trials": 24,
+    "cost_usd": 117.58
+   },
+   "mathematical": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 51,
+    "cost_usd": 510.98
+   },
+   "engineering": {
+    "accuracy": 11.1,
+    "stderr": 6.0,
+    "passes": 3,
+    "trials": 27,
+    "cost_usd": 70.26
+   }
+  },
+  "Grok 4.7": {
+   "life": {
+    "accuracy": 12.3,
+    "stderr": 4.3,
+    "passes": 7,
+    "trials": 57,
+    "cost_usd": 377.22
+   },
+   "physical": {
+    "accuracy": 15.7,
+    "stderr": 5.1,
+    "passes": 8,
+    "trials": 51,
+    "cost_usd": 680.14
+   },
+   "earth": {
+    "accuracy": 25.0,
+    "stderr": 8.8,
+    "passes": 6,
+    "trials": 24,
+    "cost_usd": 314.11
+   },
+   "mathematical": {
+    "accuracy": 3.9,
+    "stderr": 2.7,
+    "passes": 2,
+    "trials": 51,
+    "cost_usd": 1360.0
+   },
+   "engineering": {
+    "accuracy": 25.9,
+    "stderr": 8.4,
+    "passes": 7,
+    "trials": 27,
+    "cost_usd": 343.58
+   }
+  },
+  "DeepSeek V4.1 Flash": {
+   "life": {
+    "accuracy": 10.5,
+    "stderr": 4.1,
+    "passes": 6,
+    "trials": 57,
+    "cost_usd": 64.23
+   },
+   "physical": {
+    "accuracy": 27.5,
+    "stderr": 6.2,
+    "passes": 14,
+    "trials": 51,
+    "cost_usd": 118.82
+   },
+   "earth": {
+    "accuracy": 8.3,
+    "stderr": 5.6,
+    "passes": 2,
+    "trials": 24,
+    "cost_usd": 39.17
+   },
+   "mathematical": {
+    "accuracy": 11.8,
+    "stderr": 4.5,
+    "passes": 6,
+    "trials": 51,
+    "cost_usd": 93.97
+   },
+   "engineering": {
+    "accuracy": 18.5,
+    "stderr": 7.5,
+    "passes": 5,
+    "trials": 27,
+    "cost_usd": 69.75
+   }
+  },
+  "GLM 5.3": {
+   "life": {
+    "accuracy": 10.5,
+    "stderr": 4.1,
+    "passes": 6,
+    "trials": 57,
+    "cost_usd": 1310.0
+   },
+   "physical": {
+    "accuracy": 9.8,
+    "stderr": 4.2,
+    "passes": 5,
+    "trials": 51,
+    "cost_usd": 1730.0
+   },
+   "earth": {
+    "accuracy": 4.2,
+    "stderr": 4.1,
+    "passes": 1,
+    "trials": 24,
+    "cost_usd": 1400.0
+   },
+   "mathematical": {
+    "accuracy": 5.9,
+    "stderr": 3.3,
+    "passes": 3,
+    "trials": 51,
+    "cost_usd": 1570.0
+   },
+   "engineering": {
+    "accuracy": 7.4,
+    "stderr": 5.0,
+    "passes": 2,
+    "trials": 27,
+    "cost_usd": 788.27
+   }
+  },
+  "Gemini 3.7 Flash": {
+   "life": {
+    "accuracy": 8.8,
+    "stderr": 3.7,
+    "passes": 5,
+    "trials": 57,
+    "cost_usd": 100.54
+   },
+   "physical": {
+    "accuracy": 7.8,
+    "stderr": 3.8,
+    "passes": 4,
+    "trials": 51,
+    "cost_usd": 490.74
+   },
+   "earth": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 24,
+    "cost_usd": 63.51
+   },
+   "mathematical": {
+    "accuracy": 2.0,
+    "stderr": 1.9,
+    "passes": 1,
+    "trials": 51,
+    "cost_usd": 585.39
+   },
+   "engineering": {
+    "accuracy": 7.4,
+    "stderr": 5.0,
+    "passes": 2,
+    "trials": 27,
+    "cost_usd": 56.41
+   }
+  },
+  "Grok 4.6": {
+   "life": {
+    "accuracy": 7.0,
+    "stderr": 3.4,
+    "passes": 4,
+    "trials": 57,
+    "cost_usd": 281.65
+   },
+   "physical": {
+    "accuracy": 5.9,
+    "stderr": 3.3,
+    "passes": 3,
+    "trials": 51,
+    "cost_usd": 539.59
+   },
+   "earth": {
+    "accuracy": 4.2,
+    "stderr": 4.1,
+    "passes": 1,
+    "trials": 24,
+    "cost_usd": 217.33
+   },
+   "mathematical": {
+    "accuracy": 5.9,
+    "stderr": 3.3,
+    "passes": 3,
+    "trials": 51,
+    "cost_usd": 2070.0
+   },
+   "engineering": {
+    "accuracy": 14.8,
+    "stderr": 6.8,
+    "passes": 4,
+    "trials": 27,
+    "cost_usd": 231.57
+   }
+  },
+  "GPT-5.6 Terra": {
+   "life": {
+    "accuracy": 7.0,
+    "stderr": 3.4,
+    "passes": 4,
+    "trials": 57,
+    "cost_usd": 297.96
+   },
+   "physical": {
+    "accuracy": 9.8,
+    "stderr": 4.2,
+    "passes": 5,
+    "trials": 51,
+    "cost_usd": 791.88
+   },
+   "earth": {
+    "accuracy": 8.3,
+    "stderr": 5.6,
+    "passes": 2,
+    "trials": 24,
+    "cost_usd": 302.41
+   },
+   "mathematical": {
+    "accuracy": 9.8,
+    "stderr": 4.2,
+    "passes": 5,
+    "trials": 51,
+    "cost_usd": 450.66
+   },
+   "engineering": {
+    "accuracy": 7.4,
+    "stderr": 5.0,
+    "passes": 2,
+    "trials": 27,
+    "cost_usd": 141.0
+   }
+  },
+  "Kimi K3": {
+   "life": {
+    "accuracy": 7.0,
+    "stderr": 3.4,
+    "passes": 4,
+    "trials": 57,
+    "cost_usd": 591.34
+   },
+   "physical": {
+    "accuracy": 11.8,
+    "stderr": 4.5,
+    "passes": 6,
+    "trials": 51,
+    "cost_usd": 536.23
+   },
+   "earth": {
+    "accuracy": 12.5,
+    "stderr": 6.8,
+    "passes": 3,
+    "trials": 24,
+    "cost_usd": 342.6
+   },
+   "mathematical": {
+    "accuracy": 2.0,
+    "stderr": 1.9,
+    "passes": 1,
+    "trials": 51,
+    "cost_usd": 714.76
+   },
+   "engineering": {
+    "accuracy": 3.7,
+    "stderr": 3.6,
+    "passes": 1,
+    "trials": 27,
+    "cost_usd": 354.73
+   }
+  },
+  "Opus 4.8": {
+   "life": {
+    "accuracy": 7.0,
+    "stderr": 3.4,
+    "passes": 4,
+    "trials": 57,
+    "cost_usd": 806.35
+   },
+   "physical": {
+    "accuracy": 21.6,
+    "stderr": 5.8,
+    "passes": 11,
+    "trials": 51,
+    "cost_usd": 1600.0
+   },
+   "earth": {
+    "accuracy": 4.2,
+    "stderr": 4.1,
+    "passes": 1,
+    "trials": 24,
+    "cost_usd": 694.26
+   },
+   "mathematical": {
+    "accuracy": 7.8,
+    "stderr": 3.8,
+    "passes": 4,
+    "trials": 51,
+    "cost_usd": 1900.0
+   },
+   "engineering": {
+    "accuracy": 7.4,
+    "stderr": 5.0,
+    "passes": 2,
+    "trials": 27,
+    "cost_usd": 831.49
+   }
+  },
+  "GPT-5.6 Luna": {
+   "life": {
+    "accuracy": 1.8,
+    "stderr": 1.7,
+    "passes": 1,
+    "trials": 57,
+    "cost_usd": 83.51
+   },
+   "physical": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 51,
+    "cost_usd": 116.84
+   },
+   "earth": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 24,
+    "cost_usd": 41.41
+   },
+   "mathematical": {
+    "accuracy": 7.8,
+    "stderr": 3.8,
+    "passes": 4,
+    "trials": 51,
+    "cost_usd": 105.62
+   },
+   "engineering": {
+    "accuracy": 7.4,
+    "stderr": 5.0,
+    "passes": 2,
+    "trials": 27,
+    "cost_usd": 35.82
+   }
+  },
+  "DeepSeek V4 Pro": {
+   "life": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 57,
+    "cost_usd": 107.43
+   },
+   "physical": {
+    "accuracy": 3.9,
+    "stderr": 2.7,
+    "passes": 2,
+    "trials": 51,
+    "cost_usd": 140.45
+   },
+   "earth": {
+    "accuracy": 0.0,
+    "stderr": 0.0,
+    "passes": 0,
+    "trials": 24,
+    "cost_usd": 71.82
+   },
+   "mathematical": {
+    "accuracy": 5.9,
+    "stderr": 3.3,
+    "passes": 3,
+    "trials": 51,
+    "cost_usd": 146.13
+   },
+   "engineering": {
+    "accuracy": 11.1,
+    "stderr": 6.0,
+    "passes": 3,
+    "trials": 27,
+    "cost_usd": 108.4
+   }
+  }
+ }
+}

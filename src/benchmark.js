@@ -6,7 +6,7 @@
   const SUBDOMAIN_LABEL = { biology: 'Biology', ecology: 'Ecology', medicine: 'Medicine', neuroscience: 'Neuroscience' };
   const SUBDOMAIN_ORDER = ['biology', 'ecology', 'medicine', 'neuroscience'];
 
-  const state = { bench: 'tbs', view: 'ranking', domain: 'life-sciences', showPublic: false };
+  const state = { bench: 'tbs', view: 'ranking', domain: 'life-sciences', showPublic: true };
   const cache = {};
 
   const $ = (s, el) => (el || document).querySelector(s);
@@ -62,7 +62,7 @@
 
   // ---------------------------------------------------------------- RANKING
 
-  function buildTbsRows(d, pub, showPublic) {
+  function buildTbsRows(d) {
     const rows = d.arms.map((a) => ({
       rank: null,
       agent: a.agent, model: a.model,
@@ -71,26 +71,6 @@
       sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
       cost: null, sortAcc: a.accuracy == null ? -1 : a.accuracy,
     }));
-    if (showPublic && pub) {
-      for (const r of pub.rows.official) {
-        rows.push({
-          agent: r.agent, model: r.model,
-          lifeAcc: r.life_accuracy, tasksStr: ratio(r.life_passes, r.life_tasks),
-          perDomain: '–', overallAcc: r.overall_accuracy,
-          sourceHtml: `<a class="chip chip-public" href="https://www.terminal-bench-science.ai/" target="_blank" rel="noopener">public &middot; official</a>`,
-          cost: r.cost_usd, sortAcc: r.life_accuracy ?? r.overall_accuracy ?? -1,
-        });
-      }
-      for (const r of pub.rows.vals) {
-        rows.push({
-          agent: r.agent, model: r.model,
-          lifeAcc: null, tasksStr: '–',
-          perDomain: '–', overallAcc: r.overall_accuracy,
-          sourceHtml: `<a class="chip chip-public" href="https://www.vals.ai/benchmarks/terminal-bench-science" target="_blank" rel="noopener">public &middot; vals.ai</a>`,
-          cost: r.cost_usd_per_test, sortAcc: r.overall_accuracy ?? -1,
-        });
-      }
-    }
     rows.sort((a, b) => (b.sortAcc - a.sortAcc) || ((a.cost ?? Infinity) - (b.cost ?? Infinity)));
     rows.forEach((r, i) => (r.rank = i + 1));
     return rows;
@@ -100,7 +80,7 @@
     const el = $('#bench-view-ranking');
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const rows = buildTbsRows(d, pub, state.showPublic);
+    const rows = buildTbsRows(d);
     el.innerHTML = `
       <table class="bench-table">
         <thead><tr>
@@ -119,7 +99,39 @@
             <td>${r.sourceHtml}</td>
           </tr>`).join('')}
         </tbody>
-      </table>`;
+      </table>${pub ? publicTable(pub) : ''}`;
+  }
+
+  // Public leaderboards: a separate table, never ranked together with our
+  // runs, because the task set and number of trials differ.
+  function publicTable(pub) {
+    const src = Object.fromEntries(pub.sources.map((s) => [s.id, s]));
+    const link = (id) => `<a class="chip chip-public" href="${esc(src[id].url)}" target="_blank" rel="noopener">${esc(src[id].label)}</a>`;
+    const rows = [];
+    for (const r of pub.rows.official || []) rows.push({ s: 'official', r, life: r.life_accuracy, lifeN: ratio(r.life_passes, r.life_tasks) + ' trials', cost: r.cost_usd == null ? '–' : `$${Math.round(r.cost_usd).toLocaleString()} / full run` });
+    for (const r of pub.rows.vals || []) rows.push({ s: 'vals', r, life: r.life_accuracy, lifeN: '–', cost: r.cost_usd_per_test == null ? '–' : `$${r.cost_usd_per_test} / task` });
+    const body = rows.map(({ s, r, life, lifeN, cost }) => `
+          <tr>
+            <td>${link(s)}</td>
+            <td class="agent">${esc(r.agent)}</td>
+            <td>${esc(r.model)}${r.org ? ` <span class="sub">${esc(r.org)}</span>` : ''}</td>
+            <td class="sub">${esc(src[s].task_version)}</td>
+            <td class="sub">${esc(src[s].trials)}</td>
+            <td class="num">${pct(life)}${lifeN !== '–' ? ` <span class="sub">${esc(lifeN)}</span>` : ''}</td>
+            <td class="num">${pct(r.overall_accuracy)}</td>
+            <td class="num sub">${esc(cost)}</td>
+          </tr>`).join('');
+    const snorkel = src.snorkel ? `<p class="sub">${link('snorkel')} ${esc(src.snorkel.method)}.</p>` : '';
+    return `
+      <h3 class="ho-h">Public leaderboards (reference only)</h3>
+      <p class="sub pub-warn"><b>Not directly comparable with the table above.</b> These rows come from other leaderboards, run on their task set (v0.1, 19 life-science tasks rather than our 25) with their own trial counts and agents; they are listed in each source's own order and are not ranked together with ScienceInfra runs. Fetched ${esc(pub.fetched_at)}.</p>
+      <table class="bench-table bench-public">
+        <thead><tr>
+          <th>Source</th><th>Agent</th><th>Model</th><th>Task set</th><th>Trials</th>
+          <th class="num">Life sciences</th><th class="num">Overall (all domains)</th><th class="num">Cost</th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>${snorkel}`;
   }
 
   // ---------------------------------------------------------------- PARETO
@@ -185,6 +197,7 @@
         if (!r || r.status === 'not_run') return `<td><span class="cell cell-not-run" title="not run">&middot;</span></td>`;
         const cls = r.status === 'pass' ? 'cell-pass' : 'cell-fail';
         const mark = r.status === 'pass' ? '&#10003;' : '&#10007;';
+        if (r.source) return `<td><span class="cell ${cls} cell-published" title="${esc(t.id)}: ${esc(r.source)}, pass/fail only (older 70-task release)">${mark}<sup>v</sup></span></td>`;
         return `<td><span class="cell ${cls}" title="${esc(t.id)}: ${r.passed}/${r.total} tests passed, reward=${r.reward}">${mark}</span></td>`;
       }).join('');
       return `<tr><th>${esc(t.id)}<span class="sub"> &middot; ${esc(t.subdomain)}</span></th>${cells}</tr>`;
@@ -237,6 +250,7 @@
     const d = await loadTbs();
     const notes = [
       `All ScienceInfra arms above were run on the life-sciences domain only (25 tasks); physical sciences is coming soon and not yet running.`,
+      `mini-swe-agent2 rows: cells marked v (matrix) use vals.ai's published per-task pass/fail (mini-swe-agent 2.2.4, single run, older 70-task release; DeepSeek V4.1 Flash and GPT-5.6 Luna); the remaining cells were run locally on our harness.`,
     ];
     const caveatArm = d.arms.find((a) => a.caveat);
     if (caveatArm) notes.push(caveatArm.caveat);

@@ -62,15 +62,30 @@
 
   // ---------------------------------------------------------------- RANKING
 
-  function buildTbsRows(d) {
+  function buildTbsRows(d, pub) {
     const rows = d.arms.map((a) => ({
       rank: null,
       agent: a.agent, model: a.model,
       lifeAcc: a.accuracy, tasksStr: ratio(a.tasks_passed, a.tasks_evaluated),
       perDomain: perDomainStr(a.per_subdomain), overallAcc: null,
       sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
+      taskSet: a.source === 'scienceinfra' ? 'TBS life 25 · 1 run' : `TBS life ${a.tasks_evaluated} · 1 run`,
       cost: null, sortAcc: a.accuracy == null ? -1 : a.accuracy,
     }));
+    if (pub) {
+      const src = Object.fromEntries(pub.sources.map((s) => [s.id, s]));
+      const chip = (id) => `<a class="chip chip-public" href="${esc(src[id].url)}" target="_blank" rel="noopener">${esc(src[id].label)}</a>`;
+      for (const r of pub.rows.official || []) rows.push({
+        agent: r.agent, model: r.model, lifeAcc: r.life_accuracy, tasksStr: ratio(r.life_passes, r.life_tasks),
+        perDomain: '–', overallAcc: r.overall_accuracy, sourceHtml: chip('official'),
+        taskSet: 'v0.1 · 3 trials', cost: r.cost_usd, sortAcc: r.life_accuracy ?? r.overall_accuracy ?? -1,
+      });
+      for (const r of pub.rows.vals || []) rows.push({
+        agent: r.agent, model: r.model, lifeAcc: r.life_accuracy, tasksStr: '–',
+        perDomain: '–', overallAcc: r.overall_accuracy, sourceHtml: chip('vals'),
+        taskSet: 'v0.1 (70 tasks) · 1 run', cost: r.cost_usd_per_test, sortAcc: r.life_accuracy ?? r.overall_accuracy ?? -1,
+      });
+    }
     rows.sort((a, b) => (b.sortAcc - a.sortAcc) || ((a.cost ?? Infinity) - (b.cost ?? Infinity)));
     rows.forEach((r, i) => (r.rank = i + 1));
     return rows;
@@ -80,12 +95,12 @@
     const el = $('#bench-view-ranking');
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const rows = buildTbsRows(d);
+    const rows = buildTbsRows(d, pub);
     el.innerHTML = `
       <table class="bench-table">
         <thead><tr>
           <th>#</th><th>Agent</th><th>Model</th><th>Accuracy (life)</th><th>Tasks</th>
-          <th>Per domain</th><th>Overall (all domains)</th><th>Source</th>
+          <th>Per domain</th><th>Overall (all domains)</th><th>Task set</th><th>Source</th>
         </tr></thead>
         <tbody>${rows.map((r) => `
           <tr>
@@ -96,42 +111,11 @@
             <td class="num">${esc(r.tasksStr)}</td>
             <td class="sub">${r.perDomain}</td>
             <td class="num">${pct(r.overallAcc)}</td>
+            <td class="sub">${esc(r.taskSet)}</td>
             <td>${r.sourceHtml}</td>
           </tr>`).join('')}
         </tbody>
-      </table>${pub ? publicTable(pub) : ''}`;
-  }
-
-  // Public leaderboards: a separate table, never ranked together with our
-  // runs, because the task set and number of trials differ.
-  function publicTable(pub) {
-    const src = Object.fromEntries(pub.sources.map((s) => [s.id, s]));
-    const link = (id) => `<a class="chip chip-public" href="${esc(src[id].url)}" target="_blank" rel="noopener">${esc(src[id].label)}</a>`;
-    const rows = [];
-    for (const r of pub.rows.official || []) rows.push({ s: 'official', r, life: r.life_accuracy, lifeN: ratio(r.life_passes, r.life_tasks) + ' trials', cost: r.cost_usd == null ? '–' : `$${Math.round(r.cost_usd).toLocaleString()} / full run` });
-    for (const r of pub.rows.vals || []) rows.push({ s: 'vals', r, life: r.life_accuracy, lifeN: '–', cost: r.cost_usd_per_test == null ? '–' : `$${r.cost_usd_per_test} / task` });
-    const body = rows.map(({ s, r, life, lifeN, cost }) => `
-          <tr>
-            <td>${link(s)}</td>
-            <td class="agent">${esc(r.agent)}</td>
-            <td>${esc(r.model)}${r.org ? ` <span class="sub">${esc(r.org)}</span>` : ''}</td>
-            <td class="sub">${esc(src[s].task_version)}</td>
-            <td class="sub">${esc(src[s].trials)}</td>
-            <td class="num">${pct(life)}${lifeN !== '–' ? ` <span class="sub">${esc(lifeN)}</span>` : ''}</td>
-            <td class="num">${pct(r.overall_accuracy)}</td>
-            <td class="num sub">${esc(cost)}</td>
-          </tr>`).join('');
-    const snorkel = src.snorkel ? `<p class="sub">${link('snorkel')} ${esc(src.snorkel.method)}.</p>` : '';
-    return `
-      <h3 class="ho-h">Public leaderboards (reference only)</h3>
-      <p class="sub pub-warn"><b>Not directly comparable with the table above.</b> These rows come from other leaderboards, run on their task set (v0.1, 19 life-science tasks rather than our 25) with their own trial counts and agents; they are listed in each source's own order and are not ranked together with ScienceInfra runs. Fetched ${esc(pub.fetched_at)}.</p>
-      <table class="bench-table bench-public">
-        <thead><tr>
-          <th>Source</th><th>Agent</th><th>Model</th><th>Task set</th><th>Trials</th>
-          <th class="num">Life sciences</th><th class="num">Overall (all domains)</th><th class="num">Cost</th>
-        </tr></thead>
-        <tbody>${body}</tbody>
-      </table>${snorkel}`;
+      </table>`;
   }
 
   // ---------------------------------------------------------------- PARETO

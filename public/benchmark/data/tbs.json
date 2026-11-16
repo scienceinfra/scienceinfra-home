@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "in_progress": false,
   "domains": {
     "life-sciences": {
@@ -148,15 +148,15 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 76.0,
-      "tasks_passed": 19,
+      "accuracy": 88.0,
+      "tasks_passed": 22,
       "tasks_evaluated": 25,
       "tasks_total": 25,
       "per_subdomain": {
         "biology": {
-          "passed": 8,
+          "passed": 9,
           "evaluated": 9,
-          "accuracy": 88.9
+          "accuracy": 100.0
         },
         "ecology": {
           "passed": 1,
@@ -164,9 +164,9 @@
           "accuracy": 50.0
         },
         "medicine": {
-          "passed": 6,
+          "passed": 8,
           "evaluated": 9,
-          "accuracy": 66.7
+          "accuracy": 88.9
         },
         "neuroscience": {
           "passed": 4,
@@ -284,30 +284,30 @@
           "cache": "estimated"
         },
         "gramcall": {
-          "status": "fail",
-          "passed": 4,
+          "status": "pass",
+          "passed": 9,
           "total": 9,
-          "reward": 0.0,
-          "cost_usd": 0.2083,
-          "cost_usd_no_cache": 4.0303,
+          "reward": 1.0,
+          "cost_usd": 0.1001,
+          "cost_usd_no_cache": 1.6661,
           "cache": "estimated"
         },
         "haplotype": {
-          "status": "fail",
-          "passed": 6,
+          "status": "pass",
+          "passed": 7,
           "total": 7,
-          "reward": 0.0,
-          "cost_usd": 0.2794,
-          "cost_usd_no_cache": 5.8097,
+          "reward": 1.0,
+          "cost_usd": 0.1432,
+          "cost_usd_no_cache": 1.8912,
           "cache": "estimated"
         },
         "lineage": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 4,
           "total": 4,
-          "reward": 0.0,
-          "cost_usd": 0.1759,
-          "cost_usd_no_cache": 3.9627,
+          "reward": 1.0,
+          "cost_usd": 0.066,
+          "cost_usd_no_cache": 0.9557,
           "cache": "estimated"
         },
         "longclin": {
@@ -1341,30 +1341,30 @@
       "snapshot": "2026-11-12",
       "local": true,
       "caveat": "Single seed per task, pre-merge snapshot (these two arms never imported the merged omicverse changes); lineage needs a GPU and may show as not-run or as a fail here.",
-      "accuracy": 40.0,
-      "tasks_passed": 8,
-      "tasks_evaluated": 20,
+      "accuracy": 36.0,
+      "tasks_passed": 9,
+      "tasks_evaluated": 25,
       "tasks_total": 25,
       "per_subdomain": {
         "biology": {
-          "passed": 4,
-          "evaluated": 8,
-          "accuracy": 50.0
+          "passed": 5,
+          "evaluated": 9,
+          "accuracy": 55.6
         },
         "ecology": {
           "passed": 0,
-          "evaluated": 1,
+          "evaluated": 2,
           "accuracy": 0.0
         },
         "medicine": {
           "passed": 1,
-          "evaluated": 7,
-          "accuracy": 14.3
+          "evaluated": 9,
+          "accuracy": 11.1
         },
         "neuroscience": {
           "passed": 3,
-          "evaluated": 4,
-          "accuracy": 75.0
+          "evaluated": 5,
+          "accuracy": 60.0
         }
       },
       "per_task": {
@@ -1477,10 +1477,22 @@
           "cache": "measured"
         },
         "gramcall": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 5,
+          "total": 9,
+          "reward": 0.0,
+          "cost_usd": 2.2496,
+          "cost_usd_no_cache": 23.1589,
+          "cache": "measured"
         },
         "haplotype": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 6,
+          "total": 7,
+          "reward": 0.0,
+          "cost_usd": 1.3071,
+          "cost_usd_no_cache": 8.0802,
+          "cache": "measured"
         },
         "lineage": {
           "status": "fail",
@@ -1501,7 +1513,13 @@
           "cache": "measured"
         },
         "mdd": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0,
+          "cost_usd": 0.898,
+          "cost_usd_no_cache": 6.5383,
+          "cache": "measured"
         },
         "mri": {
           "status": "fail",
@@ -1513,7 +1531,13 @@
           "cache": "measured"
         },
         "nis3d": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 8,
+          "total": 8,
+          "reward": 1.0,
+          "cost_usd": 2.9693,
+          "cost_usd_no_cache": 38.3311,
+          "cache": "measured"
         },
         "ont-tn-qc": {
           "status": "pass",
@@ -1525,7 +1549,13 @@
           "cache": "measured"
         },
         "plantdist": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 1,
+          "total": 4,
+          "reward": 0.0,
+          "cost_usd": 2.8282,
+          "cost_usd_no_cache": 33.1898,
+          "cache": "measured"
         },
         "protein-al": {
           "status": "pass",
@@ -1573,30 +1603,30 @@
       "snapshot": "2026-11-12",
       "local": true,
       "caveat": "Single seed per task, pre-merge snapshot (these two arms never imported the merged omicverse changes); lineage needs a GPU and may show as not-run or as a fail here.",
-      "accuracy": 26.3,
-      "tasks_passed": 5,
-      "tasks_evaluated": 19,
+      "accuracy": 28.0,
+      "tasks_passed": 7,
+      "tasks_evaluated": 25,
       "tasks_total": 25,
       "per_subdomain": {
         "biology": {
           "passed": 0,
-          "evaluated": 7,
+          "evaluated": 9,
           "accuracy": 0.0
         },
         "ecology": {
           "passed": 0,
-          "evaluated": 1,
+          "evaluated": 2,
           "accuracy": 0.0
         },
         "medicine": {
-          "passed": 2,
-          "evaluated": 7,
-          "accuracy": 28.6
+          "passed": 4,
+          "evaluated": 9,
+          "accuracy": 44.4
         },
         "neuroscience": {
           "passed": 3,
-          "evaluated": 4,
-          "accuracy": 75.0
+          "evaluated": 5,
+          "accuracy": 60.0
         }
       },
       "per_task": {
@@ -1709,13 +1739,31 @@
           "cache": "measured"
         },
         "gramcall": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 9,
+          "total": 9,
+          "reward": 1.0,
+          "cost_usd": 3.5726,
+          "cost_usd_no_cache": 5.1055,
+          "cache": "measured"
         },
         "haplotype": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0,
+          "cost_usd": 6.685,
+          "cost_usd_no_cache": 11.971,
+          "cache": "measured"
         },
         "lineage": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 4,
+          "reward": 0.0,
+          "cost_usd": 1.3364,
+          "cost_usd_no_cache": 1.5001,
+          "cache": "measured"
         },
         "longclin": {
           "status": "fail",
@@ -1727,7 +1775,13 @@
           "cache": "measured"
         },
         "mdd": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0,
+          "cost_usd": 4.31,
+          "cost_usd_no_cache": 6.6972,
+          "cache": "measured"
         },
         "mri": {
           "status": "fail",
@@ -1739,7 +1793,13 @@
           "cache": "measured"
         },
         "nis3d": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 7,
+          "total": 8,
+          "reward": 0.0,
+          "cost_usd": 1.7328,
+          "cost_usd_no_cache": 2.2773,
+          "cache": "measured"
         },
         "ont-tn-qc": {
           "status": "fail",
@@ -1751,7 +1811,13 @@
           "cache": "measured"
         },
         "plantdist": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 1,
+          "total": 4,
+          "reward": 0.0,
+          "cost_usd": 4.8181,
+          "cost_usd_no_cache": 8.2798,
+          "cache": "measured"
         },
         "protein-al": {
           "status": "fail",

@@ -165,21 +165,35 @@
   // Scatter of cost vs. resolution rate with the Pareto frontier drawn through
   // the points nothing else beats on both axes (same form as the official chart).
 
-  const money = (v) => (v >= 1000 ? `$${(v / 1000).toFixed(1)}k` : `$${v.toFixed(0)}`);
+  const money = (v) => (v >= 1000 ? `$${(v / 1000).toFixed(1)}k` : v >= 10 ? `$${v.toFixed(0)}` : v >= 1 ? `$${v.toFixed(1)}` : `$${v.toFixed(2)}`);
 
   async function renderPareto() {
     const el = $('#bench-view-pareto');
-    if (!state.showPublic) {
-      el.innerHTML = `<p class="bench-empty">Cost isn't tracked for ScienceInfra runs yet, so there is nothing to plot. Turn on "Show public leaderboards" to see resolution rate vs. cost for the public entries.</p>`;
-      return;
-    }
-    const pub = await loadPublic();
     const off = await loadOfficialDomains();
+    const pub = state.showPublic ? await loadPublic() : null;
     const dom = state.domain;
+    // Life sciences: x = cost per task attempt, so one run per task (ours) and
+    // three trials per task (official) sit on the same axis.
+    const perAttempt = dom === 'life';
     const pts = [];
-    for (const r of pub.rows.official) {
+    if (pub) for (const r of pub.rows.official) {
       const sc = dom === 'all' ? { accuracy: r.overall_accuracy, cost_usd: r.cost_usd } : (off.scores[r.model] || {})[dom];
-      if (sc && sc.accuracy != null && sc.cost_usd != null) pts.push({ x: sc.cost_usd, y: sc.accuracy, model: r.model, agent: r.agent });
+      if (sc && sc.accuracy != null && sc.cost_usd != null) pts.push({ x: perAttempt ? sc.cost_usd / sc.trials : sc.cost_usd, y: sc.accuracy, model: r.model, agent: r.agent, local: false });
+    }
+    if (perAttempt) {
+      const d = await loadTbs();
+      const split = splitTasks(d, off);
+      for (const a of d.arms) {
+        const cells = split.v01.map((t) => a.per_task[t.id]).filter((c) => c && c.status !== 'not_run');
+        if (!cells.length || cells.some((c) => c.cost_usd == null)) continue;  // no token log (e.g. vals.ai cells)
+        const cost = cells.reduce((s, c) => s + c.cost_usd, 0);
+        pts.push({ x: cost / cells.length, y: (100 * passCount(a, split.v01)) / split.v01.length, model: a.model, agent: a.agent, local: true,
+                   note: `${cells.length} tasks, ${money(cost)} total` });
+      }
+    }
+    if (!pts.length) {
+      el.innerHTML = `<p class="bench-empty">${dom === 'life' ? 'No cost data yet.' : 'Cost for ScienceInfra runs is shown under Life sciences only. Turn on "Show public leaderboards" to see the public entries here.'}</p>`;
+      return;
     }
     const W = 1100, H = 520, L = 64, R = 150, T = 24, B = 56;
     const nice = (v) => { const p = Math.pow(10, Math.floor(Math.log10(v))); const f = v / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; };
@@ -208,16 +222,18 @@
         <svg class="pareto" viewBox="0 0 ${W} ${H}" role="img" aria-label="Resolution rate vs cost">
           ${yt.map((v) => `<line class="grid" x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}"/><text class="tick" x="${L - 10}" y="${sy(v) + 4}" text-anchor="end">${v}%</text>`).join('')}
           ${xt.map((v) => `<line class="grid" x1="${sx(v)}" x2="${sx(v)}" y1="${T}" y2="${H - B}"/><text class="tick" x="${sx(v)}" y="${H - B + 20}" text-anchor="middle">${money(v)}</text>`).join('')}
-          <text class="axis" x="${(L + W - R) / 2}" y="${H - 10}" text-anchor="middle">Cost</text>
+          <text class="axis" x="${(L + W - R) / 2}" y="${H - 10}" text-anchor="middle">${perAttempt ? 'Cost per task attempt' : 'Cost'}</text>
           <text class="axis" transform="rotate(-90 16 ${(T + H - B) / 2})" x="16" y="${(T + H - B) / 2}" text-anchor="middle">Resolution rate</text>
           <polyline class="front" points="${front.map((p) => `${sx(p.x).toFixed(1)},${sy(p.y).toFixed(1)}`).join(' ')}"/>
-          ${pts.map((p) => `<g class="pt${onFront.has(p) ? ' on' : ''}">
-            <circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="${onFront.has(p) ? 4.5 : 3.5}"><title>${esc(p.model)} (${esc(p.agent)}): ${p.y.toFixed(1)}% at ${money(p.x)}</title></circle>
+          ${pts.map((p) => `<g class="pt${onFront.has(p) ? ' on' : ''}${p.local ? ' local' : ''}">
+            <circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="${onFront.has(p) ? 4.5 : 3.5}"><title>${esc(p.model)} (${esc(p.agent)}${p.local ? ', ScienceInfra' : ''}): ${p.y.toFixed(1)}% at ${money(p.x)}${perAttempt ? ' per task attempt' : ''}${p.note ? ` (${esc(p.note)})` : ''}</title></circle>
             ${lab.has(p) ? `<text class="m" x="${(sx(p.x) + 9).toFixed(1)}" y="${(sy(p.y) + 1).toFixed(1)}">${esc(p.model)}</text><text class="a" x="${(sx(p.x) + 9).toFixed(1)}" y="${(sy(p.y) + 13).toFixed(1)}">${esc(p.agent)}</text>` : ''}
           </g>`).join('')}
         </svg>
       </div></div>
-      <p class="bench-note">Public rows only: cost is the official leaderboard's spend for the full run (3 trials per task). Cost isn't tracked for ScienceInfra runs yet, so they are not plotted.</p>`;
+      <p class="bench-note">${perAttempt
+        ? 'Cost per task attempt: the official leaderboard\'s spend divided by its trials (19 tasks × 3); for ScienceInfra runs (highlighted), the 19 v0.1 tasks run once each, priced from logged tokens at the providers\' public list prices (gpt-6.1-sol $2 / $0.10 cached / $10, gpt-5.6-luna $0.20 / $0.02 / $1.20, DeepSeek V4.1 Flash $0.15 / $0.003 / $0.60 per 1M input / cached input / output). Cache hits are measured for codex and Wisp and estimated for omicos from repeated prompt prefixes; mini-swe-agent cells published by vals.ai have no token log and are not plotted.'
+        : 'Cost is the official leaderboard\'s spend for the full run (3 trials per task). ScienceInfra runs are plotted under Life sciences.'}</p>`;
   }
 
   // ---------------------------------------------------------------- RADAR

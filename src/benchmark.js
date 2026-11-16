@@ -16,7 +16,6 @@
     { id: 'engineering', label: 'Engineering sciences', tasks: 9 },
   ];
   const DOMAIN = Object.fromEntries(DOMAINS.map((d) => [d.id, d]));
-  const NON_LIFE_TASKS = 70 - 19;   // official tasks outside life sciences, none of which we have run
   const state = { bench: 'tbs', view: 'ranking', domain: 'life', showPublic: true };   // open on the domain we have run
   const cache = {};
 
@@ -77,22 +76,33 @@
   // One score per row for the selected domain. Our arms have only run life
   // sciences: every other domain counts as 0, and "All domains" counts the
   // unrun official tasks as failed, so no cell is left empty.
-  function localScore(a, dom) {
-    if (dom === 'life') return { acc: a.accuracy ?? 0, passed: a.tasks_passed, total: a.tasks_evaluated, run: true };
-    if (dom === 'all') {
-      const total = a.tasks_total + NON_LIFE_TASKS;
-      return { acc: (100 * a.tasks_passed) / total, passed: a.tasks_passed, total, run: true, partial: true };
-    }
+  // Our harness runs the task repository's current life-science set (25 tasks);
+  // the official leaderboard is v0.1, which has 19 of them. Scores are computed on
+  // those 19 so they line up with the public rows; the newer tasks are reported
+  // separately and never enter the rate.
+  function splitTasks(d, off) {
+    const v01 = new Set(off.life_v01_tasks);
+    return { v01: d.tasks.filter((t) => v01.has(t.name)), newer: d.tasks.filter((t) => !v01.has(t.name)) };
+  }
+  const passCount = (a, tasks) => tasks.filter((t) => (a.per_task[t.id] || {}).status === 'pass').length;
+
+  function localScore(a, dom, split) {
+    const passed = passCount(a, split.v01);
+    if (dom === 'life') return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
+    if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
     return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
   }
 
   function buildRows(d, pub, off, dom) {
+    const split = splitTasks(d, off);
     const rows = d.arms.map((a) => {
-      const sc = localScore(a, dom);
+      const sc = localScore(a, dom, split);
+      const newerRun = split.newer.filter((t) => a.per_task[t.id] && a.per_task[t.id].status !== 'not_run').length;
+      const newer = newerRun ? ` · newer tasks ${passCount(a, split.newer)}/${newerRun}` : '';
       return {
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
-        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? `life ${a.tasks_total} run · other domains counted as 0` : `TBS life ${a.tasks_evaluated} · 1 run`,
+        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? 'v0.1 · life 19 run · other 51 counted as 0' : `v0.1 · 19 tasks · 1 run${newer}`,
         cost: null,
       };
     });
@@ -123,7 +133,7 @@
   async function loadRows() {
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const off = state.showPublic ? await loadOfficialDomains() : null;
+    const off = await loadOfficialDomains();
     return buildRows(d, pub, off, state.domain);
   }
 
@@ -200,7 +210,7 @@
     const el = $('#bench-view-radar');
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const off = state.showPublic ? await loadOfficialDomains() : null;
+    const off = await loadOfficialDomains();
     const card = (dom) => barCard(`${DOMAIN[dom].label} · ${DOMAIN[dom].tasks} tasks`,
       buildRows(d, pub, off, dom).filter((r) => r.kind !== 'vals').filter((r, i) => i < 8 || r.kind === 'local').map((r) => ({ ...r, name: `${r.agent} / ${r.model}` })));
     let cards;
@@ -208,11 +218,13 @@
       cards = DOMAINS.filter((x) => x.id !== 'all').map((x) => card(x.id)).join('');
     } else if (state.domain === 'life') {
       // our own runs, split by sub-domain
-      cards = SUBDOMAIN_ORDER.map((sub) => barCard(SUBDOMAIN_LABEL[sub], d.arms
-        .map((a) => ({ name: `${a.agent} / ${a.model}`, v: a.per_subdomain[sub], kind: 'local' }))
-        .filter((r) => r.v && r.v.evaluated > 0)
-        .map((r) => ({ ...r, acc: r.v.accuracy ?? 0 }))
-        .sort((a, b) => b.acc - a.acc))).join('') + card('life');
+      const split = splitTasks(d, off);
+      cards = SUBDOMAIN_ORDER.map((sub) => {
+        const ts = split.v01.filter((t) => t.subdomain === sub);
+        return barCard(`${SUBDOMAIN_LABEL[sub]} · ${ts.length} task${ts.length === 1 ? '' : 's'}`, d.arms
+          .map((a) => ({ name: `${a.agent} / ${a.model}`, kind: 'local', acc: (100 * passCount(a, ts)) / ts.length }))
+          .sort((a, b) => b.acc - a.acc));
+      }).join('') + card('life');
     } else {
       cards = card(state.domain);
     }
@@ -225,11 +237,14 @@
     const el = $('#bench-view-matrix');
     const d = await loadTbs();
     if (state.domain !== 'all' && state.domain !== 'life') {
-      el.innerHTML = `<p class="bench-empty">No ScienceInfra runs in ${esc(DOMAIN[state.domain].label.toLowerCase())} yet &mdash; every arm counts as 0 here. Per-task results exist for the 25 life-science tasks.</p>`;
+      el.innerHTML = `<p class="bench-empty">No ScienceInfra runs in ${esc(DOMAIN[state.domain].label.toLowerCase())} yet &mdash; every arm counts as 0 here. Per-task results exist for life sciences only.</p>`;
       return;
     }
+    const off = await loadOfficialDomains();
+    const split = splitTasks(d, off);
+    const newerIds = new Set(split.newer.map((t) => t.id));
     const header = d.arms.map((a) => `<th>${esc(a.agent)}<br>${esc(a.model)}</th>`).join('');
-    const body = d.tasks.map((t) => {
+    const body = [...split.v01, ...split.newer].map((t) => {
       const cells = d.arms.map((a) => {
         const r = a.per_task[t.id];
         if (!r || r.status === 'not_run') return `<td><span class="cell cell-not-run" title="not run">&middot;</span></td>`;
@@ -238,7 +253,7 @@
         if (r.source) return `<td><span class="cell ${cls} cell-published" title="${esc(t.id)}: ${esc(r.source)}, pass/fail only (older 70-task release)">${mark}<sup>v</sup></span></td>`;
         return `<td><span class="cell ${cls}" title="${esc(t.id)}: ${r.passed}/${r.total} tests passed, reward=${r.reward}">${mark}</span></td>`;
       }).join('');
-      return `<tr><th>${esc(t.id)}<span class="sub"> &middot; ${esc(t.subdomain)}</span></th>${cells}</tr>`;
+      return `<tr><th>${esc(t.id)}<span class="sub"> &middot; ${esc(t.subdomain)}</span>${newerIds.has(t.id) ? ' <span class="chip chip-pending">after v0.1</span>' : ''}</th>${cells}</tr>`;
     }).join('');
     el.innerHTML = `
       <div class="matrix-scroll">
@@ -287,14 +302,15 @@
   async function renderTbsFootnote() {
     const d = await loadTbs();
     const notes = [
-      `ScienceInfra arms have only been run on life sciences (25 tasks, the current task repository). In every other domain they are shown as 0, and under "All domains" their rate counts the 51 official non-life tasks as failed (passed / 76).`,
+      `ScienceInfra arms are scored on the 19 life-science tasks of Terminal-Bench-Science v0.1, the same task set as the official leaderboard; a task that was not run counts as failed. Our harness also runs 6 life-science tasks added to the task repository after v0.1 (ehr-error-detection, bloodculture-gram-call, haplotype-risk-audit, mdd-executive-function, nis3d-hard-volume, plant-distribution-modeling): they are listed as "newer tasks" and in the matrix, and are not part of any rate.`,
+      `Life sciences is the only domain we have run. In every other domain our arms are shown as 0, and under "All domains" their rate is passed / 70.`,
       `mini-swe-agent2 rows: cells marked v (matrix) use vals.ai's published per-task pass/fail (mini-swe-agent 2.2.4, single run, older 70-task release; DeepSeek V4.1 Flash and GPT-5.6 Luna); the remaining cells were run locally on our harness.`,
     ];
     const caveatArm = d.arms.find((a) => a.caveat);
     if (caveatArm) notes.push(caveatArm.caveat);
     if (state.showPublic) {
       const pub = await loadPublic();
-      notes.push(pub.footnote);
+      notes.push(pub.footnote.replace(', which has 19 life-science tasks versus our 25', ''));
       notes.push(`Per-domain public rows are the official leaderboard's domain tabs (v0.1: life 19, physical 17, earth 8, mathematical 17, engineering 9 tasks; passes are out of tasks x 3 trials). vals.ai publishes only an overall number, so its rows appear under "All domains" only.`);
     }
     $('#bench-footnote').innerHTML = notes.map(esc).join('<br>');

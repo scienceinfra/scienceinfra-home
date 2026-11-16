@@ -16,7 +16,6 @@
     { id: 'engineering', label: 'Engineering sciences', tasks: 9 },
   ];
   const DOMAIN = Object.fromEntries(DOMAINS.map((d) => [d.id, d]));
-  const NON_LIFE_TASKS = 70 - 19;   // official tasks outside life sciences, none of which we have run
   const state = { bench: 'tbs', view: 'ranking', domain: 'life', showPublic: true };   // open on the domain we have run
   const cache = {};
 
@@ -77,22 +76,33 @@
   // One score per row for the selected domain. Our arms have only run life
   // sciences: every other domain counts as 0, and "All domains" counts the
   // unrun official tasks as failed, so no cell is left empty.
-  function localScore(a, dom) {
-    if (dom === 'life') return { acc: a.accuracy ?? 0, passed: a.tasks_passed, total: a.tasks_evaluated, run: true };
-    if (dom === 'all') {
-      const total = a.tasks_total + NON_LIFE_TASKS;
-      return { acc: (100 * a.tasks_passed) / total, passed: a.tasks_passed, total, run: true, partial: true };
-    }
+  // Our harness runs the task repository's current life-science set (25 tasks);
+  // the official leaderboard is v0.1, which has 19 of them. Scores are computed on
+  // those 19 so they line up with the public rows; the newer tasks are reported
+  // separately and never enter the rate.
+  function splitTasks(d, off) {
+    const v01 = new Set(off.life_v01_tasks);
+    return { v01: d.tasks.filter((t) => v01.has(t.name)), newer: d.tasks.filter((t) => !v01.has(t.name)) };
+  }
+  const passCount = (a, tasks) => tasks.filter((t) => (a.per_task[t.id] || {}).status === 'pass').length;
+
+  function localScore(a, dom, split) {
+    const passed = passCount(a, split.v01);
+    if (dom === 'life') return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
+    if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
     return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
   }
 
   function buildRows(d, pub, off, dom) {
+    const split = splitTasks(d, off);
     const rows = d.arms.map((a) => {
-      const sc = localScore(a, dom);
+      const sc = localScore(a, dom, split);
+      const newerRun = split.newer.filter((t) => a.per_task[t.id] && a.per_task[t.id].status !== 'not_run').length;
+      const newer = newerRun ? ` · newer tasks ${passCount(a, split.newer)}/${newerRun}` : '';
       return {
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
-        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? `life ${a.tasks_total} run · other domains counted as 0` : `TBS life ${a.tasks_evaluated} · 1 run`,
+        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? 'v0.1 · life 19 run · other 51 counted as 0' : `v0.1 · 19 tasks · 1 run${newer}`,
         cost: null,
       };
     });
@@ -123,7 +133,7 @@
   async function loadRows() {
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const off = state.showPublic ? await loadOfficialDomains() : null;
+    const off = await loadOfficialDomains();
     return buildRows(d, pub, off, state.domain);
   }
 
@@ -152,11 +162,15 @@
   }
 
   // ---------------------------------------------------------------- PARETO
+  // Scatter of cost vs. resolution rate with the Pareto frontier drawn through
+  // the points nothing else beats on both axes (same form as the official chart).
+
+  const money = (v) => (v >= 1000 ? `$${(v / 1000).toFixed(1)}k` : `$${v.toFixed(0)}`);
 
   async function renderPareto() {
     const el = $('#bench-view-pareto');
     if (!state.showPublic) {
-      el.innerHTML = `<p class="bench-empty">Cost isn't tracked for local runs yet, so there is nothing to plot. Turn on "Show public leaderboards" to see accuracy vs. cost for the public entries.</p>`;
+      el.innerHTML = `<p class="bench-empty">Cost isn't tracked for ScienceInfra runs yet, so there is nothing to plot. Turn on "Show public leaderboards" to see resolution rate vs. cost for the public entries.</p>`;
       return;
     }
     const pub = await loadPublic();
@@ -165,88 +179,172 @@
     const pts = [];
     for (const r of pub.rows.official) {
       const sc = dom === 'all' ? { accuracy: r.overall_accuracy, cost_usd: r.cost_usd } : (off.scores[r.model] || {})[dom];
-      if (sc && sc.accuracy != null && sc.cost_usd != null) pts.push({ x: sc.cost_usd, y: sc.accuracy, label: `${r.model} (official)`, cls: 'off' });
+      if (sc && sc.accuracy != null && sc.cost_usd != null) pts.push({ x: sc.cost_usd, y: sc.accuracy, model: r.model, agent: r.agent });
     }
-    const W = 720, H = 360, PAD = 44;
-    const maxX = Math.max(...pts.map((p) => p.x)) * 1.08 || 1;
-    const sx = (x) => PAD + (x / maxX) * (W - PAD * 2);
-    const sy = (y) => H - PAD - (y / 100) * (H - PAD * 2);
-    const ticks = [0, 25, 50, 75, 100];
+    const W = 1100, H = 520, L = 64, R = 150, T = 24, B = 56;
+    const nice = (v) => { const p = Math.pow(10, Math.floor(Math.log10(v))); const f = v / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; };
+    const xStep = nice(Math.max(...pts.map((p) => p.x)) / 4);
+    const maxX = Math.ceil(Math.max(...pts.map((p) => p.x)) / xStep) * xStep;
+    const maxY = Math.min(100, Math.ceil((Math.max(...pts.map((p) => p.y)) + 4) / 20) * 20);
+    const sx = (x) => L + (x / maxX) * (W - L - R);
+    const sy = (y) => H - B - (y / maxY) * (H - T - B);
+    const xt = []; for (let v = 0; v <= maxX + 1e-9; v += xStep) xt.push(v);
+    const yt = []; for (let v = 0; v <= maxY; v += 20) yt.push(v);
+    // frontier: walk by ascending cost, keep each point that raises the best rate so far
+    let best = -1;
+    const front = [...pts].sort((a, b) => a.x - b.x || b.y - a.y).filter((p) => (p.y > best ? ((best = p.y), true) : false));
+    const onFront = new Set(front);
+    // label every point unless its label box would sit on one already placed
+    const placed = [];
+    const labelled = [...pts].sort((a, b) => (onFront.has(b) - onFront.has(a)) || b.y - a.y).filter((p) => {
+      const box = { x0: sx(p.x) + 8, x1: sx(p.x) + 8 + Math.max(p.model.length, p.agent.length) * 6.4, y0: sy(p.y) - 9, y1: sy(p.y) + 15 };
+      if (placed.some((q) => box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0)) return false;
+      placed.push(box); return true;
+    });
+    const lab = new Set(labelled);
     el.innerHTML = `
-      <div class="pareto-wrap">
-        <svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Accuracy vs cost">
-          <line x1="${PAD}" y1="${H - PAD}" x2="${W - PAD}" y2="${H - PAD}" stroke="var(--hair)" />
-          <line x1="${PAD}" y1="${PAD}" x2="${PAD}" y2="${H - PAD}" stroke="var(--hair)" />
-          ${ticks.map((t) => `<text x="${PAD - 8}" y="${sy(t) + 3}" text-anchor="end">${t}%</text>`).join('')}
-          <text class="lbl" x="${W / 2}" y="${H - 8}" text-anchor="middle">${esc(DOMAIN[dom].label)} &middot; cost in $ for the full run (official leaderboard, 3 trials per task)</text>
-          <text class="lbl" transform="rotate(-90 14 ${H / 2})" x="14" y="${H / 2}" text-anchor="middle">accuracy</text>
-          ${pts.map((p) => `<g class="pt"><circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="5" fill="${p.cls === 'off' ? 'var(--t-teal)' : 'var(--t-blue)'}"><title>${esc(p.label)}: ${p.y.toFixed(1)}% at $${p.x.toFixed(2)}</title></circle></g>`).join('')}
+      <p class="bench-caption">Pareto frontier <span class="sub">/ ${esc(DOMAIN[dom].label)} / ${DOMAIN[dom].tasks} tasks</span></p>
+      <div class="chart-card"><div class="chart-scroll">
+        <svg class="pareto" viewBox="0 0 ${W} ${H}" role="img" aria-label="Resolution rate vs cost">
+          ${yt.map((v) => `<line class="grid" x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}"/><text class="tick" x="${L - 10}" y="${sy(v) + 4}" text-anchor="end">${v}%</text>`).join('')}
+          ${xt.map((v) => `<line class="grid" x1="${sx(v)}" x2="${sx(v)}" y1="${T}" y2="${H - B}"/><text class="tick" x="${sx(v)}" y="${H - B + 20}" text-anchor="middle">${money(v)}</text>`).join('')}
+          <text class="axis" x="${(L + W - R) / 2}" y="${H - 10}" text-anchor="middle">Cost</text>
+          <text class="axis" transform="rotate(-90 16 ${(T + H - B) / 2})" x="16" y="${(T + H - B) / 2}" text-anchor="middle">Resolution rate</text>
+          <polyline class="front" points="${front.map((p) => `${sx(p.x).toFixed(1)},${sy(p.y).toFixed(1)}`).join(' ')}"/>
+          ${pts.map((p) => `<g class="pt${onFront.has(p) ? ' on' : ''}">
+            <circle cx="${sx(p.x).toFixed(1)}" cy="${sy(p.y).toFixed(1)}" r="${onFront.has(p) ? 4.5 : 3.5}"><title>${esc(p.model)} (${esc(p.agent)}): ${p.y.toFixed(1)}% at ${money(p.x)}</title></circle>
+            ${lab.has(p) ? `<text class="m" x="${(sx(p.x) + 9).toFixed(1)}" y="${(sy(p.y) + 1).toFixed(1)}">${esc(p.model)}</text><text class="a" x="${(sx(p.x) + 9).toFixed(1)}" y="${(sy(p.y) + 13).toFixed(1)}">${esc(p.agent)}</text>` : ''}
+          </g>`).join('')}
         </svg>
-      </div>`;
+      </div></div>
+      <p class="bench-note">Public rows only: cost is the official leaderboard's spend for the full run (3 trials per task). Cost isn't tracked for ScienceInfra runs yet, so they are not plotted.</p>`;
   }
 
   // ---------------------------------------------------------------- RADAR
+  // Domain table on the left, one polygon per row over the five domains on the right.
 
-  function barCard(title, rows) {
-    return `<div class="radar-card"><h4>${esc(title)}</h4>${rows.map((r) => `
-        <div class="radar-row${r.run === false ? ' not-run' : ''}">
-          <span class="name" title="${esc(r.name)}">${esc(r.name)}</span>
-          <span class="bar"><i class="${r.kind === 'local' ? '' : 'pub'}" style="width:${r.acc}%"></i></span>
-          <span class="val">${pct(r.acc)}</span>
-        </div>`).join('')}</div>`;
-  }
+  const AXES = ['life', 'earth', 'engineering', 'mathematical', 'physical'];   // clockwise from the top, as on the official chart
 
   async function renderRadar() {
     const el = $('#bench-view-radar');
     const d = await loadTbs();
     const pub = state.showPublic ? await loadPublic() : null;
-    const off = state.showPublic ? await loadOfficialDomains() : null;
-    const card = (dom) => barCard(`${DOMAIN[dom].label} · ${DOMAIN[dom].tasks} tasks`,
-      buildRows(d, pub, off, dom).filter((r) => r.kind !== 'vals').filter((r, i) => i < 8 || r.kind === 'local').map((r) => ({ ...r, name: `${r.agent} / ${r.model}` })));
-    let cards;
-    if (state.domain === 'all') {
-      cards = DOMAINS.filter((x) => x.id !== 'all').map((x) => card(x.id)).join('');
-    } else if (state.domain === 'life') {
-      // our own runs, split by sub-domain
-      cards = SUBDOMAIN_ORDER.map((sub) => barCard(SUBDOMAIN_LABEL[sub], d.arms
-        .map((a) => ({ name: `${a.agent} / ${a.model}`, v: a.per_subdomain[sub], kind: 'local' }))
-        .filter((r) => r.v && r.v.evaluated > 0)
-        .map((r) => ({ ...r, acc: r.v.accuracy ?? 0 }))
-        .sort((a, b) => b.acc - a.acc))).join('') + card('life');
-    } else {
-      cards = card(state.domain);
+    const off = await loadOfficialDomains();
+    const byKey = new Map();
+    for (const dom of DOMAINS) for (const r of buildRows(d, pub, off, dom.id)) {
+      if (r.kind === 'vals') continue;
+      const k = `${r.kind}|${r.agent}|${r.model}`;
+      if (!byKey.has(k)) byKey.set(k, { agent: r.agent, model: r.model, kind: r.kind, v: {} });
+      byKey.get(k).v[dom.id] = r.acc;
     }
-    el.innerHTML = `<div class="radar-grid">${cards}</div>`;
+    const sel = state.domain;
+    const rows = [...byKey.values()].sort((a, b) => b.v[sel] - a.v[sel] || b.v.all - a.v.all);
+    // polygons: every ScienceInfra arm that scored, plus the best public rows
+    const drawn = [...rows.filter((r) => r.kind === 'local' && r.v.all > 0), ...rows.filter((r) => r.kind !== 'local').slice(0, 6)];
+    const S = 460, C = S / 2, RAD = 150;
+    const pt = (i, f) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / AXES.length; return [C + Math.cos(a) * RAD * f, C + Math.sin(a) * RAD * f]; };
+    const poly = (f) => AXES.map((_, i) => pt(i, f).map((n) => n.toFixed(1)).join(',')).join(' ');
+    const dashes = ['', '6 3', '2 3', '8 3 2 3', '1 4', '10 4'];
+    let li = 0, pi = 0;
+    const shapes = drawn.map((r) => {
+      const local = r.kind === 'local';
+      const style = local ? { stroke: ['#ff6308', '#ffc673', '#fff3dc', '#cf5a1e', '#a04a22'][li++ % 5], dash: '', w: 2 } : { stroke: 'rgba(255,255,255,.45)', dash: dashes[pi++ % dashes.length], w: 1.2 };
+      return { r, style, points: AXES.map((a, i) => pt(i, r.v[a] / 100).map((n) => n.toFixed(1)).join(',')).join(' ') };
+    });
+    const sub = state.domain === 'life' ? (() => {
+      const split = splitTasks(d, off);
+      return `<p class="bench-caption" style="margin-top:36px">Life sciences by sub-field <span class="sub">/ ScienceInfra arms, v0.1 tasks</span></p><div class="radar-grid">${SUBDOMAIN_ORDER.map((sf) => {
+        const ts = split.v01.filter((t) => t.subdomain === sf);
+        return barCard(`${SUBDOMAIN_LABEL[sf]} · ${ts.length} task${ts.length === 1 ? '' : 's'}`, d.arms
+          .map((a) => ({ name: `${a.agent} / ${a.model}`, kind: 'local', acc: (100 * passCount(a, ts)) / ts.length }))
+          .sort((a, b) => b.acc - a.acc));
+      }).join('')}</div>`;
+    })() : '';
+    el.innerHTML = `
+      <p class="bench-caption">Domain radar <span class="sub">/ 70 official tasks</span></p>
+      <div class="radar-split">
+        <div class="bench-table-scroll"><table class="bench-table radar-table">
+          <thead><tr><th>Model / agent</th>${DOMAINS.map((x) => `<th class="num${x.id === sel ? ' sel' : ''}">${esc(x.label.replace(' sciences', '').replace(' domains', ''))}</th>`).join('')}</tr></thead>
+          <tbody>${rows.map((r) => `<tr>
+            <td><span class="agent">${esc(r.model)}</span><br><span class="sub">${esc(r.agent)}${r.kind === 'local' ? ' · ScienceInfra' : ''}</span></td>
+            ${DOMAINS.map((x) => `<td class="num${x.id === sel ? ' sel' : ''}${r.v[x.id] === 0 ? ' zero' : ''}">${pct(r.v[x.id])}</td>`).join('')}
+          </tr>`).join('')}</tbody>
+        </table></div>
+        <div class="chart-card radar-chart">
+          <svg viewBox="0 0 ${S} ${S}" role="img" aria-label="Resolution rate by domain">
+            ${[0.2, 0.4, 0.6, 0.8, 1].map((f) => `<polygon class="ring" points="${poly(f)}"/>`).join('')}
+            ${AXES.map((a, i) => { const [x, y] = pt(i, 1); const [lx, ly] = pt(i, 1.2); return `<line class="ring" x1="${C}" y1="${C}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/><text class="axis" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle">${esc(DOMAIN[a].label.replace(' sciences', '').toUpperCase())}</text>`; }).join('')}
+            ${[20, 60, 100].map((v) => `<text class="tick" x="${C + 4}" y="${(C - (RAD * v) / 100 + 3).toFixed(1)}">${v}</text>`).join('')}
+            ${shapes.map((s) => `<polygon class="shape" points="${s.points}" stroke="${s.style.stroke}" stroke-width="${s.style.w}" ${s.style.dash ? `stroke-dasharray="${s.style.dash}"` : ''}><title>${esc(s.r.model)} (${esc(s.r.agent)})</title></polygon>`).join('')}
+          </svg>
+          <div class="radar-legend">${shapes.map((s) => `<span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="${s.style.stroke}" stroke-width="${s.style.w}" ${s.style.dash ? `stroke-dasharray="${s.style.dash}"` : ''}/></svg>${esc(s.r.model)} <i>${esc(s.r.agent)}</i></span>`).join('')}</div>
+        </div>
+      </div>${sub}`;
+  }
+
+  function barCard(title, rows) {
+    return `<div class="radar-card"><h4>${esc(title)}</h4>${rows.map((r) => `
+        <div class="radar-row">
+          <span class="name" title="${esc(r.name)}">${esc(r.name)}</span>
+          <span class="bar"><i style="width:${r.acc}%"></i></span>
+          <span class="val">${pct(r.acc)}</span>
+        </div>`).join('')}</div>`;
   }
 
   // ---------------------------------------------------------------- MATRIX
+  // Heat map: one row per model/agent, one column per task, cell = trials solved.
+
+  async function loadOfficialMatrix() { return getJSON('data/official-matrix.json'); }
+
+  function heat(rows, tasks, title) {
+    const cell = (c) => {
+      if (!c) return `<td><span class="hm hm-0 hm-na">0/0</span></td>`;
+      const lvl = c.n === 0 ? 0 : Math.max(1, Math.round((3 * c.k) / c.n));
+      return `<td><span class="hm hm-${c.k === 0 ? 0 : lvl}${c.n === 0 ? ' hm-na' : ''}" title="${esc(c.tip)}">${c.k}/${c.n}</span></td>`;
+    };
+    return `
+      <p class="bench-caption">${title}</p>
+      <div class="chart-card hm-scroll"><table class="heatmap">
+        <thead><tr><th class="hm-corner"><span>Model / agent</span><span>Resolution rate</span></th>
+          ${tasks.map((t) => `<th class="hm-task"><div><span>${esc(t.name)}</span></div></th>`).join('')}</tr></thead>
+        <tbody>${rows.map((r) => `<tr class="${r.kind === 'local' ? 'local' : ''}">
+          <th class="hm-row"><div><span class="who"><b>${esc(r.model)}</b><i>${esc(r.agent)}${r.kind === 'local' ? ' · ScienceInfra' : ''}</i></span><span class="rate">${pct(r.acc)}</span></div></th>
+          ${r.cells.map(cell).join('')}</tr>`).join('')}</tbody>
+      </table></div>`;
+  }
 
   async function renderMatrix() {
     const el = $('#bench-view-matrix');
     const d = await loadTbs();
-    if (state.domain !== 'all' && state.domain !== 'life') {
-      el.innerHTML = `<p class="bench-empty">No ScienceInfra runs in ${esc(DOMAIN[state.domain].label.toLowerCase())} yet &mdash; every arm counts as 0 here. Per-task results exist for the 25 life-science tasks.</p>`;
-      return;
+    const off = await loadOfficialDomains();
+    const om = await loadOfficialMatrix();
+    const pub = state.showPublic ? await loadPublic() : null;
+    const split = splitTasks(d, off);
+    const idOf = Object.fromEntries(d.tasks.map((t) => [t.name, t.id]));
+    const dom = state.domain;
+    const cols = om.tasks.map((t, i) => ({ ...t, i })).filter((t) => dom === 'all' || t.domain === dom);
+    const rate = (cells) => { const n = cells.reduce((a, c) => a + (c.n || 1), 0); return n ? (100 * cells.reduce((a, c) => a + c.k, 0)) / n : 0; };
+    // a task one of our arms did not run counts as 0 out of 0 runs
+    const localCell = (a, t) => {
+      const r = a.per_task[idOf[t.name]];
+      if (!r || r.status === 'not_run') return { k: 0, n: 0, tip: `${a.agent} / ${a.model} · ${t.name}: not run, counted as 0` };
+      return { k: r.status === 'pass' ? 1 : 0, n: 1, tip: `${a.agent} / ${a.model} · ${t.name}: ${r.status}${r.total ? ` (${r.passed}/${r.total} tests)` : ''}${r.source ? ` · ${r.source}` : ''}` };
+    };
+    const rows = d.arms.map((a) => { const cells = cols.map((t) => localCell(a, t)); return { kind: 'local', agent: a.agent, model: a.model, cells, acc: rate(cells) }; });
+    if (pub) for (const r of pub.rows.official) {
+      const line = om.rows[r.model];
+      if (!line) continue;
+      const cells = cols.map((t) => ({ k: +line[t.i], n: 3, tip: `${r.model} (${r.agent}) · ${t.name}: ${line[t.i]}/3 trials solved` }));
+      rows.push({ kind: 'official', agent: r.agent, model: r.model, cells, acc: rate(cells) });
     }
-    const header = d.arms.map((a) => `<th>${esc(a.agent)}<br>${esc(a.model)}</th>`).join('');
-    const body = d.tasks.map((t) => {
-      const cells = d.arms.map((a) => {
-        const r = a.per_task[t.id];
-        if (!r || r.status === 'not_run') return `<td><span class="cell cell-not-run" title="not run">&middot;</span></td>`;
-        const cls = r.status === 'pass' ? 'cell-pass' : 'cell-fail';
-        const mark = r.status === 'pass' ? '&#10003;' : '&#10007;';
-        if (r.source) return `<td><span class="cell ${cls} cell-published" title="${esc(t.id)}: ${esc(r.source)}, pass/fail only (older 70-task release)">${mark}<sup>v</sup></span></td>`;
-        return `<td><span class="cell ${cls}" title="${esc(t.id)}: ${r.passed}/${r.total} tests passed, reward=${r.reward}">${mark}</span></td>`;
-      }).join('');
-      return `<tr><th>${esc(t.id)}<span class="sub"> &middot; ${esc(t.subdomain)}</span></th>${cells}</tr>`;
-    }).join('');
-    el.innerHTML = `
-      <div class="matrix-scroll">
-        <table class="bench-matrix">
-          <thead><tr><th></th>${header}</tr></thead>
-          <tbody>${body}</tbody>
-        </table>
-      </div>`;
+    rows.sort((a, b) => b.acc - a.acc || (a.kind === 'local') - (b.kind === 'local'));
+    let html = heat(rows, cols, `Task matrix <span class="sub">/ ${esc(DOMAIN[dom].label)} / ${cols.length} tasks</span>`);
+    if ((dom === 'all' || dom === 'life') && split.newer.length) {
+      const nrows = d.arms.map((a) => { const cells = split.newer.map((t) => localCell(a, t)); return { kind: 'local', agent: a.agent, model: a.model, cells, acc: rate(cells) }; })
+        .sort((a, b) => b.acc - a.acc);
+      html += `<div style="margin-top:36px">${heat(nrows, split.newer, `Life-science tasks added after v0.1 <span class="sub">/ ${split.newer.length} tasks / ScienceInfra arms only, not part of any rate above</span>`)}</div>`;
+    }
+    el.innerHTML = html + `<p class="bench-note">Cells show runs solved. Public rows are the official leaderboard's 3 trials per task; ScienceInfra rows are a single run, so a cell is 1/1 or 0/1, and 0/0 marks a task that was not run and is counted as 0.</p>`;
   }
 
   // ---------------------------------------------------------------- HELD-OUT (aggregate only)
@@ -287,14 +385,15 @@
   async function renderTbsFootnote() {
     const d = await loadTbs();
     const notes = [
-      `ScienceInfra arms have only been run on life sciences (25 tasks, the current task repository). In every other domain they are shown as 0, and under "All domains" their rate counts the 51 official non-life tasks as failed (passed / 76).`,
+      `ScienceInfra arms are scored on the 19 life-science tasks of Terminal-Bench-Science v0.1, the same task set as the official leaderboard; a task that was not run counts as failed. Our harness also runs 6 life-science tasks added to the task repository after v0.1 (ehr-error-detection, bloodculture-gram-call, haplotype-risk-audit, mdd-executive-function, nis3d-hard-volume, plant-distribution-modeling): they are listed as "newer tasks" and in the matrix, and are not part of any rate.`,
+      `Life sciences is the only domain we have run. In every other domain our arms are shown as 0, and under "All domains" their rate is passed / 70.`,
       `mini-swe-agent2 rows: cells marked v (matrix) use vals.ai's published per-task pass/fail (mini-swe-agent 2.2.4, single run, older 70-task release; DeepSeek V4.1 Flash and GPT-5.6 Luna); the remaining cells were run locally on our harness.`,
     ];
     const caveatArm = d.arms.find((a) => a.caveat);
     if (caveatArm) notes.push(caveatArm.caveat);
     if (state.showPublic) {
       const pub = await loadPublic();
-      notes.push(pub.footnote);
+      notes.push(pub.footnote.replace(', which has 19 life-science tasks versus our 25', ''));
       notes.push(`Per-domain public rows are the official leaderboard's domain tabs (v0.1: life 19, physical 17, earth 8, mathematical 17, engineering 9 tasks; passes are out of tasks x 3 trials). vals.ai publishes only an overall number, so its rows appear under "All domains" only.`);
     }
     $('#bench-footnote').innerHTML = notes.map(esc).join('<br>');

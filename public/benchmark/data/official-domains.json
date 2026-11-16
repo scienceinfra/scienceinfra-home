@@ -654,5 +654,26 @@
     "cost_usd": 108.4
    }
   }
- }
+ },
+ "life_v01_tasks": [
+  "ambient-rna-correction",
+  "animal-reid",
+  "ankle-mri-findings",
+  "betalactam-multimodal-transfer",
+  "cell-lineage-reconstruction",
+  "cilia-segmentation",
+  "clinical-metadata-recovery",
+  "dapi-he-alignment",
+  "diag-chipseq",
+  "eeg-erp-recovery",
+  "foraging-cognitive-model",
+  "genomic-model-ranking",
+  "longitudinal-clinical-agent",
+  "mri-harmonization",
+  "ont-tn-qc",
+  "protein-active-learning",
+  "qsm-reconstruction",
+  "spatial-cell-annotation",
+  "tumor-immune-interface"
+ ]
 }

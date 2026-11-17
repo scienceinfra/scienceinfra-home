@@ -581,6 +581,13 @@
               "passed": 5,
               "total": 9,
               "cost_usd": 0.1045
+            },
+            {
+              "tag": "b10",
+              "pass": false,
+              "passed": 5,
+              "total": 9,
+              "cost_usd": 0.2682
             }
           ]
         },
@@ -606,6 +613,13 @@
               "passed": 7,
               "total": 7,
               "cost_usd": 0.2331
+            },
+            {
+              "tag": "b10",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": 0.2835
             }
           ]
         },
@@ -631,6 +645,13 @@
               "passed": 4,
               "total": 4,
               "cost_usd": 0.096
+            },
+            {
+              "tag": "b10",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": 0.0818
             }
           ]
         },
@@ -955,8 +976,8 @@
           ]
         }
       },
-      "trials_passed": 50,
-      "trials_total": 72
+      "trials_passed": 52,
+      "trials_total": 75
     },
     {
       "id": "omicos-sol",

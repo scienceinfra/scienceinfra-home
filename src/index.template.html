@@ -50,6 +50,9 @@ header .wrap{display:flex;align-items:center;height:64px}
 .links a{font-size:13px;line-height:19.5px;font-weight:500;padding:6px 12px;color:var(--fg);opacity:.9;transition:opacity .15s}
 .links a:hover{opacity:1}
 .nav-cta{margin-left:auto;display:flex;align-items:center;gap:9px}
+/* phone menu: a checkbox + label, so it works on every page without script */
+.nav-toggle{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
+.menu-btn{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9999px;font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;transition:background .15s,opacity .15s}
 .btn-dark{background:var(--btn-dark);color:var(--fg)}
 .btn-dark:hover{background:#2a2a2a}
@@ -160,8 +163,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
   .substrate{grid-template-columns:1fr}
 }
 @media (max-width:768px){
-  .links{display:none}
+  .links{display:none;position:absolute;top:64px;left:0;right:0;margin:0;flex-direction:column;padding:4px 16px 12px;background:rgba(10,10,10,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+  .links a{font-size:16px;line-height:24px;padding:14px 4px;opacity:1;border-top:1px solid var(--hair)}
+  .links a:first-child{border-top:none}
+  .nav-toggle:checked ~ .links{display:flex}
   .nav-cta .btn-dark{display:none}
+  .menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:40px;height:40px;margin-left:4px;margin-right:-10px;border-radius:9999px;cursor:pointer;flex:none}
+  .menu-btn span{display:block;width:18px;height:1.5px;border-radius:1px;background:var(--fg);transition:transform .2s}
+  .nav-toggle:checked ~ .menu-btn span:first-child{transform:translateY(3.75px) rotate(45deg)}
+  .nav-toggle:checked ~ .menu-btn span:last-child{transform:translateY(-3.75px) rotate(-45deg)}
+  .nav-toggle:focus-visible ~ .menu-btn{outline:2px solid var(--fg);outline-offset:2px}
+  header:has(.nav-toggle:checked){background:rgba(10,10,10,.96)}
   .hero{padding-top:112px}
   h1{font-size:36px;line-height:39.6px;letter-spacing:-.36px}
   .caret{height:28px;vertical-align:-4px}
@@ -174,6 +186,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
   .section{padding-top:80px}
   .tile{height:auto;min-height:160px}
 }
+/* narrow phones: the wordmark, the button and the menu icon do not all fit */
+@media (max-width:480px){
+  .nav-cta{display:none}
+  .menu-btn{margin-left:auto}
+}
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
@@ -184,7 +201,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 <header id="hdr">
   <div class="wrap">
     <a class="logo" href="/" aria-label="PrimorDecode — ScienceInfra home">{{LOGO_HEADER}}</a>
-    <nav class="links" aria-label="Main">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open menu">
+    <nav class="links" aria-label="Main" onclick="document.getElementById('nav-toggle').checked=false">
       <a href="#verses">Verses</a>
       <a href="/benchmark/">Benchmark</a>
       <a href="/news/">News</a>
@@ -194,6 +212,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
       <a class="btn btn-dark btn-nav" href="https://github.com/scienceinfra" target="_blank" rel="noopener">View on GitHub</a>
       <a class="btn btn-light btn-nav-light" href="#verses">Explore verses</a>
     </div>
+    <label class="menu-btn" for="nav-toggle" aria-hidden="true"><span></span><span></span></label>
   </div>
 </header>
 

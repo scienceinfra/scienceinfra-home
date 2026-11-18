@@ -580,37 +580,47 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
 
   // ---------------------------------------------------------------- RANKING
 
-  // One score per row for the selected domain. Our arms have only run life
-  // sciences: every other domain counts as 0, and "All domains" counts the
-  // unrun official tasks as failed, so no cell is left empty.
-  // Our harness runs the task repository's current life-science set (25 tasks);
-  // the official leaderboard is v0.1, which has 19 of them. Scores are computed on
-  // those 19 so they line up with the public rows; the newer tasks are reported
-  // separately and never enter the rate.
-  function splitTasks(d, off) {
-    const v01 = new Set(off.life_v01_tasks);
+  // One score per row for the selected domain. Our arms have real runs for
+  // life and physical sciences: every other domain counts as 0, and "All
+  // domains" counts the unrun official tasks as failed, so no cell is left
+  // empty.
+  // Our harness runs the task repository's current life-science (25) and
+  // physical-science (20) sets; the official leaderboard is v0.1, which has
+  // 19 and 17 of them respectively. Scores are computed on those so they line
+  // up with the public rows; the newer tasks are reported separately and
+  // never enter the rate.
+  const V01_KEYS = { life: 'life_v01_tasks', physical: 'physical_v01_tasks' };
+  const LOCAL_DOMAINS = ['life', 'physical'];   // domains we have real local run data for
+
+  function splitTasks(d, off, dom) {
+    let v01;
+    if (dom === 'all') {
+      v01 = new Set(LOCAL_DOMAINS.flatMap((x) => off[V01_KEYS[x]] || []));
+    } else {
+      v01 = new Set(off[V01_KEYS[dom]] || []);
+    }
     return { v01: d.tasks.filter((t) => v01.has(t.name)), newer: d.tasks.filter((t) => !v01.has(t.name)) };
   }
   const passCount = (a, tasks) => tasks.filter((t) => (a.per_task[t.id] || {}).status === 'pass').length;
 
   // Arms with repeated runs carry per-task trials; scored like the official
-  // leaderboard: passes over all trials (19 tasks x 3 = 57).
+  // leaderboard: passes over all trials (e.g. life 19 tasks x 3 = 57).
   const trialsOf = (a, tasks) => tasks.flatMap((t) => (a.per_task[t.id] || {}).trials || []);
   const hasTrials = (a, tasks) => tasks.every((t) => ((a.per_task[t.id] || {}).trials || []).length > 1);
 
   function localScore(a, dom, split) {
-    if (dom === 'life' && hasTrials(a, split.v01)) {
+    if (LOCAL_DOMAINS.includes(dom) && hasTrials(a, split.v01)) {
       const tr = trialsOf(a, split.v01), passed = tr.filter((x) => x.pass).length;
       return { acc: (100 * passed) / tr.length, passed, total: tr.length, run: true, trials: Math.round(tr.length / split.v01.length) };
     }
     const passed = passCount(a, split.v01);
-    if (dom === 'life') return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
+    if (LOCAL_DOMAINS.includes(dom)) return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
     if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
     return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
   }
 
   function buildRows(d, pub, off, dom) {
-    const split = splitTasks(d, off);
+    const split = splitTasks(d, off, dom);
     const rows = d.arms.map((a) => {
       const sc = localScore(a, dom, split);
       const newerRun = split.newer.filter((t) => a.per_task[t.id] && a.per_task[t.id].status !== 'not_run').length;
@@ -618,7 +628,9 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
       return {
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
-        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial ? 'v0.1 · life 19 run · other 51 counted as 0' : `v0.1 · 19 tasks · ${sc.trials ? sc.trials + ' trials' : '1 run'}${newer}`,
+        taskSet: !sc.run ? 'not run · counted as 0' : sc.partial
+          ? (() => { const n = LOCAL_DOMAINS.reduce((s, x) => s + DOMAIN[x].tasks, 0); return `v0.1 · ${LOCAL_DOMAINS.join('+')} ${n} run · other ${DOMAIN.all.tasks - n} counted as 0`; })()
+          : `v0.1 · ${DOMAIN[dom].tasks} tasks · ${sc.trials ? sc.trials + ' trials' : '1 run'}${newer}`,
         cost: null,
       };
     });
@@ -698,7 +710,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
     }
     if (perAttempt) {
       const d = await loadTbs();
-      const split = splitTasks(d, off);
+      const split = splitTasks(d, off, dom);
       for (const a of d.arms) {
         let cells, y;
         if (hasTrials(a, split.v01)) { cells = trialsOf(a, split.v01); y = (100 * cells.filter((x) => x.pass).length) / cells.length; }
@@ -786,7 +798,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
       return { r, style, points: AXES.map((a, i) => pt(i, r.v[a] / 100).map((n) => n.toFixed(1)).join(',')).join(' ') };
     });
     const sub = state.domain === 'life' ? (() => {
-      const split = splitTasks(d, off);
+      const split = splitTasks(d, off, 'life');
       return `<p class="bench-caption" style="margin-top:36px">Life sciences by sub-field <span class="sub">/ ScienceInfra arms, v0.1 tasks</span></p><div class="radar-grid">${SUBDOMAIN_ORDER.map((sf) => {
         const ts = split.v01.filter((t) => t.subdomain === sf);
         return barCard(`${SUBDOMAIN_LABEL[sf]} · ${ts.length} task${ts.length === 1 ? '' : 's'}`, d.arms
@@ -853,9 +865,9 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
     const off = await loadOfficialDomains();
     const om = await loadOfficialMatrix();
     const pub = state.showPublic ? await loadPublic() : null;
-    const split = splitTasks(d, off);
-    const idOf = Object.fromEntries(d.tasks.map((t) => [t.name, t.id]));
     const dom = state.domain;
+    const split = splitTasks(d, off, dom);
+    const idOf = Object.fromEntries(d.tasks.map((t) => [t.name, t.id]));
     const cols = om.tasks.map((t, i) => ({ ...t, i })).filter((t) => dom === 'all' || t.domain === dom);
     const rate = (cells) => { const n = cells.reduce((a, c) => a + (c.n || 1), 0); return n ? (100 * cells.reduce((a, c) => a + c.k, 0)) / n : 0; };
     // a task one of our arms did not run counts as 0 out of 0 runs
@@ -874,10 +886,11 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
     }
     rows.sort((a, b) => b.acc - a.acc || (a.kind === 'local') - (b.kind === 'local'));
     let html = heat(rows, cols, `Task matrix <span class="sub">/ ${esc(DOMAIN[dom].label)} / ${cols.length} tasks</span>`);
-    if ((dom === 'all' || dom === 'life') && split.newer.length) {
+    if ((dom === 'all' || LOCAL_DOMAINS.includes(dom)) && split.newer.length) {
       const nrows = d.arms.map((a) => { const cells = split.newer.map((t) => localCell(a, t)); return { kind: 'local', agent: a.agent, model: a.model, cells, acc: rate(cells) }; })
         .sort((a, b) => b.acc - a.acc);
-      html += `<div style="margin-top:36px">${heat(nrows, split.newer, `Life-science tasks added after v0.1 <span class="sub">/ ${split.newer.length} tasks / ScienceInfra arms only, not part of any rate above</span>`)}</div>`;
+      const label = dom === 'all' ? 'Tasks added after v0.1' : `${DOMAIN[dom].label} tasks added after v0.1`;
+      html += `<div style="margin-top:36px">${heat(nrows, split.newer, `${label} <span class="sub">/ ${split.newer.length} tasks / ScienceInfra arms only, not part of any rate above</span>`)}</div>`;
     }
     el.innerHTML = html + `<p class="bench-note">Cells show runs solved. Public rows are the official leaderboard's 3 trials per task; ScienceInfra rows show the runs we made per task (omicos + ds4-flash: 3; others: 1), and 0/0 marks a task that was not run and is counted as 0.</p>`;
   }
@@ -920,8 +933,8 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
   async function renderTbsFootnote() {
     const d = await loadTbs();
     const notes = [
-      `ScienceInfra arms are scored on the 19 life-science tasks of Terminal-Bench-Science v0.1, the same task set as the official leaderboard; a task that was not run counts as failed. Our harness also runs 6 life-science tasks added to the task repository after v0.1 (ehr-error-detection, bloodculture-gram-call, haplotype-risk-audit, mdd-executive-function, nis3d-hard-volume, plant-distribution-modeling): they are listed as "newer tasks" and in the matrix, and are not part of any rate.`,
-      `Life sciences is the only domain we have run. In every other domain our arms are shown as 0, and under "All domains" their rate is passed / 70.`,
+      `ScienceInfra arms are scored on the 19 life-science and 17 physical-science tasks of Terminal-Bench-Science v0.1, the same task sets as the official leaderboard; a task that was not run counts as failed. Our harness also runs tasks added to the task repository after v0.1 (6 life-science: ehr-error-detection, bloodculture-gram-call, haplotype-risk-audit, mdd-executive-function, nis3d-hard-volume, plant-distribution-modeling; 3 physical-science: exafs-shell-recovery, particle-physics-fastsim, pde-discovery): they are listed as "newer tasks" and in the matrix, and are not part of any rate.`,
+      `Life and physical sciences are the only domains we have run. In every other domain our arms are shown as 0, and under "All domains" their rate is passed / 70.`,
       `mini-swe-agent2 rows: cells marked v (matrix) use vals.ai's published per-task pass/fail (mini-swe-agent 2.2.4, single run, older 70-task release; DeepSeek V4.1 Flash and GPT-5.6 Luna); the remaining cells were run locally on our harness.`,
     ];
     const caveatArm = d.arms.find((a) => a.caveat);

@@ -675,5 +675,24 @@
   "qsm-reconstruction",
   "spatial-cell-annotation",
   "tumor-immune-interface"
+ ],
+ "physical_v01_tasks": [
+  "3x2pt-inference",
+  "cmb-cross-inference",
+  "frustrated-heisenberg-nqs",
+  "geometric-pharmacophore-alignment",
+  "inverse-lithography",
+  "inverse-waveguide-shape",
+  "leaky-bloch-meep",
+  "nanoindentation-property-extraction",
+  "neo-orbit-determination",
+  "rdkit-ic-constraints",
+  "rv-astrometry-fitting",
+  "si-fracture-fbc",
+  "spin-glass-groundstate",
+  "stacking-disorder-diffraction",
+  "tess-transit-vetting",
+  "variable-star-vetting",
+  "xrd-multiphase-qpa"
  ]
 }

@@ -1698,8 +1698,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 77.3,
-      "tasks_passed": 34,
+      "accuracy": 79.5,
+      "tasks_passed": 35,
       "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
@@ -1724,9 +1724,9 @@
           "accuracy": 100.0
         },
         "astronomy": {
-          "passed": 4,
+          "passed": 5,
           "evaluated": 6,
-          "accuracy": 66.7
+          "accuracy": 83.3
         },
         "materials-science": {
           "passed": 4,
@@ -2064,10 +2064,10 @@
           "reward": 1.0
         },
         "tess": {
-          "status": "fail",
-          "passed": 1,
+          "status": "pass",
+          "passed": 5,
           "total": 5,
-          "reward": 0.0
+          "reward": 1.0
         },
         "vstar": {
           "status": "pass",
@@ -2463,7 +2463,7 @@
         },
         "tess": {
           "status": "fail",
-          "passed": 1,
+          "passed": 4,
           "total": 5,
           "reward": 0.0
         },

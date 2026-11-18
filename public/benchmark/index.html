@@ -608,13 +608,25 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
   const trialsOf = (a, tasks) => tasks.flatMap((t) => (a.per_task[t.id] || {}).trials || []);
   const hasTrials = (a, tasks) => tasks.every((t) => ((a.per_task[t.id] || {}).trials || []).length > 1);
 
+  // An arm only counts as having "run" a single domain (life / physical) if
+  // it covers at least half that domain's v0.1 tasks -- otherwise a handful
+  // of incidental spot-check runs (e.g. a model only ever confirmed on 1 of
+  // 17 physical tasks) would render as a real, very-low accuracy rather than
+  // what it actually is: mostly not run. "All domains" keeps its existing,
+  // documented semantics (an unrun official task always counts as failed).
+  const evaluatedCount = (a, tasks) => tasks.filter((t) => (a.per_task[t.id] || {}).status !== 'not_run').length;
+
   function localScore(a, dom, split) {
-    if (LOCAL_DOMAINS.includes(dom) && hasTrials(a, split.v01)) {
-      const tr = trialsOf(a, split.v01), passed = tr.filter((x) => x.pass).length;
-      return { acc: (100 * passed) / tr.length, passed, total: tr.length, run: true, trials: Math.round(tr.length / split.v01.length) };
+    if (LOCAL_DOMAINS.includes(dom)) {
+      if (evaluatedCount(a, split.v01) < split.v01.length / 2) return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
+      if (hasTrials(a, split.v01)) {
+        const tr = trialsOf(a, split.v01), passed = tr.filter((x) => x.pass).length;
+        return { acc: (100 * passed) / tr.length, passed, total: tr.length, run: true, trials: Math.round(tr.length / split.v01.length) };
+      }
+      const passed = passCount(a, split.v01);
+      return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
     }
     const passed = passCount(a, split.v01);
-    if (LOCAL_DOMAINS.includes(dom)) return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
     if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
     return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
   }

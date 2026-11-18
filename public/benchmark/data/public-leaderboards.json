@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-16",
+  "fetched_at": "2026-11-18",
   "footnote": "Public numbers are not strictly comparable to the ScienceInfra runs above: the official leaderboard averages 3 trials per task; vals.ai uses 1 run on the 70-task v0.1 release, which has 19 life-science tasks versus our 25; snorkel.ai republishes the official leaderboard's numbers rather than running its own evaluation.",
   "sources": [
     {

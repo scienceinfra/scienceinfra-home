@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-16",
-  "in_progress": false,
+  "updated": "2026-11-18",
+  "in_progress": true,
   "domains": {
     "life-sciences": {
       "label": "Life sciences",
@@ -9,135 +9,280 @@
     },
     "physical-sciences": {
       "label": "Physical sciences",
-      "task_count": 0,
-      "status": "coming_soon"
+      "task_count": 20,
+      "status": "available"
     }
   },
   "tasks": [
     {
+      "id": "3x2pt",
+      "name": "3x2pt-inference",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
+    },
+    {
       "id": "ambient",
       "name": "ambient-rna-correction",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "animal-reid",
       "name": "animal-reid",
-      "subdomain": "ecology"
+      "subdomain": "ecology",
+      "domain": "life-sciences"
     },
     {
       "id": "ankle",
       "name": "ankle-mri-findings",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
     },
     {
       "id": "betalactam",
       "name": "betalactam-multimodal-transfer",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "cilia",
       "name": "cilia-segmentation",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "clinical",
       "name": "clinical-metadata-recovery",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "cmbx",
+      "name": "cmb-cross-inference",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
     },
     {
       "id": "dapi-he",
       "name": "dapi-he-alignment",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
     },
     {
       "id": "diag-chipseq",
       "name": "diag-chipseq",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "eeg",
       "name": "eeg-erp-recovery",
-      "subdomain": "neuroscience"
+      "subdomain": "neuroscience",
+      "domain": "life-sciences"
     },
     {
       "id": "ehr",
       "name": "ehr-error-detection",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "exafs",
+      "name": "exafs-shell-recovery",
+      "subdomain": "materials-science",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "fastsim",
+      "name": "particle-physics-fastsim",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
     },
     {
       "id": "foraging",
       "name": "foraging-cognitive-model",
-      "subdomain": "neuroscience"
+      "subdomain": "neuroscience",
+      "domain": "life-sciences"
     },
     {
       "id": "genomic-model-ranking",
       "name": "genomic-model-ranking",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "gramcall",
       "name": "bloodculture-gram-call",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
     },
     {
       "id": "haplotype",
       "name": "haplotype-risk-audit",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
     },
     {
       "id": "lineage",
       "name": "cell-lineage-reconstruction",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "litho",
+      "name": "inverse-lithography",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
     },
     {
       "id": "longclin",
       "name": "longitudinal-clinical-agent",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
     },
     {
       "id": "mdd",
       "name": "mdd-executive-function",
-      "subdomain": "neuroscience"
+      "subdomain": "neuroscience",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "meep",
+      "name": "leaky-bloch-meep",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
     },
     {
       "id": "mri",
       "name": "mri-harmonization",
-      "subdomain": "neuroscience"
+      "subdomain": "neuroscience",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "nanoindent",
+      "name": "nanoindentation-property-extraction",
+      "subdomain": "materials-science",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "neo",
+      "name": "neo-orbit-determination",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
     },
     {
       "id": "nis3d",
       "name": "nis3d-hard-volume",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "nqs",
+      "name": "frustrated-heisenberg-nqs",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
     },
     {
       "id": "ont-tn-qc",
       "name": "ont-tn-qc",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "pde-disc",
+      "name": "pde-discovery",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "pharmacophore",
+      "name": "geometric-pharmacophore-alignment",
+      "subdomain": "chemistry",
+      "domain": "physical-sciences"
     },
     {
       "id": "plantdist",
       "name": "plant-distribution-modeling",
-      "subdomain": "ecology"
+      "subdomain": "ecology",
+      "domain": "life-sciences"
     },
     {
       "id": "protein-al",
       "name": "protein-active-learning",
-      "subdomain": "biology"
+      "subdomain": "biology",
+      "domain": "life-sciences"
     },
     {
       "id": "qsm",
       "name": "qsm-reconstruction",
-      "subdomain": "neuroscience"
+      "subdomain": "neuroscience",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "rdkitic",
+      "name": "rdkit-ic-constraints",
+      "subdomain": "chemistry",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "rvast",
+      "name": "rv-astrometry-fitting",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "sifracture",
+      "name": "si-fracture-fbc",
+      "subdomain": "materials-science",
+      "domain": "physical-sciences"
     },
     {
       "id": "spatial",
       "name": "spatial-cell-annotation",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "spinglass",
+      "name": "spin-glass-groundstate",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "stacking",
+      "name": "stacking-disorder-diffraction",
+      "subdomain": "materials-science",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "tess",
+      "name": "tess-transit-vetting",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
     },
     {
       "id": "tumor",
       "name": "tumor-immune-interface",
-      "subdomain": "medicine"
+      "subdomain": "medicine",
+      "domain": "life-sciences"
+    },
+    {
+      "id": "vstar",
+      "name": "variable-star-vetting",
+      "subdomain": "astronomy",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "waveguide",
+      "name": "inverse-waveguide-shape",
+      "subdomain": "physics",
+      "domain": "physical-sciences"
+    },
+    {
+      "id": "xrdqpa",
+      "name": "xrd-multiphase-qpa",
+      "subdomain": "materials-science",
+      "domain": "physical-sciences"
     }
   ],
   "arms": [
@@ -148,10 +293,10 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 88.0,
-      "tasks_passed": 22,
-      "tasks_evaluated": 25,
-      "tasks_total": 25,
+      "accuracy": 75.0,
+      "tasks_passed": 33,
+      "tasks_evaluated": 44,
+      "tasks_total": 45,
       "per_subdomain": {
         "biology": {
           "passed": 9,
@@ -172,6 +317,26 @@
           "passed": 4,
           "evaluated": 5,
           "accuracy": 80.0
+        },
+        "astronomy": {
+          "passed": 4,
+          "evaluated": 6,
+          "accuracy": 66.7
+        },
+        "materials-science": {
+          "passed": 3,
+          "evaluated": 5,
+          "accuracy": 60.0
+        },
+        "physics": {
+          "passed": 3,
+          "evaluated": 6,
+          "accuracy": 50.0
+        },
+        "chemistry": {
+          "passed": 1,
+          "evaluated": 2,
+          "accuracy": 50.0
         }
       },
       "per_task": {
@@ -974,10 +1139,557 @@
               "cost_usd": 0.1315
             }
           ]
+        },
+        "3x2pt": {
+          "status": "pass",
+          "passed": 9,
+          "total": 9,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            }
+          ]
+        },
+        "cmbx": {
+          "status": "fail",
+          "passed": 99,
+          "total": 105,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "u1",
+              "pass": false,
+              "passed": 104,
+              "total": 105,
+              "cost_usd": null
+            },
+            {
+              "tag": "u2",
+              "pass": false,
+              "passed": 104,
+              "total": 105,
+              "cost_usd": null
+            },
+            {
+              "tag": "u3",
+              "pass": false,
+              "passed": 99,
+              "total": 105,
+              "cost_usd": null
+            }
+          ]
+        },
+        "exafs": {
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "z1",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "z2",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "z3",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            }
+          ]
+        },
+        "fastsim": {
+          "status": "not_run"
+        },
+        "litho": {
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "v1",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "v2",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "v3",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            }
+          ]
+        },
+        "meep": {
+          "status": "pass",
+          "passed": 36,
+          "total": 36,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 32,
+              "total": 36,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 36,
+              "total": 36,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 36,
+              "total": 36,
+              "cost_usd": null
+            }
+          ]
+        },
+        "nanoindent": {
+          "status": "pass",
+          "passed": 3,
+          "total": 3,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": null
+            }
+          ]
+        },
+        "neo": {
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            }
+          ]
+        },
+        "nqs": {
+          "status": "pass",
+          "passed": 1,
+          "total": 1,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 0,
+              "total": 1,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 1,
+              "total": 1,
+              "cost_usd": null
+            }
+          ]
+        },
+        "pde-disc": {
+          "status": "fail",
+          "passed": 35,
+          "total": 38,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "y1",
+              "pass": false,
+              "passed": 35,
+              "total": 38,
+              "cost_usd": null
+            },
+            {
+              "tag": "y2",
+              "pass": false,
+              "passed": 35,
+              "total": 38,
+              "cost_usd": null
+            },
+            {
+              "tag": "y3",
+              "pass": false,
+              "passed": 35,
+              "total": 38,
+              "cost_usd": null
+            }
+          ]
+        },
+        "pharmacophore": {
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            }
+          ]
+        },
+        "rdkitic": {
+          "status": "fail",
+          "passed": 32,
+          "total": 35,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "z2",
+              "pass": true,
+              "passed": 35,
+              "total": 35,
+              "cost_usd": null
+            },
+            {
+              "tag": "z3",
+              "pass": false,
+              "passed": 32,
+              "total": 35,
+              "cost_usd": null
+            }
+          ]
+        },
+        "rvast": {
+          "status": "fail",
+          "passed": 0,
+          "total": 2,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 1,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 0,
+              "total": 2,
+              "cost_usd": null
+            }
+          ]
+        },
+        "sifracture": {
+          "status": "fail",
+          "passed": 7,
+          "total": 9,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 3,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 7,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 7,
+              "total": 9,
+              "cost_usd": null
+            }
+          ]
+        },
+        "spinglass": {
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            }
+          ]
+        },
+        "stacking": {
+          "status": "fail",
+          "passed": 2,
+          "total": 5,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 2,
+              "total": 5,
+              "cost_usd": null
+            }
+          ]
+        },
+        "tess": {
+          "status": "pass",
+          "passed": 5,
+          "total": 5,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "w1",
+              "pass": false,
+              "passed": 4,
+              "total": 5,
+              "cost_usd": null
+            },
+            {
+              "tag": "w2",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": null
+            },
+            {
+              "tag": "w3",
+              "pass": true,
+              "passed": 5,
+              "total": 5,
+              "cost_usd": null
+            }
+          ]
+        },
+        "vstar": {
+          "status": "pass",
+          "passed": 6,
+          "total": 6,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 6,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 6,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 6,
+              "total": 6,
+              "cost_usd": null
+            }
+          ]
+        },
+        "waveguide": {
+          "status": "fail",
+          "passed": 6,
+          "total": 8,
+          "reward": 0.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 8,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            }
+          ]
+        },
+        "xrdqpa": {
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0,
+          "trials": [
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            }
+          ]
         }
       },
-      "trials_passed": 52,
-      "trials_total": 75
+      "trials_passed": 88,
+      "trials_total": 131
     },
     {
       "id": "omicos-sol",
@@ -986,10 +1698,10 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 84.0,
-      "tasks_passed": 21,
-      "tasks_evaluated": 25,
-      "tasks_total": 25,
+      "accuracy": 85.2,
+      "tasks_passed": 23,
+      "tasks_evaluated": 27,
+      "tasks_total": 45,
       "per_subdomain": {
         "biology": {
           "passed": 8,
@@ -1009,6 +1721,16 @@
         "neuroscience": {
           "passed": 5,
           "evaluated": 5,
+          "accuracy": 100.0
+        },
+        "materials-science": {
+          "passed": 1,
+          "evaluated": 1,
+          "accuracy": 100.0
+        },
+        "chemistry": {
+          "passed": 1,
+          "evaluated": 1,
           "accuracy": 100.0
         }
       },
@@ -1237,6 +1959,72 @@
           "cost_usd": 0.8234,
           "cost_usd_no_cache": 4.5929,
           "cache": "estimated"
+        },
+        "3x2pt": {
+          "status": "not_run"
+        },
+        "cmbx": {
+          "status": "not_run"
+        },
+        "exafs": {
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0
+        },
+        "fastsim": {
+          "status": "not_run"
+        },
+        "litho": {
+          "status": "not_run"
+        },
+        "meep": {
+          "status": "not_run"
+        },
+        "nanoindent": {
+          "status": "not_run"
+        },
+        "neo": {
+          "status": "not_run"
+        },
+        "nqs": {
+          "status": "not_run"
+        },
+        "pde-disc": {
+          "status": "not_run"
+        },
+        "pharmacophore": {
+          "status": "not_run"
+        },
+        "rdkitic": {
+          "status": "pass",
+          "passed": 35,
+          "total": 35,
+          "reward": 1.0
+        },
+        "rvast": {
+          "status": "not_run"
+        },
+        "sifracture": {
+          "status": "not_run"
+        },
+        "spinglass": {
+          "status": "not_run"
+        },
+        "stacking": {
+          "status": "not_run"
+        },
+        "tess": {
+          "status": "not_run"
+        },
+        "vstar": {
+          "status": "not_run"
+        },
+        "waveguide": {
+          "status": "not_run"
+        },
+        "xrdqpa": {
+          "status": "not_run"
         }
       }
     },
@@ -1247,10 +2035,10 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 44.0,
-      "tasks_passed": 11,
-      "tasks_evaluated": 25,
-      "tasks_total": 25,
+      "accuracy": 50.0,
+      "tasks_passed": 16,
+      "tasks_evaluated": 32,
+      "tasks_total": 45,
       "per_subdomain": {
         "biology": {
           "passed": 6,
@@ -1271,6 +2059,16 @@
           "passed": 2,
           "evaluated": 5,
           "accuracy": 40.0
+        },
+        "materials-science": {
+          "passed": 4,
+          "evaluated": 5,
+          "accuracy": 80.0
+        },
+        "chemistry": {
+          "passed": 1,
+          "evaluated": 2,
+          "accuracy": 50.0
         }
       },
       "per_task": {
@@ -1498,6 +2296,102 @@
           "cost_usd": 0.0659,
           "cost_usd_no_cache": 0.3011,
           "cache": "estimated"
+        },
+        "3x2pt": {
+          "status": "not_run"
+        },
+        "cmbx": {
+          "status": "not_run"
+        },
+        "exafs": {
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0
+        },
+        "fastsim": {
+          "status": "not_run"
+        },
+        "litho": {
+          "status": "not_run"
+        },
+        "meep": {
+          "status": "not_run"
+        },
+        "nanoindent": {
+          "status": "pass",
+          "passed": 3,
+          "total": 3,
+          "reward": 1.0,
+          "cost_usd": 0.0456,
+          "cost_usd_no_cache": 0.1942,
+          "cache": "estimated"
+        },
+        "neo": {
+          "status": "not_run"
+        },
+        "nqs": {
+          "status": "not_run"
+        },
+        "pde-disc": {
+          "status": "not_run"
+        },
+        "pharmacophore": {
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0,
+          "cost_usd": 0.1672,
+          "cost_usd_no_cache": 0.7775,
+          "cache": "estimated"
+        },
+        "rdkitic": {
+          "status": "fail",
+          "passed": 23,
+          "total": 35,
+          "reward": 0.0
+        },
+        "rvast": {
+          "status": "not_run"
+        },
+        "sifracture": {
+          "status": "fail",
+          "passed": 0,
+          "total": 9,
+          "reward": 0.0,
+          "cost_usd": 0.1159,
+          "cost_usd_no_cache": 0.3315,
+          "cache": "estimated"
+        },
+        "spinglass": {
+          "status": "not_run"
+        },
+        "stacking": {
+          "status": "pass",
+          "passed": 5,
+          "total": 5,
+          "reward": 1.0,
+          "cost_usd": 0.0604,
+          "cost_usd_no_cache": 0.3123,
+          "cache": "estimated"
+        },
+        "tess": {
+          "status": "not_run"
+        },
+        "vstar": {
+          "status": "not_run"
+        },
+        "waveguide": {
+          "status": "not_run"
+        },
+        "xrdqpa": {
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0,
+          "cost_usd": 0.0441,
+          "cost_usd_no_cache": 0.1865,
+          "cache": "estimated"
         }
       }
     },
@@ -1510,8 +2404,8 @@
       "local": true,
       "accuracy": 0.0,
       "tasks_passed": 0,
-      "tasks_evaluated": 25,
-      "tasks_total": 25,
+      "tasks_evaluated": 28,
+      "tasks_total": 45,
       "per_subdomain": {
         "biology": {
           "passed": 0,
@@ -1531,6 +2425,16 @@
         "neuroscience": {
           "passed": 0,
           "evaluated": 5,
+          "accuracy": 0.0
+        },
+        "materials-science": {
+          "passed": 0,
+          "evaluated": 1,
+          "accuracy": 0.0
+        },
+        "physics": {
+          "passed": 0,
+          "evaluated": 2,
           "accuracy": 0.0
         }
       },
@@ -1702,6 +2606,75 @@
           "total": null,
           "reward": 0.0,
           "source": "vals.ai (published)"
+        },
+        "3x2pt": {
+          "status": "not_run"
+        },
+        "cmbx": {
+          "status": "not_run"
+        },
+        "exafs": {
+          "status": "fail",
+          "passed": 3,
+          "total": 7,
+          "reward": 0.0
+        },
+        "fastsim": {
+          "status": "not_run"
+        },
+        "litho": {
+          "status": "fail",
+          "passed": 0,
+          "total": 4,
+          "reward": 0.0
+        },
+        "meep": {
+          "status": "not_run"
+        },
+        "nanoindent": {
+          "status": "not_run"
+        },
+        "neo": {
+          "status": "not_run"
+        },
+        "nqs": {
+          "status": "not_run"
+        },
+        "pde-disc": {
+          "status": "fail",
+          "passed": 34,
+          "total": 38,
+          "reward": 0.0
+        },
+        "pharmacophore": {
+          "status": "not_run"
+        },
+        "rdkitic": {
+          "status": "not_run"
+        },
+        "rvast": {
+          "status": "not_run"
+        },
+        "sifracture": {
+          "status": "not_run"
+        },
+        "spinglass": {
+          "status": "not_run"
+        },
+        "stacking": {
+          "status": "not_run"
+        },
+        "tess": {
+          "status": "not_run"
+        },
+        "vstar": {
+          "status": "not_run"
+        },
+        "waveguide": {
+          "status": "not_run"
+        },
+        "xrdqpa": {
+          "status": "not_run"
         }
       }
     },
@@ -1714,8 +2687,8 @@
       "local": true,
       "accuracy": 0.0,
       "tasks_passed": 0,
-      "tasks_evaluated": 25,
-      "tasks_total": 25,
+      "tasks_evaluated": 26,
+      "tasks_total": 45,
       "per_subdomain": {
         "biology": {
           "passed": 0,
@@ -1735,6 +2708,11 @@
         "neuroscience": {
           "passed": 0,
           "evaluated": 5,
+          "accuracy": 0.0
+        },
+        "materials-science": {
+          "passed": 0,
+          "evaluated": 1,
           "accuracy": 0.0
         }
       },
@@ -1907,6 +2885,69 @@
           "total": null,
           "reward": 0.0,
           "source": "vals.ai (published)"
+        },
+        "3x2pt": {
+          "status": "not_run"
+        },
+        "cmbx": {
+          "status": "not_run"
+        },
+        "exafs": {
+          "status": "fail",
+          "passed": 1,
+          "total": 7,
+          "reward": 0.0
+        },
+        "fastsim": {
+          "status": "not_run"
+        },
+        "litho": {
+          "status": "not_run"
+        },
+        "meep": {
+          "status": "not_run"
+        },
+        "nanoindent": {
+          "status": "not_run"
+        },
+        "neo": {
+          "status": "not_run"
+        },
+        "nqs": {
+          "status": "not_run"
+        },
+        "pde-disc": {
+          "status": "not_run"
+        },
+        "pharmacophore": {
+          "status": "not_run"
+        },
+        "rdkitic": {
+          "status": "not_run"
+        },
+        "rvast": {
+          "status": "not_run"
+        },
+        "sifracture": {
+          "status": "not_run"
+        },
+        "spinglass": {
+          "status": "not_run"
+        },
+        "stacking": {
+          "status": "not_run"
+        },
+        "tess": {
+          "status": "not_run"
+        },
+        "vstar": {
+          "status": "not_run"
+        },
+        "waveguide": {
+          "status": "not_run"
+        },
+        "xrdqpa": {
+          "status": "not_run"
         }
       }
     },

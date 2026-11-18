@@ -293,8 +293,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 79.5,
-      "tasks_passed": 35,
+      "accuracy": 81.8,
+      "tasks_passed": 36,
       "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
@@ -319,9 +319,9 @@
           "accuracy": 80.0
         },
         "astronomy": {
-          "passed": 5,
+          "passed": 6,
           "evaluated": 6,
-          "accuracy": 83.3
+          "accuracy": 100.0
         },
         "materials-science": {
           "passed": 3,
@@ -1170,29 +1170,36 @@
           ]
         },
         "cmbx": {
-          "status": "fail",
-          "passed": 99,
+          "status": "pass",
+          "passed": 105,
           "total": 105,
-          "reward": 0.0,
+          "reward": 1.0,
           "trials": [
             {
-              "tag": "u1",
-              "pass": false,
-              "passed": 104,
+              "tag": "z11",
+              "pass": true,
+              "passed": 105,
               "total": 105,
               "cost_usd": null
             },
             {
-              "tag": "u2",
-              "pass": false,
-              "passed": 104,
+              "tag": "z12",
+              "pass": true,
+              "passed": 105,
               "total": 105,
               "cost_usd": null
             },
             {
-              "tag": "u3",
-              "pass": false,
-              "passed": 99,
+              "tag": "z13",
+              "pass": true,
+              "passed": 105,
+              "total": 105,
+              "cost_usd": null
+            },
+            {
+              "tag": "z14",
+              "pass": true,
+              "passed": 105,
               "total": 105,
               "cost_usd": null
             }
@@ -1688,8 +1695,8 @@
           ]
         }
       },
-      "trials_passed": 92,
-      "trials_total": 131
+      "trials_passed": 96,
+      "trials_total": 132
     },
     {
       "id": "omicos-sol",

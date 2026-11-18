@@ -1698,9 +1698,9 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 85.2,
-      "tasks_passed": 23,
-      "tasks_evaluated": 27,
+      "accuracy": 77.3,
+      "tasks_passed": 34,
+      "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
         "biology": {
@@ -1723,14 +1723,24 @@
           "evaluated": 5,
           "accuracy": 100.0
         },
+        "astronomy": {
+          "passed": 4,
+          "evaluated": 6,
+          "accuracy": 66.7
+        },
         "materials-science": {
-          "passed": 1,
-          "evaluated": 1,
-          "accuracy": 100.0
+          "passed": 4,
+          "evaluated": 5,
+          "accuracy": 80.0
+        },
+        "physics": {
+          "passed": 3,
+          "evaluated": 6,
+          "accuracy": 50.0
         },
         "chemistry": {
-          "passed": 1,
-          "evaluated": 1,
+          "passed": 2,
+          "evaluated": 2,
           "accuracy": 100.0
         }
       },
@@ -1961,10 +1971,16 @@
           "cache": "estimated"
         },
         "3x2pt": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 9,
+          "reward": 0.0
         },
         "cmbx": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 105,
+          "total": 105,
+          "reward": 1.0
         },
         "exafs": {
           "status": "pass",
@@ -1976,25 +1992,46 @@
           "status": "not_run"
         },
         "litho": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0
         },
         "meep": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 36,
+          "total": 36,
+          "reward": 1.0
         },
         "nanoindent": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 3,
+          "total": 3,
+          "reward": 1.0
         },
         "neo": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "nqs": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 1,
+          "reward": 0.0
         },
         "pde-disc": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 34,
+          "total": 38,
+          "reward": 0.0
         },
         "pharmacophore": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0
         },
         "rdkitic": {
           "status": "pass",
@@ -2003,28 +2040,52 @@
           "reward": 1.0
         },
         "rvast": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 2,
+          "total": 2,
+          "reward": 1.0
         },
         "sifracture": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 8,
+          "total": 9,
+          "reward": 0.0
         },
         "spinglass": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "stacking": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 5,
+          "total": 5,
+          "reward": 1.0
         },
         "tess": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 1,
+          "total": 5,
+          "reward": 0.0
         },
         "vstar": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 6,
+          "total": 6,
+          "reward": 1.0
         },
         "waveguide": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 8,
+          "total": 8,
+          "reward": 1.0
         },
         "xrdqpa": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         }
       }
     },
@@ -2035,9 +2096,9 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 50.0,
+      "accuracy": 36.4,
       "tasks_passed": 16,
-      "tasks_evaluated": 32,
+      "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
         "biology": {
@@ -2060,10 +2121,20 @@
           "evaluated": 5,
           "accuracy": 40.0
         },
+        "astronomy": {
+          "passed": 1,
+          "evaluated": 6,
+          "accuracy": 16.7
+        },
         "materials-science": {
-          "passed": 4,
+          "passed": 2,
           "evaluated": 5,
-          "accuracy": 80.0
+          "accuracy": 40.0
+        },
+        "physics": {
+          "passed": 1,
+          "evaluated": 6,
+          "accuracy": 16.7
         },
         "chemistry": {
           "passed": 1,
@@ -2298,10 +2369,16 @@
           "cache": "estimated"
         },
         "3x2pt": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 5,
+          "total": 9,
+          "reward": 0.0
         },
         "cmbx": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 64,
+          "total": 105,
+          "reward": 0.0
         },
         "exafs": {
           "status": "pass",
@@ -2313,37 +2390,46 @@
           "status": "not_run"
         },
         "litho": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0
         },
         "meep": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 27,
+          "total": 36,
+          "reward": 0.0
         },
         "nanoindent": {
-          "status": "pass",
-          "passed": 3,
+          "status": "fail",
+          "passed": 2,
           "total": 3,
-          "reward": 1.0,
-          "cost_usd": 0.0456,
-          "cost_usd_no_cache": 0.1942,
-          "cache": "estimated"
+          "reward": 0.0
         },
         "neo": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "nqs": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 1,
+          "reward": 0.0
         },
         "pde-disc": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 35,
+          "total": 38,
+          "reward": 0.0
         },
         "pharmacophore": {
           "status": "pass",
           "passed": 7,
           "total": 7,
-          "reward": 1.0,
-          "cost_usd": 0.1672,
-          "cost_usd_no_cache": 0.7775,
-          "cache": "estimated"
+          "reward": 1.0
         },
         "rdkitic": {
           "status": "fail",
@@ -2352,46 +2438,52 @@
           "reward": 0.0
         },
         "rvast": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 0,
+          "total": 2,
+          "reward": 0.0
         },
         "sifracture": {
           "status": "fail",
           "passed": 0,
           "total": 9,
-          "reward": 0.0,
-          "cost_usd": 0.1159,
-          "cost_usd_no_cache": 0.3315,
-          "cache": "estimated"
+          "reward": 0.0
         },
         "spinglass": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "stacking": {
-          "status": "pass",
-          "passed": 5,
+          "status": "fail",
+          "passed": 4,
           "total": 5,
-          "reward": 1.0,
-          "cost_usd": 0.0604,
-          "cost_usd_no_cache": 0.3123,
-          "cache": "estimated"
+          "reward": 0.0
         },
         "tess": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 1,
+          "total": 5,
+          "reward": 0.0
         },
         "vstar": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 4,
+          "total": 6,
+          "reward": 0.0
         },
         "waveguide": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 5,
+          "total": 8,
+          "reward": 0.0
         },
         "xrdqpa": {
           "status": "pass",
           "passed": 4,
           "total": 4,
-          "reward": 1.0,
-          "cost_usd": 0.0441,
-          "cost_usd_no_cache": 0.1865,
-          "cache": "estimated"
+          "reward": 1.0
         }
       }
     },

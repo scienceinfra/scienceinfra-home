@@ -293,8 +293,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 77.3,
-      "tasks_passed": 34,
+      "accuracy": 79.5,
+      "tasks_passed": 35,
       "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
@@ -319,9 +319,9 @@
           "accuracy": 80.0
         },
         "astronomy": {
-          "passed": 4,
+          "passed": 5,
           "evaluated": 6,
-          "accuracy": 66.7
+          "accuracy": 83.3
         },
         "materials-science": {
           "passed": 3,
@@ -1456,29 +1456,29 @@
           ]
         },
         "rvast": {
-          "status": "fail",
-          "passed": 0,
+          "status": "pass",
+          "passed": 2,
           "total": 2,
-          "reward": 0.0,
+          "reward": 1.0,
           "trials": [
             {
-              "tag": "t1",
-              "pass": false,
-              "passed": 1,
-              "total": 2,
-              "cost_usd": null
-            },
-            {
-              "tag": "t2",
+              "tag": "w1",
               "pass": true,
               "passed": 2,
               "total": 2,
               "cost_usd": null
             },
             {
-              "tag": "t3",
-              "pass": false,
-              "passed": 0,
+              "tag": "w2",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "w3",
+              "pass": true,
+              "passed": 2,
               "total": 2,
               "cost_usd": null
             }
@@ -1688,7 +1688,7 @@
           ]
         }
       },
-      "trials_passed": 90,
+      "trials_passed": 92,
       "trials_total": 131
     },
     {

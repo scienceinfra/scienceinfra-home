@@ -293,8 +293,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 75.0,
-      "tasks_passed": 33,
+      "accuracy": 77.3,
+      "tasks_passed": 34,
       "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
@@ -329,9 +329,9 @@
           "accuracy": 60.0
         },
         "physics": {
-          "passed": 3,
+          "passed": 4,
           "evaluated": 6,
-          "accuracy": 50.0
+          "accuracy": 66.7
         },
         "chemistry": {
           "passed": 1,
@@ -1630,29 +1630,29 @@
           ]
         },
         "waveguide": {
-          "status": "fail",
-          "passed": 6,
+          "status": "pass",
+          "passed": 8,
           "total": 8,
-          "reward": 0.0,
+          "reward": 1.0,
           "trials": [
             {
-              "tag": "t1",
+              "tag": "w3a",
               "pass": true,
               "passed": 8,
               "total": 8,
               "cost_usd": null
             },
             {
-              "tag": "t2",
-              "pass": false,
-              "passed": 6,
+              "tag": "w3b",
+              "pass": true,
+              "passed": 8,
               "total": 8,
               "cost_usd": null
             },
             {
-              "tag": "t3",
-              "pass": false,
-              "passed": 6,
+              "tag": "w3c",
+              "pass": true,
+              "passed": 8,
               "total": 8,
               "cost_usd": null
             }
@@ -1688,7 +1688,7 @@
           ]
         }
       },
-      "trials_passed": 88,
+      "trials_passed": 90,
       "trials_total": 131
     },
     {
@@ -2096,8 +2096,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 36.4,
-      "tasks_passed": 16,
+      "accuracy": 38.6,
+      "tasks_passed": 17,
       "tasks_evaluated": 44,
       "tasks_total": 45,
       "per_subdomain": {
@@ -2132,9 +2132,9 @@
           "accuracy": 40.0
         },
         "physics": {
-          "passed": 1,
+          "passed": 2,
           "evaluated": 6,
-          "accuracy": 16.7
+          "accuracy": 33.3
         },
         "chemistry": {
           "passed": 1,
@@ -2474,10 +2474,10 @@
           "reward": 0.0
         },
         "waveguide": {
-          "status": "fail",
-          "passed": 5,
+          "status": "pass",
+          "passed": 8,
           "total": 8,
-          "reward": 0.0
+          "reward": 1.0
         },
         "xrdqpa": {
           "status": "pass",

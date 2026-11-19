@@ -2446,7 +2446,7 @@
         },
         "rvast": {
           "status": "fail",
-          "passed": 0,
+          "passed": 1,
           "total": 2,
           "reward": 0.0
         },

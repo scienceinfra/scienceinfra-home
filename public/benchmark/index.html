@@ -634,7 +634,14 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
 
   function localScore(a, dom, split) {
     if (LOCAL_DOMAINS.includes(dom)) {
-      if (evaluatedCount(a, split.v01) < split.v01.length / 2) return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
+      const ev = evaluatedCount(a, split.v01);
+      if (ev === 0) return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
+      // Partial coverage (e.g. a backfill still running): score the tasks that
+      // were run and say so; unrun tasks are "not run", not failures, here.
+      if (ev < split.v01.length && !hasTrials(a, split.v01)) {
+        const passed = passCount(a, split.v01);
+        return { acc: (100 * passed) / ev, passed, total: ev, run: true, coverage: `${ev} of ${split.v01.length} tasks run` };
+      }
       if (hasTrials(a, split.v01)) {
         const { passed, total } = trialScore(a, split.v01);
         return { acc: (100 * passed) / total, passed, total, run: true, trials: total === TRIALS_PER_TASK * split.v01.length ? `${TRIALS_PER_TASK} trials` : `up to ${TRIALS_PER_TASK} trials` };
@@ -643,7 +650,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
       return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
     }
     const passed = passCount(a, split.v01);
-    if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true };
+    if (dom === 'all') return { acc: (100 * passed) / DOMAIN.all.tasks, passed, total: DOMAIN.all.tasks, run: true, partial: true, ev: evaluatedCount(a, split.v01) };
     return { acc: 0, passed: 0, total: DOMAIN[dom].tasks, run: false };
   }
 
@@ -657,8 +664,8 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
         taskSet: !sc.run ? 'not run · counted as 0' : sc.partial
-          ? (() => { const n = LOCAL_DOMAINS.reduce((s, x) => s + DOMAIN[x].tasks, 0); return n >= DOMAIN.all.tasks ? `v0.1 · ${n} tasks · latest run` : `v0.1 · ${LOCAL_DOMAINS.join('+')} ${n} run · other ${DOMAIN.all.tasks - n} counted as 0`; })()
-          : `v0.1 · ${DOMAIN[dom].tasks} tasks · ${sc.trials || '1 run'}${newer}`,
+          ? (() => { const n = LOCAL_DOMAINS.reduce((s, x) => s + DOMAIN[x].tasks, 0); return n >= DOMAIN.all.tasks ? (sc.ev < DOMAIN.all.tasks ? `v0.1 · ${sc.ev} of ${n} run · rest counted as failed` : `v0.1 · ${n} tasks · latest run`) : `v0.1 · ${LOCAL_DOMAINS.join('+')} ${n} run · other ${DOMAIN.all.tasks - n} counted as 0`; })()
+          : `v0.1 · ${sc.coverage || DOMAIN[dom].tasks + ' tasks'} · ${sc.trials || '1 run'}${newer}`,
         cost: null,
       };
     });
@@ -964,7 +971,7 @@ svg.pareto .pt .a{font-size:9.5px;fill:var(--fg-30)}
     const d = await loadTbs();
     const notes = [
       `ScienceInfra arms are scored on the 70 tasks of Terminal-Bench-Science v0.1 (life 19, physical 17, earth 8, mathematical 17, engineering 9), the same task sets as the official leaderboard; a task that was not run counts as failed. Our harness also runs tasks added to the task repository after v0.1: they are listed as "newer tasks" and in the matrix, and are not part of any rate.`,
-      `omicos + ds4-flash is scored over up to 3 trials per task (passes / recorded trials; a task that was not run adds 3 failed trials). Life and physical sciences use fixed benchmark batches; earth, engineering and mathematical sciences use each task's 3 most recent valid runs, which come from the ongoing improvement rounds. The other ScienceInfra arms ran life and physical sciences only and show earth, engineering and mathematical as not run. Six Lean-proof tasks are documented as task-scale limited; five of them have no harness integration (three are v0.1 mathematical tasks) and count as failed.`,
+      `omicos + ds4-flash is scored over up to 3 trials per task (passes / recorded trials; a task that was not run adds 3 failed trials). Life and physical sciences use fixed benchmark batches; earth, engineering and mathematical sciences use each task's 3 most recent valid runs, which come from the ongoing improvement rounds. omicos + gpt-6.1-sol is being backfilled on earth, engineering and mathematical sciences (one run per task); where only part of a domain has finished, its rate is over the tasks run and the row says how many. Under All domains every unrun task counts as failed. The other ScienceInfra arms ran life and physical sciences only. Six Lean-proof tasks are documented as task-scale limited; five of them have no harness integration (three are v0.1 mathematical tasks) and count as failed.`,
       `mini-swe-agent2 rows: cells marked v (matrix) use vals.ai's published per-task pass/fail (mini-swe-agent 2.2.4, single run, older 70-task release; DeepSeek V4.1 Flash and GPT-5.6 Luna); the remaining cells were run locally on our harness.`,
     ];
     const caveatArm = d.arms.find((a) => a.caveat);

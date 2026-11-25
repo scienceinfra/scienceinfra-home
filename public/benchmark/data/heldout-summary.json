@@ -1,19 +1,140 @@
 {
-  "updated": "2026-11-15",
+  "updated": "2026-11-25",
   "arms": [
     {
       "agent": "omicos",
       "model": "ds4-flash",
       "source": "scienceinfra",
       "domains": {
+        "physical-sciences": {
+          "tasks": 9,
+          "passed": 6
+        },
         "life-sciences": {
-          "tasks": 23,
-          "passed": 11
+          "tasks": 27,
+          "passed": 16
+        },
+        "engineering-sciences": {
+          "tasks": 4,
+          "passed": 0
+        },
+        "engineering sciences": {
+          "tasks": 2,
+          "passed": 0
+        },
+        "earth-sciences": {
+          "tasks": 1,
+          "passed": 1
+        },
+        "mathematical-sciences": {
+          "tasks": 2,
+          "passed": 1
         }
-      }
+      },
+      "passed": 24,
+      "tasks": 45
+    },
+    {
+      "agent": "omicos",
+      "model": "gpt-6.1-sol",
+      "source": "scienceinfra",
+      "domains": {
+        "physical-sciences": {
+          "tasks": 9,
+          "passed": 5
+        },
+        "life-sciences": {
+          "tasks": 27,
+          "passed": 13
+        },
+        "engineering-sciences": {
+          "tasks": 4,
+          "passed": 1
+        },
+        "engineering sciences": {
+          "tasks": 2,
+          "passed": 1
+        },
+        "earth-sciences": {
+          "tasks": 1,
+          "passed": 1
+        },
+        "mathematical-sciences": {
+          "tasks": 2,
+          "passed": 2
+        }
+      },
+      "passed": 23,
+      "tasks": 45
+    },
+    {
+      "agent": "codex 0.164",
+      "model": "gpt-6.2-sol",
+      "source": "scienceinfra",
+      "domains": {
+        "physical-sciences": {
+          "tasks": 9,
+          "passed": 4
+        },
+        "life-sciences": {
+          "tasks": 27,
+          "passed": 12
+        },
+        "engineering-sciences": {
+          "tasks": 4,
+          "passed": 1
+        },
+        "engineering sciences": {
+          "tasks": 2,
+          "passed": 1
+        },
+        "earth-sciences": {
+          "tasks": 1,
+          "passed": 0
+        },
+        "mathematical-sciences": {
+          "tasks": 2,
+          "passed": 2
+        }
+      },
+      "passed": 20,
+      "tasks": 45
+    },
+    {
+      "agent": "omicos",
+      "model": "gpt-5.6-luna",
+      "source": "scienceinfra",
+      "domains": {
+        "physical-sciences": {
+          "tasks": 9,
+          "passed": 3
+        },
+        "life-sciences": {
+          "tasks": 27,
+          "passed": 9
+        },
+        "engineering-sciences": {
+          "tasks": 4,
+          "passed": 0
+        },
+        "engineering sciences": {
+          "tasks": 2,
+          "passed": 0
+        },
+        "earth-sciences": {
+          "tasks": 1,
+          "passed": 0
+        },
+        "mathematical-sciences": {
+          "tasks": 2,
+          "passed": 1
+        }
+      },
+      "passed": 13,
+      "tasks": 45
     }
   ],
-  "footnote": "Held-out tasks are our own, built from openly licensed published data, each checking the same capability as one Terminal-Bench-Science task without reusing its data. Task names, data and graders are kept private so the set cannot be trained or tuned against; only aggregate scores are published. Accuracy is the share of held-out tasks whose most recent run reached reward 1, one run per task. The three examples below are retired development sets (iterated on, so no longer blind) shown for illustration.",
+  "footnote": "Held-out tasks are our own, built from openly licensed published data, each checking the same capability as one Terminal-Bench-Science task without reusing its data. Task names, data and graders are kept private so the set cannot be trained or tuned against; only aggregate scores are published. Every arm ran the same 45 held-out tasks, one run per task, scored pass/fail (reward 1). Runs that ended in an infrastructure or provider error were re-attempted; graded runs were not. The codex arm used vals.ai-style settings (8 h agent limit, 1 run per task, infra errors re-attempted). The three examples below are retired development sets (iterated on, so no longer blind) shown for illustration.",
   "examples": [
     {
       "capability": "EHR data-entry error audit",

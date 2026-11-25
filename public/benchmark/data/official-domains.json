@@ -694,5 +694,45 @@
   "tess-transit-vetting",
   "variable-star-vetting",
   "xrd-multiphase-qpa"
+ ],
+ "earth_v01_tasks": [
+  "duan-thesis",
+  "hbv-calibration-1",
+  "hysteretic-aquifer-control",
+  "masked-spherical-remap",
+  "mendota-ice-phenology",
+  "sparse-network-assimilation",
+  "stereo-dem-icesat2",
+  "supraglacial-lake-classification"
+ ],
+ "mathematical_v01_tasks": [
+  "amr-poisson-optimize",
+  "certified-sparse-regression",
+  "dna-storage-codec",
+  "energy-routing",
+  "finite-free-stam",
+  "gen-turan-paths",
+  "highdim-mediation-debiasing",
+  "koopman-mfg-id",
+  "linked-cell-suppression",
+  "localized-sspd-solver",
+  "noisy-blackbox-optimization",
+  "ode-law-discovery",
+  "onsager-ising-lean",
+  "regularized-game-proof",
+  "small-area-equivalence",
+  "symbolic-regression",
+  "traffic-flux-inversion"
+ ],
+ "engineering_v01_tasks": [
+  "baseline-free-localization",
+  "guided-wave-localization",
+  "inelastic-constitutive-discovery",
+  "microarch-modeling",
+  "navigation-sensor-calibration",
+  "reactor-safety-control",
+  "rolling-shutter-oma",
+  "tamp-skill-planning",
+  "virtual-baseline-localization"
  ]
 }

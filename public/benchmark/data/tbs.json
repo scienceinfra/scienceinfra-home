@@ -593,8 +593,8 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 68.2,
-      "tasks_passed": 58,
+      "accuracy": 67.1,
+      "tasks_passed": 57,
       "tasks_evaluated": 85,
       "tasks_total": 91,
       "per_subdomain": {
@@ -679,9 +679,9 @@
           "accuracy": 50.0
         },
         "electrical-engineering": {
-          "passed": 2,
+          "passed": 1,
           "evaluated": 4,
-          "accuracy": 50.0
+          "accuracy": 25.0
         },
         "formal-mathematics": {
           "passed": 0,
@@ -2061,21 +2061,21 @@
           "reward": 1.0,
           "trials": [
             {
-              "tag": "a5",
-              "pass": true,
-              "passed": 15,
+              "tag": "a8",
+              "pass": false,
+              "passed": 13,
               "total": 16,
               "cost_usd": null
             },
             {
-              "tag": "c2",
-              "pass": true,
-              "passed": 15,
+              "tag": "a6",
+              "pass": false,
+              "passed": 14,
               "total": 16,
               "cost_usd": null
             },
             {
-              "tag": "c1",
+              "tag": "a7",
               "pass": true,
               "passed": 15,
               "total": 16,
@@ -2231,17 +2231,10 @@
         },
         "energy": {
           "status": "fail",
-          "passed": 1,
+          "passed": 3,
           "total": 4,
           "reward": 0.0,
           "trials": [
-            {
-              "tag": "or1",
-              "pass": false,
-              "passed": 3,
-              "total": 4,
-              "cost_usd": null
-            },
             {
               "tag": "evr1",
               "pass": false,
@@ -2253,6 +2246,13 @@
               "tag": "evr2",
               "pass": false,
               "passed": 1,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "evr3",
+              "pass": false,
+              "passed": 3,
               "total": 4,
               "cost_usd": null
             }
@@ -2565,29 +2565,29 @@
           ]
         },
         "navcal": {
-          "status": "pass",
-          "passed": 11,
+          "status": "fail",
+          "passed": 9,
           "total": 11,
-          "reward": 1.0,
+          "reward": 0.0,
           "trials": [
-            {
-              "tag": "t5",
-              "pass": false,
-              "passed": 4,
-              "total": 11,
-              "cost_usd": null
-            },
-            {
-              "tag": "t6",
-              "pass": false,
-              "passed": 4,
-              "total": 11,
-              "cost_usd": null
-            },
             {
               "tag": "n2",
               "pass": true,
               "passed": 11,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "n1",
+              "pass": false,
+              "passed": 8,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "n3",
+              "pass": false,
+              "passed": 9,
               "total": 11,
               "cost_usd": null
             }
@@ -2928,21 +2928,21 @@
           "reward": 1.0,
           "trials": [
             {
-              "tag": "ev11",
-              "pass": false,
-              "passed": 13,
-              "total": 15,
-              "cost_usd": null
-            },
-            {
-              "tag": "ev12",
+              "tag": "ev14",
               "pass": true,
               "passed": 15,
               "total": 15,
               "cost_usd": null
             },
             {
-              "tag": "ev13",
+              "tag": "ev15",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev16",
               "pass": true,
               "passed": 15,
               "total": 15,
@@ -3133,7 +3133,7 @@
           "status": "not_run"
         }
       },
-      "trials_passed": 151,
+      "trials_passed": 149,
       "trials_total": 237
     },
     {
@@ -3143,9 +3143,9 @@
       "source": "scienceinfra",
       "snapshot": null,
       "local": true,
-      "accuracy": 69.6,
-      "tasks_passed": 39,
-      "tasks_evaluated": 56,
+      "accuracy": 66.7,
+      "tasks_passed": 50,
+      "tasks_evaluated": 75,
       "tasks_total": 91,
       "per_subdomain": {
         "biology": {
@@ -3188,40 +3188,65 @@
           "evaluated": 2,
           "accuracy": 100.0
         },
+        "applied-mathematics": {
+          "passed": 4,
+          "evaluated": 6,
+          "accuracy": 66.7
+        },
         "environmental-sciences": {
           "passed": 1,
           "evaluated": 1,
           "accuracy": 100.0
         },
         "mechanical-engineering": {
-          "passed": 2,
-          "evaluated": 2,
-          "accuracy": 100.0
+          "passed": 3,
+          "evaluated": 5,
+          "accuracy": 60.0
         },
-        "applied-mathematics": {
-          "passed": 1,
-          "evaluated": 2,
+        "operations-research": {
+          "passed": 2,
+          "evaluated": 4,
           "accuracy": 50.0
         },
         "geosciences": {
-          "passed": 0,
-          "evaluated": 4,
-          "accuracy": 0.0
+          "passed": 1,
+          "evaluated": 5,
+          "accuracy": 20.0
+        },
+        "statistics": {
+          "passed": 1,
+          "evaluated": 3,
+          "accuracy": 33.3
         },
         "electrical-engineering": {
           "passed": 0,
+          "evaluated": 2,
+          "accuracy": 0.0
+        },
+        "formal-mathematics": {
+          "passed": 0,
           "evaluated": 1,
           "accuracy": 0.0
+        },
+        "chemical-engineering": {
+          "passed": 1,
+          "evaluated": 1,
+          "accuracy": 100.0
         },
         "ocean-sciences": {
           "passed": 0,
           "evaluated": 1,
           "accuracy": 0.0
         },
-        "statistics": {
-          "passed": 0,
+        "civil-engineering": {
+          "passed": 1,
           "evaluated": 1,
-          "accuracy": 0.0
+          "accuracy": 100.0
+        },
+        "atmospheric-sciences": {
+          "passed": 1,
+          "evaluated": 1,
+          "accuracy": 100.0
         }
       },
       "per_task": {
@@ -3568,7 +3593,10 @@
           "reward": 1.0
         },
         "amr": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 15,
+          "total": 16,
+          "reward": 1.0
         },
         "aquifer": {
           "status": "pass",
@@ -3586,7 +3614,10 @@
           "status": "not_run"
         },
         "csr": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "dna": {
           "status": "pass",
@@ -3601,7 +3632,10 @@
           "reward": 0.0
         },
         "energy": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 3,
+          "total": 4,
+          "reward": 0.0
         },
         "gwloc": {
           "status": "pass",
@@ -3616,10 +3650,16 @@
           "reward": 0.0
         },
         "hdmed": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 5,
+          "total": 10,
+          "reward": 0.0
         },
         "inelastic": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 4,
+          "total": 4,
+          "reward": 1.0
         },
         "iod": {
           "status": "not_run"
@@ -3628,13 +3668,19 @@
           "status": "not_run"
         },
         "koopman": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 8,
+          "total": 8,
+          "reward": 1.0
         },
         "landsat": {
           "status": "not_run"
         },
         "lcs": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 19,
+          "total": 19,
+          "reward": 1.0
         },
         "ldc": {
           "status": "not_run"
@@ -3655,16 +3701,25 @@
           "reward": 0.0
         },
         "nbbo": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 25,
+          "total": 26,
+          "reward": 0.0
         },
         "nfant": {
           "status": "not_run"
         },
         "odelaw": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 12,
+          "total": 12,
+          "reward": 1.0
         },
         "onsager": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 7,
+          "total": 11,
+          "reward": 0.0
         },
         "pinch": {
           "status": "not_run"
@@ -3676,7 +3731,10 @@
           "status": "not_run"
         },
         "reactor": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 9,
+          "total": 9,
+          "reward": 1.0
         },
         "remap": {
           "status": "fail",
@@ -3685,7 +3743,10 @@
           "reward": 0.0
         },
         "rsoma": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 20,
+          "total": 20,
+          "reward": 1.0
         },
         "sae": {
           "status": "fail",
@@ -3694,13 +3755,22 @@
           "reward": 0.0
         },
         "sparse": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 7,
+          "total": 7,
+          "reward": 1.0
         },
         "sspd": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 2,
+          "total": 4,
+          "reward": 0.0
         },
         "stereo": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 15,
+          "total": 15,
+          "reward": 1.0
         },
         "supraglacial": {
           "status": "fail",
@@ -3709,10 +3779,16 @@
           "reward": 0.0
         },
         "symreg": {
-          "status": "not_run"
+          "status": "pass",
+          "passed": 2,
+          "total": 2,
+          "reward": 1.0
         },
         "tamp": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 2,
+          "total": 3,
+          "reward": 0.0
         },
         "traffic": {
           "status": "fail",
@@ -3721,10 +3797,16 @@
           "reward": 0.0
         },
         "uarch": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 2,
+          "total": 3,
+          "reward": 0.0
         },
         "vbloc": {
-          "status": "not_run"
+          "status": "fail",
+          "passed": 9,
+          "total": 10,
+          "reward": 0.0
         },
         "cambrian-projection": {
           "status": "not_run"

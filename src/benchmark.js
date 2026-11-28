@@ -123,6 +123,16 @@
   // 17 physical tasks) would render as a real, very-low accuracy rather than
   // what it actually is: mostly not run. "All domains" keeps its existing,
   // documented semantics (an unrun official task always counts as failed).
+  // Actual recorded runs (no padding for unrun tasks): passes / runs.
+  const runCount = (a, tasks) => {
+    let passed = 0, total = 0;
+    for (const t of tasks) {
+      const c = a.per_task[t.id] || {}, tr = c.trials || [];
+      if (tr.length) { passed += tr.filter((x) => x.pass).length; total += tr.length; }
+      else if ((c.status || 'not_run') !== 'not_run') { passed += c.status === 'pass' ? 1 : 0; total += 1; }
+    }
+    return { passed, total };
+  };
   const evaluatedCount = (a, tasks) => tasks.filter((t) => ((a.per_task[t.id] || {}).status || 'not_run') !== 'not_run').length;
 
   function localScore(a, dom, split) {
@@ -137,7 +147,7 @@
       }
       if (hasTrials(a, split.v01)) {
         const { passed, total } = trialScore(a, split.v01);
-        return { acc: (100 * passed) / total, passed, total, run: true, trials: total === TRIALS_PER_TASK * split.v01.length ? `${TRIALS_PER_TASK} trials` : `up to ${TRIALS_PER_TASK} trials` };
+        return { acc: (100 * passed) / total, passed, total, run: true, trials: `${total} runs` };
       }
       const passed = passCount(a, split.v01);
       return { acc: (100 * passed) / split.v01.length, passed, total: split.v01.length, run: true };
@@ -151,10 +161,12 @@
     const split = splitTasks(d, off, dom);
     const rows = d.arms.map((a) => {
       const sc = localScore(a, dom, split);
+      const rc = runCount(a, split.v01);
       const newerRun = split.newer.filter((t) => a.per_task[t.id] && a.per_task[t.id].status !== 'not_run').length;
       const newer = newerRun ? ` · newer tasks ${passCount(a, split.newer)}/${newerRun}` : '';
       return {
         agent: a.agent, model: a.model, acc: sc.acc, tasksStr: ratio(sc.passed, sc.total), run: sc.run, kind: 'local',
+        runsStr: rc.total ? ratio(rc.passed, rc.total) : '—',
         sourceHtml: sourceChip(a) + (a.caveat ? ` <span title="${esc(a.caveat)}" class="chip chip-snapshot" style="cursor:help">caveats</span>` : ''),
         taskSet: !sc.run ? 'not run · counted as 0' : sc.partial
           ? (() => { const n = LOCAL_DOMAINS.reduce((s, x) => s + DOMAIN[x].tasks, 0); return n >= DOMAIN.all.tasks ? (sc.ev < DOMAIN.all.tasks ? `v0.1 · ${sc.ev} of ${n} run · rest counted as failed` : `v0.1 · ${n} tasks · latest run`) : `v0.1 · ${LOCAL_DOMAINS.join('+')} ${n} run · other ${DOMAIN.all.tasks - n} counted as 0`; })()
@@ -172,12 +184,14 @@
         if (!sc) continue;
         rows.push({
           agent: r.agent, model: r.model, acc: sc.accuracy, tasksStr: ratio(sc.passes, sc.trials), run: true, kind: 'official',
+          runsStr: ratio(sc.passes, sc.trials),
           sourceHtml: chip('official'), taskSet: `v0.1 · ${DOMAIN[dom].tasks} tasks · 3 trials`, cost: sc.cost_usd,
         });
       }
       // vals.ai publishes one overall number per model, so its rows only exist under "All domains".
       if (dom === 'all') for (const r of pub.rows.vals || []) rows.push({
         agent: r.agent, model: r.model, acc: r.overall_accuracy, tasksStr: ratio(Math.round((r.overall_accuracy * 70) / 100), 70), run: true, kind: 'vals',
+        runsStr: ratio(Math.round((r.overall_accuracy * 70) / 100), 70),
         sourceHtml: chip('vals'), taskSet: 'v0.1 · 70 tasks · 1 run', cost: r.cost_usd_per_test,
       });
     }
@@ -201,7 +215,7 @@
       <p class="bench-caption">${esc(dom.label)} <span class="sub">/ ${dom.tasks} official tasks</span></p>
       <div class="bench-table-scroll"><table class="bench-table">
         <thead><tr>
-          <th>#</th><th>Agent</th><th>Model</th><th>Accuracy</th><th class="num">Passed</th><th>Task set</th><th>Source</th>
+          <th>#</th><th>Agent</th><th>Model</th><th>Accuracy</th><th class="num">Passed</th><th class="num" title="Passes over all recorded runs on the v0.1 tasks of this view">Runs passed</th><th>Task set</th><th>Source</th>
         </tr></thead>
         <tbody>${rows.map((r) => `
           <tr class="${(r.run ? '' : 'not-run') + (/^omicos$/i.test(r.agent) ? ' row-omicos' : '')}">
@@ -210,6 +224,7 @@
             <td>${esc(r.model)}</td>
             <td><div class="acc-bar-wrap"><span class="acc-bar"><i style="width:${r.acc}%"></i></span><span class="acc-num">${pct(r.acc)}</span></div></td>
             <td class="num">${esc(r.tasksStr)}</td>
+            <td class="num">${esc(r.runsStr || '—')}</td>
             <td class="sub">${esc(r.taskSet)}</td>
             <td>${r.sourceHtml}</td>
           </tr>`).join('')}

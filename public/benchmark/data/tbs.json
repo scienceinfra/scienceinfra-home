@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25",
+  "updated": "2026-11-27",
   "in_progress": true,
   "domains": {
     "life-sciences": {
@@ -639,9 +639,9 @@
           "accuracy": 50.0
         },
         "applied-mathematics": {
-          "passed": 5,
+          "passed": 4,
           "evaluated": 8,
-          "accuracy": 62.5
+          "accuracy": 50.0
         },
         "environmental-sciences": {
           "passed": 1,
@@ -654,9 +654,9 @@
           "accuracy": 66.7
         },
         "operations-research": {
-          "passed": 2,
+          "passed": 3,
           "evaluated": 5,
-          "accuracy": 40.0
+          "accuracy": 60.0
         },
         "geosciences": {
           "passed": 2,
@@ -2055,11 +2055,67 @@
           ]
         },
         "amr": {
-          "status": "pass",
-          "passed": 15,
+          "status": "fail",
+          "passed": 10,
           "total": 16,
-          "reward": 1.0,
+          "reward": 0.0,
           "trials": [
+            {
+              "tag": "m1",
+              "pass": false,
+              "passed": 10,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "a1",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "a2",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "a3",
+              "pass": false,
+              "passed": 6,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "a4",
+              "pass": false,
+              "passed": 13,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "a5",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "c2",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "c1",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
             {
               "tag": "a8",
               "pass": false,
@@ -2078,6 +2134,76 @@
               "tag": "a7",
               "pass": true,
               "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "au2",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "au1",
+              "pass": false,
+              "passed": 6,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "au4",
+              "pass": false,
+              "passed": 10,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "au3",
+              "pass": false,
+              "passed": 13,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "or1",
+              "pass": false,
+              "passed": 14,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "or2",
+              "pass": false,
+              "passed": 14,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "or3",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "vr1",
+              "pass": true,
+              "passed": 15,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "vr2",
+              "pass": false,
+              "passed": 6,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "vr3",
+              "pass": false,
+              "passed": 10,
               "total": 16,
               "cost_usd": null
             }
@@ -2111,6 +2237,62 @@
           "total": 13,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 12,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 13,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 11,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 11,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": false,
+              "passed": 12,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": false,
+              "passed": 12,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": false,
+              "passed": 11,
+              "total": 13,
+              "cost_usd": null
+            },
+            {
+              "tag": "t7",
+              "pass": true,
+              "passed": 13,
+              "total": 13,
+              "cost_usd": null
+            },
             {
               "tag": "t8",
               "pass": false,
@@ -2153,6 +2335,55 @@
               "passed": 2,
               "total": 6,
               "cost_usd": null
+            },
+            {
+              "tag": "b3",
+              "pass": false,
+              "passed": 1,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b4",
+              "pass": false,
+              "passed": 1,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b5",
+              "pass": false,
+              "passed": 1,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b6",
+              "pass": false,
+              "passed": 2,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b7",
+              "pass": false,
+              "passed": 1,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b9",
+              "pass": false,
+              "passed": 1,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "b8",
+              "pass": false,
+              "passed": 2,
+              "total": 6,
+              "cost_usd": null
             }
           ]
         },
@@ -2162,6 +2393,13 @@
           "total": 4,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "or1",
+              "pass": false,
+              "passed": 2,
+              "total": 4,
+              "cost_usd": null
+            },
             {
               "tag": "csrc1",
               "pass": true,
@@ -2191,6 +2429,34 @@
           "total": 6,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "m1",
+              "pass": false,
+              "passed": 4,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "d1",
+              "pass": false,
+              "passed": 0,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "d2",
+              "pass": true,
+              "passed": 6,
+              "total": 6,
+              "cost_usd": null
+            },
+            {
+              "tag": "d3",
+              "pass": false,
+              "passed": 0,
+              "total": 6,
+              "cost_usd": null
+            },
             {
               "tag": "e1",
               "pass": true,
@@ -2230,11 +2496,18 @@
           ]
         },
         "energy": {
-          "status": "fail",
-          "passed": 3,
+          "status": "pass",
+          "passed": 4,
           "total": 4,
-          "reward": 0.0,
+          "reward": 1.0,
           "trials": [
+            {
+              "tag": "or1",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
             {
               "tag": "evr1",
               "pass": false,
@@ -2255,6 +2528,27 @@
               "passed": 3,
               "total": 4,
               "cost_usd": null
+            },
+            {
+              "tag": "evr5",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "evr9",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "evr10",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
             }
           ]
         },
@@ -2264,6 +2558,27 @@
           "total": 12,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 11,
+              "total": 12,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": true,
+              "passed": 12,
+              "total": 12,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 11,
+              "total": 12,
+              "cost_usd": null
+            },
             {
               "tag": "t3",
               "pass": false,
@@ -2288,11 +2603,88 @@
           ]
         },
         "hbv": {
-          "status": "fail",
-          "passed": 5,
+          "status": "pass",
+          "passed": 16,
           "total": 16,
-          "reward": 0.0,
+          "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev1",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev2",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev3",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev4",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev6",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev5",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev7",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev7c",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev8",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev9",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
             {
               "tag": "ev10",
               "pass": false,
@@ -2313,12 +2705,68 @@
               "passed": 5,
               "total": 16,
               "cost_usd": null
+            },
+            {
+              "tag": "ev13",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev14",
+              "pass": false,
+              "passed": 6,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev15",
+              "pass": false,
+              "passed": 6,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev16",
+              "pass": false,
+              "passed": 5,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev17",
+              "pass": false,
+              "passed": 9,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev18",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev19",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev20",
+              "pass": true,
+              "passed": 16,
+              "total": 16,
+              "cost_usd": null
             }
           ]
         },
         "hdmed": {
           "status": "fail",
-          "passed": 7,
+          "passed": 2,
           "total": 10,
           "reward": 0.0,
           "trials": [
@@ -2335,6 +2783,13 @@
               "passed": 7,
               "total": 10,
               "cost_usd": null
+            },
+            {
+              "tag": "hmt1",
+              "pass": false,
+              "passed": 2,
+              "total": 10,
+              "cost_usd": null
             }
           ]
         },
@@ -2344,6 +2799,34 @@
           "total": 4,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "e2",
+              "pass": false,
+              "passed": 2,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
+              "tag": "s2",
+              "pass": true,
+              "passed": 4,
+              "total": 4,
+              "cost_usd": null
+            },
             {
               "tag": "t1",
               "pass": true,
@@ -2396,6 +2879,27 @@
           "reward": 1.0,
           "trials": [
             {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 5,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev1",
+              "pass": false,
+              "passed": 5,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev2",
+              "pass": false,
+              "passed": 5,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
               "tag": "ev3",
               "pass": true,
               "passed": 6,
@@ -2415,6 +2919,13 @@
               "passed": 6,
               "total": 9,
               "cost_usd": null
+            },
+            {
+              "tag": "ev6",
+              "pass": true,
+              "passed": 6,
+              "total": 9,
+              "cost_usd": null
             }
           ]
         },
@@ -2424,6 +2935,55 @@
           "total": 8,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k1",
+              "pass": false,
+              "passed": 7,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k2",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k3",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k4",
+              "pass": false,
+              "passed": 7,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k5",
+              "pass": false,
+              "passed": 7,
+              "total": 8,
+              "cost_usd": null
+            },
+            {
+              "tag": "k6",
+              "pass": false,
+              "passed": 6,
+              "total": 8,
+              "cost_usd": null
+            },
             {
               "tag": "k7",
               "pass": false,
@@ -2483,6 +3043,13 @@
           "reward": 1.0,
           "trials": [
             {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 18,
+              "total": 19,
+              "cost_usd": null
+            },
+            {
               "tag": "lcsv1",
               "pass": true,
               "passed": 19,
@@ -2527,6 +3094,13 @@
           "reward": 1.0,
           "trials": [
             {
+              "tag": "ev1",
+              "pass": false,
+              "passed": 3,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
               "tag": "ev2",
               "pass": false,
               "passed": 3,
@@ -2566,10 +3140,80 @@
         },
         "navcal": {
           "status": "fail",
-          "passed": 9,
+          "passed": 0,
           "total": 11,
           "reward": 0.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 1,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": false,
+              "passed": 4,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "s2",
+              "pass": false,
+              "passed": 8,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "s3",
+              "pass": false,
+              "passed": 5,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 6,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 10,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 7,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": false,
+              "passed": 6,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": false,
+              "passed": 4,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": false,
+              "passed": 4,
+              "total": 11,
+              "cost_usd": null
+            },
             {
               "tag": "n2",
               "pass": true,
@@ -2588,6 +3232,27 @@
               "tag": "n3",
               "pass": false,
               "passed": 9,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "g1",
+              "pass": true,
+              "passed": 11,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "g2",
+              "pass": true,
+              "passed": 11,
+              "total": 11,
+              "cost_usd": null
+            },
+            {
+              "tag": "g3",
+              "pass": false,
+              "passed": 0,
               "total": 11,
               "cost_usd": null
             }
@@ -2614,6 +3279,20 @@
           "total": 10,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 6,
+              "total": 10,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": true,
+              "passed": 7,
+              "total": 10,
+              "cost_usd": null
+            },
             {
               "tag": "t1",
               "pass": true,
@@ -2643,6 +3322,13 @@
           "total": 12,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 9,
+              "total": 12,
+              "cost_usd": null
+            },
             {
               "tag": "m1",
               "pass": true,
@@ -2717,6 +3403,13 @@
           "reward": 1.0,
           "trials": [
             {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 0,
+              "total": 1,
+              "cost_usd": null
+            },
+            {
               "tag": "ev2",
               "pass": false,
               "passed": 0,
@@ -2741,7 +3434,7 @@
         },
         "rbc": {
           "status": "fail",
-          "passed": 5,
+          "passed": 3,
           "total": 12,
           "reward": 0.0,
           "trials": [
@@ -2749,6 +3442,13 @@
               "tag": "b1",
               "pass": false,
               "passed": 5,
+              "total": 12,
+              "cost_usd": null
+            },
+            {
+              "tag": "b2",
+              "pass": false,
+              "passed": 3,
               "total": 12,
               "cost_usd": null
             }
@@ -2760,6 +3460,69 @@
           "total": 9,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 7,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "e2",
+              "pass": false,
+              "passed": 8,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 8,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 8,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": false,
+              "passed": 7,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": false,
+              "passed": 8,
+              "total": 9,
+              "cost_usd": null
+            },
             {
               "tag": "t7",
               "pass": true,
@@ -2776,6 +3539,20 @@
             },
             {
               "tag": "t9",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "x1",
+              "pass": true,
+              "passed": 9,
+              "total": 9,
+              "cost_usd": null
+            },
+            {
+              "tag": "x2",
               "pass": true,
               "passed": 9,
               "total": 9,
@@ -2812,6 +3589,104 @@
           "reward": 0.0,
           "trials": [
             {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 17,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": true,
+              "passed": 20,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 20,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 19,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 12,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": false,
+              "passed": 12,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": false,
+              "passed": 12,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": false,
+              "passed": 16,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t7",
+              "pass": false,
+              "passed": 19,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "t8",
+              "pass": false,
+              "passed": 16,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "v1",
+              "pass": false,
+              "passed": 14,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "v2",
+              "pass": false,
+              "passed": 15,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "v3",
+              "pass": false,
+              "passed": 19,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
+              "tag": "v4",
+              "pass": false,
+              "passed": 16,
+              "total": 20,
+              "cost_usd": null
+            },
+            {
               "tag": "w1",
               "pass": true,
               "passed": 20,
@@ -2840,6 +3715,34 @@
           "total": 18,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 17,
+              "total": 18,
+              "cost_usd": null
+            },
+            {
+              "tag": "saev1",
+              "pass": false,
+              "passed": 17,
+              "total": 18,
+              "cost_usd": null
+            },
+            {
+              "tag": "saev2",
+              "pass": false,
+              "passed": 17,
+              "total": 18,
+              "cost_usd": null
+            },
+            {
+              "tag": "saev3",
+              "pass": false,
+              "passed": 17,
+              "total": 18,
+              "cost_usd": null
+            },
             {
               "tag": "saev4",
               "pass": false,
@@ -2870,6 +3773,41 @@
           "reward": 0.0,
           "trials": [
             {
+              "tag": "ev1",
+              "pass": false,
+              "passed": 3,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev2",
+              "pass": false,
+              "passed": 6,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev4",
+              "pass": false,
+              "passed": 5,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev5",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev6",
+              "pass": false,
+              "passed": 4,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
               "tag": "ev7",
               "pass": false,
               "passed": 5,
@@ -2899,6 +3837,13 @@
           "reward": 0.0,
           "trials": [
             {
+              "tag": "b1",
+              "pass": false,
+              "passed": 2,
+              "total": 4,
+              "cost_usd": null
+            },
+            {
               "tag": "s1",
               "pass": false,
               "passed": 2,
@@ -2922,11 +3867,95 @@
           ]
         },
         "stereo": {
-          "status": "pass",
-          "passed": 15,
+          "status": "fail",
+          "passed": 12,
           "total": 15,
-          "reward": 1.0,
+          "reward": 0.0,
           "trials": [
+            {
+              "tag": "ev1",
+              "pass": true,
+              "passed": 15,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev3",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev4",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev5",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev7",
+              "pass": false,
+              "passed": 11,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev6",
+              "pass": true,
+              "passed": 15,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev8",
+              "pass": false,
+              "passed": 8,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev9",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev10",
+              "pass": false,
+              "passed": 14,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev11",
+              "pass": false,
+              "passed": 13,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev12",
+              "pass": true,
+              "passed": 15,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev13",
+              "pass": true,
+              "passed": 15,
+              "total": 15,
+              "cost_usd": null
+            },
             {
               "tag": "ev14",
               "pass": true,
@@ -2945,6 +3974,13 @@
               "tag": "ev16",
               "pass": true,
               "passed": 15,
+              "total": 15,
+              "cost_usd": null
+            },
+            {
+              "tag": "ev17",
+              "pass": false,
+              "passed": 12,
               "total": 15,
               "cost_usd": null
             }
@@ -2978,6 +4014,69 @@
           "total": 2,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "eem1",
+              "pass": false,
+              "passed": 1,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "s1",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "m1",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "m2",
+              "pass": false,
+              "passed": 1,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "m3",
+              "pass": false,
+              "passed": 1,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "m4",
+              "pass": false,
+              "passed": 1,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "n1",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "n2",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
+            {
+              "tag": "n3",
+              "pass": true,
+              "passed": 2,
+              "total": 2,
+              "cost_usd": null
+            },
             {
               "tag": "symv1",
               "pass": true,
@@ -3037,6 +4136,48 @@
           "reward": 1.0,
           "trials": [
             {
+              "tag": "b1",
+              "pass": false,
+              "passed": 0,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 1,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": false,
+              "passed": 5,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
               "tag": "t7",
               "pass": false,
               "passed": 0,
@@ -3056,6 +4197,20 @@
               "passed": 7,
               "total": 7,
               "cost_usd": null
+            },
+            {
+              "tag": "t11",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
+            },
+            {
+              "tag": "t10",
+              "pass": true,
+              "passed": 7,
+              "total": 7,
+              "cost_usd": null
             }
           ]
         },
@@ -3065,6 +4220,69 @@
           "total": 3,
           "reward": 0.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t1",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t2",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t3",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t4",
+              "pass": true,
+              "passed": 3,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t5",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t6",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t7",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
+            {
+              "tag": "t8",
+              "pass": false,
+              "passed": 2,
+              "total": 3,
+              "cost_usd": null
+            },
             {
               "tag": "t9",
               "pass": false,
@@ -3094,6 +4312,13 @@
           "total": 10,
           "reward": 1.0,
           "trials": [
+            {
+              "tag": "b1",
+              "pass": false,
+              "passed": 9,
+              "total": 10,
+              "cost_usd": null
+            },
             {
               "tag": "t1",
               "pass": true,
@@ -3133,8 +4358,8 @@
           "status": "not_run"
         }
       },
-      "trials_passed": 149,
-      "trials_total": 237
+      "trials_passed": 196,
+      "trials_total": 412
     },
     {
       "id": "omicos-sol",
